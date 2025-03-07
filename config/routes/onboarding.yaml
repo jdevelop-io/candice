@@ -1,0 +1,3 @@
+controllers:
+  resource: ../../src/Onboarding/Infrastructure/Symfony/Controller/
+  type: attribute
