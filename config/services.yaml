@@ -19,3 +19,7 @@ services:
     resource: '../src/Shared/'
     exclude:
       - '../src/Shared/Infrastructure/Symfony/Kernel.php'
+
+  # Organization
+  Candice\Organization\:
+    resource: '../src/Organization/'
