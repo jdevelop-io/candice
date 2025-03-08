@@ -26,3 +26,10 @@ services:
 
   Candice\Organization\Domain\Repository\OrganizationRepositoryInterface:
     class: Candice\Organization\Infrastructure\Repository\DoctrineOrganizationRepository
+
+  # Identity and Access
+  Candice\IdentityAndAccess\:
+    resource: '../src/IdentityAndAccess/'
+
+  Candice\IdentityAndAccess\Domain\Repository\UserRepositoryInterface:
+    class: Candice\IdentityAndAccess\Infrastructure\Repository\DoctrineUserRepository
