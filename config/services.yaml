@@ -19,7 +19,3 @@ services:
     resource: '../src/Shared/'
     exclude:
       - '../src/Shared/Infrastructure/Symfony/Kernel.php'
-
-  # Test Cache
-  Candice\TestCache\:
-    resource: '../src/TestCache/'
