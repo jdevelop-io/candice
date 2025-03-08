@@ -19,7 +19,3 @@ services:
     resource: '../src/Shared/'
     exclude:
       - '../src/Shared/Infrastructure/Symfony/Kernel.php'
-
-  # Onboarding
-  Candice\Onboarding\:
-    resource: '../src/Onboarding/'
