@@ -23,3 +23,6 @@ services:
   # Organization
   Candice\Organization\:
     resource: '../src/Organization/'
+
+  Candice\Organization\Domain\Repository\OrganizationRepositoryInterface:
+    class: Candice\Organization\Infrastructure\Repository\DoctrineOrganizationRepository

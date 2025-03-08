@@ -8,8 +8,16 @@ use Candice\Organization\Domain\ValueObject\RegistrationNumber;
 
 final readonly class Organization
 {
-    public function __construct(private RegistrationNumber $registrationNumber, private string $name)
+    public function __construct(
+        private string $id,
+        private RegistrationNumber $registrationNumber,
+        private string $name
+    ) {
+    }
+
+    public function getId(): string
     {
+        return $this->id;
     }
 
     public function getRegistrationNumber(): RegistrationNumber

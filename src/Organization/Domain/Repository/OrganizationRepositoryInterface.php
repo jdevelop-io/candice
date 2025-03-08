@@ -11,5 +11,9 @@ interface OrganizationRepositoryInterface
 {
     public function existsByRegistrationNumber(RegistrationNumber $registrationNumber): bool;
 
+    public function findByRegistrationNumber(RegistrationNumber $registrationNumber): ?Organization;
+
+    public function getNextId(): string;
+
     public function save(Organization $organization): void;
 }

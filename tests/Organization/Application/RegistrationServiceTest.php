@@ -16,6 +16,7 @@ use PHPUnit\Framework\TestCase;
 
 final class RegistrationServiceTest extends TestCase
 {
+    private readonly RegistrationNumberFactory $registrationNumberFactory;
     private readonly RegistrationService $service;
     private readonly InMemoryOrganizationRepository $organizationRepository;
 
@@ -23,9 +24,9 @@ final class RegistrationServiceTest extends TestCase
     {
         parent::setUp();
 
-        $registrationNumberFactory = new RegistrationNumberFactory();
+        $this->registrationNumberFactory = new RegistrationNumberFactory();
         $this->organizationRepository = new InMemoryOrganizationRepository();
-        $this->service = new RegistrationService($this->organizationRepository, $registrationNumberFactory);
+        $this->service = new RegistrationService($this->organizationRepository, $this->registrationNumberFactory);
     }
 
     public function testRegistrationNumberShouldBeValidSiren(): void
@@ -61,7 +62,12 @@ final class RegistrationServiceTest extends TestCase
 
     private function createOrganization(string $registrationNumber, string $name): void
     {
-        $organization = new Organization(new Siren($registrationNumber), $name);
+        $organization = new Organization(
+            $this->organizationRepository->getNextId(),
+            $this->registrationNumberFactory->create($registrationNumber),
+            $name
+        );
+
         $this->organizationRepository->save($organization);
     }
 }
