@@ -11,12 +11,12 @@ final class Version20250308200943 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return 'Create organization_organization table';
+        return 'Create organization_organizations table';
     }
 
     public function up(Schema $schema): void
     {
-        $table = $schema->createTable('organization_organization');
+        $table = $schema->createTable('organization_organizations');
         $table->addColumn('id', 'guid');
         $table->addColumn('registration_number', 'string', ['length' => 9]);
         $table->addColumn('name', 'string', ['length' => 45]);
@@ -26,6 +26,6 @@ final class Version20250308200943 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        $schema->dropTable('organization_organization');
+        $schema->dropTable('organization_organizations');
     }
 }
