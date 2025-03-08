@@ -13,7 +13,6 @@ ENTRYPOINT ["php", "bin/phpunit"]
 
 FROM base AS coverage
 
-ENV COVERAGE_DIR=/var/www/html/var/coverage
 ENV XDEBUG_MODE=coverage
 
-ENTRYPOINT ["sh", "-c", "php bin/phpunit --coverage-html ${COVERAGE_DIR}"]
+ENTRYPOINT ["php", "bin/phpunit"]

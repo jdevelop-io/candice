@@ -19,3 +19,10 @@ services:
     resource: '../src/Shared/'
     exclude:
       - '../src/Shared/Infrastructure/Symfony/Kernel.php'
+
+  # Organization
+  Candice\Organization\:
+    resource: '../src/Organization/'
+
+  Candice\Organization\Domain\Repository\OrganizationRepositoryInterface:
+    class: Candice\Organization\Infrastructure\Repository\DoctrineOrganizationRepository
