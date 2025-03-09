@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Candice\Onboarding\Application\Registration;
 
-final readonly class RegistrationRequest
+final readonly class ApplyRequest
 {
     public function __construct(
         private string $userEmail,

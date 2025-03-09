@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Candice\Onboarding\Application\Registration;
 
-final readonly class RegistrationResponse
+final readonly class ApplyResponse
 {
     public function __construct(private string $applicationId)
     {

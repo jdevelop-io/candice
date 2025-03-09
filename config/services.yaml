@@ -38,3 +38,7 @@ services:
 
   Candice\IdentityAndAccess\Domain\Repository\UserRepositoryInterface:
     class: Candice\IdentityAndAccess\Infrastructure\Repository\DoctrineUserRepository
+
+  # Onboarding
+  Candice\Onboarding\:
+    resource: '../src/Onboarding/'

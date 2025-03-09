@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Candice\Tests\Onboarding\Application;
 
+use Candice\Onboarding\Application\Registration\ApplyRequest;
 use Candice\Onboarding\Application\Registration\ApplyService;
-use Candice\Onboarding\Application\Registration\RegistrationRequest;
 use Candice\Onboarding\Domain\Entity\Application;
 use Candice\Onboarding\Domain\Entity\Organization;
 use Candice\Onboarding\Domain\Entity\User;
@@ -46,7 +46,7 @@ final class ApplyServiceTest extends TestCase
 
         $this->expectException(UserAlreadyRegisteredException::class);
 
-        $this->service->execute(new RegistrationRequest($userEmail, '123456789', 'Organization Name'));
+        $this->service->execute(new ApplyRequest($userEmail, '123456789', 'Organization Name'));
     }
 
     public function testOrganizationIsUniqueByRegistrationNumber(): void
@@ -56,7 +56,7 @@ final class ApplyServiceTest extends TestCase
 
         $this->expectException(OrganizationAlreadyRegisteredException::class);
 
-        $this->service->execute(new RegistrationRequest($userEmail, '123456789', 'Organization Name'));
+        $this->service->execute(new ApplyRequest($userEmail, '123456789', 'Organization Name'));
     }
 
     public function testOnlyOneApplicationForOrganization(): void
@@ -66,7 +66,7 @@ final class ApplyServiceTest extends TestCase
 
         $this->expectException(ApplicationInPendingValidationException::class);
 
-        $this->service->execute(new RegistrationRequest($userEmail, '123456789', 'Organization Name'));
+        $this->service->execute(new ApplyRequest($userEmail, '123456789', 'Organization Name'));
     }
 
     public function testApplicationIsCreated(): void
@@ -76,7 +76,7 @@ final class ApplyServiceTest extends TestCase
         $organizationName = 'Organization Name';
 
         $response = $this->service->execute(
-            new RegistrationRequest($userEmail, $organizationRegistrationNumber, $organizationName)
+            new ApplyRequest($userEmail, $organizationRegistrationNumber, $organizationName)
         );
 
         $application = $this->applicationRepository->findById($response->getApplicationId());

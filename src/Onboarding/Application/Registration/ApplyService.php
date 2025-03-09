@@ -21,7 +21,7 @@ final readonly class ApplyService
     ) {
     }
 
-    public function execute(RegistrationRequest $request): RegistrationResponse
+    public function execute(ApplyRequest $request): ApplyResponse
     {
         if ($this->applicationRepository->existsByOrganizationRegistrationNumber(
             $request->getOrganizationRegistrationNumber()
@@ -46,6 +46,6 @@ final readonly class ApplyService
         );
         $this->applicationRepository->save($application);
 
-        return new RegistrationResponse($application->getId());
+        return new ApplyResponse($application->getId());
     }
 }
