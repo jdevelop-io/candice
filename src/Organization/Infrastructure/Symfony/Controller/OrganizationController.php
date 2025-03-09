@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Candice\Organization\Infrastructure\Symfony\Controller;
 
-use Candice\Organization\Application\Get\GetOrganizationRequest;
-use Candice\Organization\Application\Get\GetOrganizationService;
+use Candice\Organization\Application\GetOrganization\GetOrganizationRequest;
+use Candice\Organization\Application\GetOrganization\GetOrganizationService;
 use Candice\Organization\Application\RegistrationNumberValidation\RegistrationNumberValidationRequest;
 use Candice\Organization\Application\RegistrationNumberValidation\RegistrationNumberValidationService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
