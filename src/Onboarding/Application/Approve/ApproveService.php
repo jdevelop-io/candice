@@ -6,11 +6,14 @@ namespace Candice\Onboarding\Application\Approve;
 
 use Candice\Onboarding\Domain\Exception\ApplicationNotFoundException;
 use Candice\Onboarding\Domain\Repository\ApplicationRepositoryInterface;
+use Candice\Onboarding\Domain\Service\ApplicationApprovedEventPublisherInterface;
 
 final readonly class ApproveService
 {
-    public function __construct(private ApplicationRepositoryInterface $applicationRepository)
-    {
+    public function __construct(
+        private ApplicationApprovedEventPublisherInterface $applicationApprovedEventPublisher,
+        private ApplicationRepositoryInterface $applicationRepository
+    ) {
     }
 
     public function execute(ApproveRequest $request): ApproveResponse
@@ -24,6 +27,8 @@ final readonly class ApproveService
         $application->approve();
 
         $this->applicationRepository->save($application);
+
+        $this->applicationApprovedEventPublisher->publish($application);
 
         return new ApproveResponse($application->getId(), $application->getStatus()->value);
     }
