@@ -2,3 +2,8 @@ iam_users_get:
   path: /api/iam/users
   methods: [ 'GET' ]
   controller: Candice\IdentityAndAccess\Infrastructure\Symfony\Controller\UserController::get
+
+iam_users_register:
+  path: /api/iam/users
+  methods: [ 'POST' ]
+  controller: Candice\IdentityAndAccess\Infrastructure\Symfony\Controller\UserController::register

@@ -25,6 +25,6 @@ final readonly class ApproveService
 
         $this->applicationRepository->save($application);
 
-        return new ApproveResponse($application->getId());
+        return new ApproveResponse($application->getId(), $application->getStatus()->value);
     }
 }

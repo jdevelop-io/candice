@@ -14,7 +14,7 @@ final readonly class User
     public function __construct(
         private string $id,
         private string $email,
-        private string $password,
+        private ?string $password,
         private array $roles
     ) {
     }
@@ -29,7 +29,7 @@ final readonly class User
         return $this->email;
     }
 
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }

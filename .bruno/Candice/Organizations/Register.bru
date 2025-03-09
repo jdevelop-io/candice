@@ -1,0 +1,24 @@
+meta {
+  name: Register
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{apiBaseUrl}}/organization/organizations
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: X-API-TOKEN
+  value: {{apiToken}}
+  placement: header
+}
+
+body:json {
+  {
+    "registrationNumber": "987654321",
+    "name": "Toz Corporation"
+  }
+}

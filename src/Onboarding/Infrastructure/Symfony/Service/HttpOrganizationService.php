@@ -6,6 +6,7 @@ namespace Candice\Onboarding\Infrastructure\Symfony\Service;
 
 use Candice\Onboarding\Domain\Exception\InvalidOrganizationRegistrationNumberException;
 use Candice\Onboarding\Domain\Service\OrganizationServiceInterface;
+use Candice\Onboarding\Infrastructure\Symfony\DTO\OrganizationDTO;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -43,5 +44,19 @@ final readonly class HttpOrganizationService implements OrganizationServiceInter
         $response = $this->httpClient->request('GET', sprintf("organizations/%s", $registrationNumber));
 
         return $response->getStatusCode() === Response::HTTP_OK;
+    }
+
+    public function register(OrganizationDTO $organization): void
+    {
+        $response = $this->httpClient->request('POST', 'organizations', [
+            'json' => [
+                'registrationNumber' => $organization->getRegistrationNumber(),
+                'name' => $organization->getName(),
+            ],
+        ]);
+
+        if ($response->getStatusCode() !== Response::HTTP_CREATED) {
+            throw new RuntimeException('Unable to register organization');
+        }
     }
 }

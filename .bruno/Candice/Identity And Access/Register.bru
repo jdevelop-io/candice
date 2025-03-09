@@ -1,0 +1,23 @@
+meta {
+  name: Register
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{apiBaseUrl}}/iam/users
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: X-API-TOKEN
+  value: {{apiToken}}
+  placement: header
+}
+
+body:json {
+  {
+    "email": "john.doe@gmail.com"
+  }
+}
