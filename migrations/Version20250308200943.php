@@ -17,11 +17,9 @@ final class Version20250308200943 extends AbstractMigration
     public function up(Schema $schema): void
     {
         $table = $schema->createTable('organization_organizations');
-        $table->addColumn('id', 'guid');
         $table->addColumn('registration_number', 'string', ['length' => 9]);
         $table->addColumn('name', 'string', ['length' => 45]);
-        $table->setPrimaryKey(['id']);
-        $table->addUniqueIndex(['registration_number']);
+        $table->setPrimaryKey(['registration_number']);
     }
 
     public function down(Schema $schema): void

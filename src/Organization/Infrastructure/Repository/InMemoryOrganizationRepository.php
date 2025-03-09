@@ -15,8 +15,6 @@ final class InMemoryOrganizationRepository implements OrganizationRepositoryInte
      */
     private array $organizationByRegistrationNumber = [];
 
-    private int $nextId = 1;
-
     public function existsByRegistrationNumber(RegistrationNumber $registrationNumber): bool
     {
         return isset($this->organizationByRegistrationNumber[$registrationNumber->unwrap()]);
@@ -27,10 +25,6 @@ final class InMemoryOrganizationRepository implements OrganizationRepositoryInte
         return $this->organizationByRegistrationNumber[$registrationNumber->unwrap()] ?? null;
     }
 
-    public function getNextId(): string
-    {
-        return (string)$this->nextId++;
-    }
 
     public function save(Organization $organization): void
     {

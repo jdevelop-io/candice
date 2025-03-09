@@ -1,0 +1,17 @@
+meta {
+  name: Get organization
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{apiBaseUrl}}/organizations/123456789
+  body: none
+  auth: apikey
+}
+
+auth:apikey {
+  key: X-API-TOKEN
+  value: {{apiToken}}
+  placement: header
+}

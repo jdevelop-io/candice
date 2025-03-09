@@ -8,7 +8,6 @@ use Candice\Organization\Domain\Entity\Organization;
 use Candice\Organization\Domain\Factory\RegistrationNumberFactory;
 use Candice\Organization\Domain\Repository\OrganizationRepositoryInterface;
 use Candice\Organization\Domain\ValueObject\RegistrationNumber;
-use Candice\Organization\Infrastructure\Symfony\Service\GuidGeneratorInterface;
 use Doctrine\DBAL\Connection;
 use RuntimeException;
 
@@ -16,7 +15,6 @@ final readonly class DoctrineOrganizationRepository implements OrganizationRepos
 {
     public function __construct(
         private Connection $connection,
-        private GuidGeneratorInterface $guidGenerator,
         private RegistrationNumberFactory $registrationNumberFactory
     ) {
     }
@@ -25,7 +23,7 @@ final readonly class DoctrineOrganizationRepository implements OrganizationRepos
     {
         $result = $this->connection->createQueryBuilder()
             ->select('COUNT(*)')
-            ->from('organization_organization')
+            ->from('organization_organizations')
             ->where('registration_number = :registration_number')
             ->setParameter('registration_number', $registrationNumber->unwrap())
             ->executeQuery();
@@ -36,8 +34,8 @@ final readonly class DoctrineOrganizationRepository implements OrganizationRepos
     public function findByRegistrationNumber(RegistrationNumber $registrationNumber): ?Organization
     {
         $result = $this->connection->createQueryBuilder()
-            ->select('id', 'registration_number', 'name')
-            ->from('organization_organization')
+            ->select('registration_number', 'name')
+            ->from('organization_organizations')
             ->where('registration_number = :registration_number')
             ->setParameter('registration_number', $registrationNumber->unwrap())
             ->executeQuery();
@@ -49,28 +47,20 @@ final readonly class DoctrineOrganizationRepository implements OrganizationRepos
         }
 
         return new Organization(
-            $data['id'],
             $this->registrationNumberFactory->create($data['registration_number']),
             $data['name'],
         );
     }
 
-    public function getNextId(): string
-    {
-        return $this->guidGenerator->generate();
-    }
-
     public function save(Organization $organization): void
     {
         $affectedRows = $this->connection->createQueryBuilder()
-            ->insert('organization_organization')
+            ->insert('organization_organizations')
             ->values([
-                'id' => ':id',
                 'registration_number' => ':registration_number',
                 'name' => ':name',
             ])
             ->setParameters([
-                'id' => $this->guidGenerator->generate(),
                 'registration_number' => $organization->getRegistrationNumber()->unwrap(),
                 'name' => $organization->getName(),
             ])

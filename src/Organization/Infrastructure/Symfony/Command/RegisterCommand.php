@@ -61,8 +61,8 @@ class RegisterCommand extends Command
         );
 
         $io->table(
-            ['ID', 'Registration Number', 'Name'],
-            [[$organization->getId(), $organization->getRegistrationNumber()->unwrap(), $organization->getName()]]
+            ['Registration Number', 'Name'],
+            [[$organization->getRegistrationNumber()->unwrap(), $organization->getName()]]
         );
 
         $io->success('Company registered successfully!');
