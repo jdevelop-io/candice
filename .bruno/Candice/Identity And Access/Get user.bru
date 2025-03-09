@@ -1,0 +1,17 @@
+meta {
+  name: Get user
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{apiBaseUrl}}/iam/users/john.doe@example.com
+  body: none
+  auth: apikey
+}
+
+auth:apikey {
+  key: X-API-TOKEN
+  value: {{apiToken}}
+  placement: header
+}
