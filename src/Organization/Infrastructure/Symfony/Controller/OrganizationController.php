@@ -23,9 +23,12 @@ class OrganizationController extends AbstractController
     ): JsonResponse {
         $response = $registrationService->execute($request);
 
-        return $this->json([
-            'registrationNumber' => $response->getRegistrationNumber(),
-        ]);
+        return $this->json(
+            [
+                'registrationNumber' => $response->getRegistrationNumber(),
+            ],
+            Response::HTTP_CREATED
+        );
     }
 
     public function registrationNumberValidation(

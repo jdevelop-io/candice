@@ -27,9 +27,12 @@ class UserController extends AbstractController
     ): JsonResponse {
         $response = $registrationService->execute($request);
 
-        return $this->json([
-            'id' => $response->getId(),
-        ]);
+        return $this->json(
+            [
+                'id' => $response->getId(),
+            ],
+            Response::HTTP_CREATED
+        );
     }
 
     public function get(#[MapQueryParameter] ?string $email): Response
