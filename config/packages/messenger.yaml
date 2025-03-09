@@ -5,24 +5,21 @@ framework:
 
     transports:
       # https://symfony.com/doc/current/messenger.html#transport-configuration
-      async:
+      onboarding:
         dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
         options:
-          # Should have been set to false after migration has been done
-          auto_setup: true
           use_notify: true
+          queue_name: onboarding
       failed:
         dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
         options:
-          # Should have been set to false after migration has been done
-          auto_setup: true
           use_notify: true
           queue_name: failed
       # sync: 'sync://'
 
     routing:
-    # Route your messages to the transports
-    # 'App\Message\YourMessage': async
+      # Route your messages to the transports
+      Candice\Onboarding\Infrastructure\Symfony\Message\ApplicationApprovedMessage: onboarding
 
 # when@test:
 #    framework:

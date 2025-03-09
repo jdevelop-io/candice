@@ -27,7 +27,10 @@ final readonly class RegistrationService
             throw new EmailAlreadyInUseException($email);
         }
 
-        $password = $this->passwordHasher->hash($plainPassword);
+        $password = null;
+        if ($plainPassword !== null) {
+            $password = $this->passwordHasher->hash($plainPassword);
+        }
 
         $id = $this->userRepository->getNextId();
         $user = new User($id, $email, $password, [Role::USER]);

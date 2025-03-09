@@ -1,0 +1,17 @@
+meta {
+  name: Approve application
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{apiBaseUrl}}/onboarding/applications/4a619e74-52c5-4085-82db-2725797ad292/approve
+  body: none
+  auth: apikey
+}
+
+auth:apikey {
+  key: X-API-TOKEN
+  value: {{apiToken}}
+  placement: header
+}

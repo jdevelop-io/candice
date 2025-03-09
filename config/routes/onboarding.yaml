@@ -2,3 +2,8 @@ onboarding_applications_apply:
   path: /api/onboarding/applications/apply
   methods: [ 'POST' ]
   controller: Candice\Onboarding\Infrastructure\Symfony\Controller\ApplicationController::apply
+
+onboarding_application_validation_approve:
+  path: /api/onboarding/applications/{applicationId}/approve
+  methods: [ 'POST' ]
+  controller: Candice\Onboarding\Infrastructure\Symfony\Controller\ValidationController::approve

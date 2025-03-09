@@ -19,7 +19,7 @@ final class Version20250308214706 extends AbstractMigration
         $table = $schema->createTable('iam_users');
         $table->addColumn('id', 'guid');
         $table->addColumn('email', 'string', ['length' => 180]);
-        $table->addColumn('password', 'string', ['length' => 255]);
+        $table->addColumn('password', 'string', ['length' => 255, 'notnull' => false]);
         $table->addColumn('roles', 'json');
         $table->setPrimaryKey(['id']);
         $table->addUniqueIndex(['email']);
