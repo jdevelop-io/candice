@@ -9,14 +9,14 @@ use Candice\Onboarding\Domain\Exception\ApplicationInPendingValidationException;
 use Candice\Onboarding\Domain\Exception\OrganizationAlreadyRegisteredException;
 use Candice\Onboarding\Domain\Exception\UserAlreadyRegisteredException;
 use Candice\Onboarding\Domain\Repository\ApplicationRepositoryInterface;
-use Candice\Onboarding\Domain\Repository\OrganizationRepositoryInterface;
-use Candice\Onboarding\Domain\Repository\UserRepositoryInterface;
+use Candice\Onboarding\Domain\Service\OrganizationServiceInterface;
+use Candice\Onboarding\Domain\Service\UserServiceInterface;
 
 final readonly class ApplyService
 {
     public function __construct(
-        private UserRepositoryInterface $userRepository,
-        private OrganizationRepositoryInterface $organizationRepository,
+        private UserServiceInterface $userService,
+        private OrganizationServiceInterface $organizationService,
         private ApplicationRepositoryInterface $applicationRepository
     ) {
     }
@@ -29,11 +29,15 @@ final readonly class ApplyService
             throw new ApplicationInPendingValidationException($request->getOrganizationRegistrationNumber());
         }
 
-        if ($this->userRepository->existsByEmail($request->getUserEmail())) {
+        if ($this->userService->existsByEmail($request->getUserEmail())) {
             throw new UserAlreadyRegisteredException($request->getUserEmail());
         }
 
-        if ($this->organizationRepository->existsByRegistrationNumber($request->getOrganizationRegistrationNumber())) {
+        $this->organizationService->validateRegistrationNumber($request->getOrganizationRegistrationNumber());
+
+        if ($this->organizationService->existsByRegistrationNumber(
+            $request->getOrganizationRegistrationNumber()
+        )) {
             throw new OrganizationAlreadyRegisteredException($request->getOrganizationRegistrationNumber());
         }
 

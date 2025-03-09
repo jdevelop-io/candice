@@ -7,21 +7,20 @@ namespace Candice\Tests\Onboarding\Application;
 use Candice\Onboarding\Application\Registration\ApplyRequest;
 use Candice\Onboarding\Application\Registration\ApplyService;
 use Candice\Onboarding\Domain\Entity\Application;
-use Candice\Onboarding\Domain\Entity\Organization;
-use Candice\Onboarding\Domain\Entity\User;
 use Candice\Onboarding\Domain\Enum\ApplicationStatus;
 use Candice\Onboarding\Domain\Exception\ApplicationInPendingValidationException;
+use Candice\Onboarding\Domain\Exception\InvalidOrganizationRegistrationNumberException;
 use Candice\Onboarding\Domain\Exception\OrganizationAlreadyRegisteredException;
 use Candice\Onboarding\Domain\Exception\UserAlreadyRegisteredException;
 use Candice\Onboarding\Infrastructure\Repository\InMemoryApplicationRepository;
-use Candice\Onboarding\Infrastructure\Repository\InMemoryOrganizationRepository;
-use Candice\Onboarding\Infrastructure\Repository\InMemoryUserRepository;
+use Candice\Onboarding\Infrastructure\Service\InMemoryOrganizationService;
+use Candice\Onboarding\Infrastructure\Service\InMemoryUserService;
 use PHPUnit\Framework\TestCase;
 
 final class ApplyServiceTest extends TestCase
 {
-    private readonly InMemoryUserRepository $userRepository;
-    private readonly InMemoryOrganizationRepository $organizationRepository;
+    private readonly InMemoryUserService $userExistenceChecker;
+    private readonly InMemoryOrganizationService $organizationExistenceChecker;
     private readonly InMemoryApplicationRepository $applicationRepository;
     private readonly ApplyService $service;
 
@@ -29,12 +28,12 @@ final class ApplyServiceTest extends TestCase
     {
         parent::setUp();
 
-        $this->userRepository = new InMemoryUserRepository();
-        $this->organizationRepository = new InMemoryOrganizationRepository();
+        $this->userExistenceChecker = new InMemoryUserService();
+        $this->organizationExistenceChecker = new InMemoryOrganizationService();
         $this->applicationRepository = new InMemoryApplicationRepository();
         $this->service = new ApplyService(
-            $this->userRepository,
-            $this->organizationRepository,
+            $this->userExistenceChecker,
+            $this->organizationExistenceChecker,
             $this->applicationRepository
         );
     }
@@ -49,10 +48,19 @@ final class ApplyServiceTest extends TestCase
         $this->service->execute(new ApplyRequest($userEmail, '123456789', 'Organization Name'));
     }
 
+    public function testOrganizationRegistrationNumberShouldBeValid(): void
+    {
+        $userEmail = 'john.doe@example.com';
+
+        $this->expectException(InvalidOrganizationRegistrationNumberException::class);
+
+        $this->service->execute(new ApplyRequest($userEmail, 'InvalidRegistrationNumber', 'Organization Name'));
+    }
+
     public function testOrganizationIsUniqueByRegistrationNumber(): void
     {
         $userEmail = 'john.doe@example.com';
-        $this->createOrganization('123456789', 'Organization Name');
+        $this->createOrganization('123456789');
 
         $this->expectException(OrganizationAlreadyRegisteredException::class);
 
@@ -88,16 +96,12 @@ final class ApplyServiceTest extends TestCase
 
     private function createUser(string $email): void
     {
-        $user = new User($email);
-
-        $this->userRepository->save($user);
+        $this->userExistenceChecker->add($email);
     }
 
-    private function createOrganization(string $registrationNumber, string $name): void
+    private function createOrganization(string $registrationNumber): void
     {
-        $organization = new Organization($registrationNumber, $name);
-
-        $this->organizationRepository->save($organization);
+        $this->organizationExistenceChecker->add($registrationNumber);
     }
 
     private function createApplication(

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Candice\Onboarding\Domain\Repository;
+namespace Candice\Onboarding\Domain\Service;
 
-interface UserRepositoryInterface
+interface UserServiceInterface
 {
     public function existsByEmail(string $email): bool;
 }

@@ -45,3 +45,9 @@ services:
 
   Candice\Onboarding\Domain\Repository\ApplicationRepositoryInterface:
     class: Candice\Onboarding\Infrastructure\Repository\DoctrineApplicationRepository
+
+  Candice\Onboarding\Domain\Service\OrganizationServiceInterface:
+    class: Candice\Onboarding\Infrastructure\Symfony\Service\HttpOrganizationService
+
+  Candice\Onboarding\Domain\Service\UserServiceInterface:
+    class: Candice\Onboarding\Infrastructure\Symfony\Service\HttpUserService
