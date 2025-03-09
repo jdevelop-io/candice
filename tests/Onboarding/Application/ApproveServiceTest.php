@@ -53,8 +53,7 @@ final class ApproveServiceTest extends TestCase
 
     private function createApplication(): Application
     {
-        $application = new Application(
-            $this->applicationRepository->getNextId(),
+        $application = Application::apply(
             'john.doe@example.com',
             '123456789',
             'Acme Inc.',
@@ -67,8 +66,7 @@ final class ApproveServiceTest extends TestCase
 
     private function createApprovedApplication(): Application
     {
-        $application = new Application(
-            $this->applicationRepository->getNextId(),
+        $application = Application::apply(
             'john.doe@example.com',
             '123456789',
             'Acme Inc.',

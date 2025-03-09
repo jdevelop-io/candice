@@ -109,8 +109,7 @@ final class ApplyServiceTest extends TestCase
         string $organizationRegistrationNumber,
         string $organizationName
     ): void {
-        $application = new Application(
-            $this->applicationRepository->getNextId(),
+        $application = Application::apply(
             $userEmail,
             $organizationRegistrationNumber,
             $organizationName

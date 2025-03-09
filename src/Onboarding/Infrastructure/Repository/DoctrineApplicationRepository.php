@@ -55,11 +55,6 @@ final readonly class DoctrineApplicationRepository implements ApplicationReposit
         );
     }
 
-    public function getNextId(): string
-    {
-        return $this->guidGenerator->generate();
-    }
-
     public function save(Application $application): void
     {
         $isNew = false;
