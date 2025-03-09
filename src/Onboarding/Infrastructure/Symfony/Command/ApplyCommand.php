@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Candice\Onboarding\Infrastructure\Symfony\Command;
 
-use Candice\Onboarding\Application\Registration\ApplyRequest;
-use Candice\Onboarding\Application\Registration\ApplyService;
+use Candice\Onboarding\Application\Apply\ApplyRequest;
+use Candice\Onboarding\Application\Apply\ApplyService;
 use Candice\Onboarding\Domain\Repository\ApplicationRepositoryInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;

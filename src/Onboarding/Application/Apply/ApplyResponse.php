@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Candice\Onboarding\Application\Registration;
+namespace Candice\Onboarding\Application\Apply;
 
 final readonly class ApplyResponse
 {

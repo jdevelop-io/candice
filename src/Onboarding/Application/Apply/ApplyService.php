@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Candice\Onboarding\Application\Registration;
+namespace Candice\Onboarding\Application\Apply;
 
 use Candice\Onboarding\Domain\Entity\Application;
 use Candice\Onboarding\Domain\Exception\ApplicationInPendingValidationException;
