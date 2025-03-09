@@ -25,8 +25,7 @@ final readonly class RegistrationService
             throw new OrganizationAlreadyRegisteredException($registrationNumber->unwrap());
         }
 
-        $id = $this->organizationRepository->getNextId();
-        $organization = new Organization($id, $registrationNumber, $request->getName());
+        $organization = new Organization($registrationNumber, $request->getName());
         $this->organizationRepository->save($organization);
 
         return new RegistrationResponse($registrationNumber->unwrap());
