@@ -10,19 +10,16 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final readonly class HttpUserService implements UserServiceInterface
 {
-    public function __construct(private HttpClientInterface $httpClient, private string $baseUrl, private string $token)
+    private HttpClientInterface $httpClient;
+
+    public function __construct(HttpClientInterface $onboardingUserHttpClient)
     {
+        $this->httpClient = $onboardingUserHttpClient;
     }
 
     public function existsByEmail(string $email): bool
     {
-        $url = sprintf("%s/users?email=%s", $this->baseUrl, $email);
-
-        $response = $this->httpClient->request('GET', $url, [
-            'headers' => [
-                'X-API-TOKEN' => $this->token,
-            ],
-        ]);
+        $response = $this->httpClient->request('GET', sprintf("users?email=%s", $email));
 
         return $response->getStatusCode() === Response::HTTP_OK;
     }

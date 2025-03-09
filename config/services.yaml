@@ -56,12 +56,6 @@ services:
 
   Candice\Onboarding\Domain\Service\OrganizationServiceInterface:
     class: Candice\Onboarding\Infrastructure\Symfony\Service\HttpOrganizationService
-    arguments:
-      $baseUrl: '%onboarding.organization_service.base_url%'
-      $token: '%onboarding.organization_service.token%'
 
   Candice\Onboarding\Domain\Service\UserServiceInterface:
     class: Candice\Onboarding\Infrastructure\Symfony\Service\HttpUserService
-    arguments:
-      $baseUrl: '%onboarding.user_service.base_url%'
-      $token: '%onboarding.user_service.token%'

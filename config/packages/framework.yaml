@@ -5,6 +5,22 @@ framework:
   # Note that the session will be started ONLY if you read or write from it.
   session: true
 
+  http_client:
+    scoped_clients:
+      onboarding_user_http_client:
+        base_uri: '%onboarding.user_service.base_url%'
+        verify_peer: false
+        verify_host: false
+        headers:
+          X-API-TOKEN: '%onboarding.user_service.token%'
+
+      onboarding_organization_http_client:
+        base_uri: '%onboarding.organization_service.base_url%'
+        verify_peer: false
+        verify_host: false
+        headers:
+          X-API-TOKEN: '%onboarding.organization_service.token%'
+
   #esi: true
   #fragments: true
 
