@@ -39,6 +39,19 @@ final class RegistrationServiceTest extends TestCase
         $this->service->execute(new RegistrationRequest($email, $plainPassword));
     }
 
+    public function testUserShouldBeRegistered(): void
+    {
+        $email = 'john.doe@example.com';
+        $plainPassword = 'p4sswOrd!';
+
+        $response = $this->service->execute(new RegistrationRequest($email, $plainPassword));
+
+        $user = $this->userRepository->findById($response->getId());
+        $this->assertSame($email, $user->getEmail());
+        $this->assertSame($plainPassword, $user->getPassword());
+        $this->assertSame([Role::USER], $user->getRoles());
+    }
+
     private function createUser(string $email, string $plainPassword): void
     {
         $id = $this->userRepository->getNextId();
