@@ -4,6 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+  private_api_token: '%env(string:PRIVATE_API_TOKEN)%'
 
 services:
   # default configuration for services in *this* file
@@ -30,6 +31,10 @@ services:
   # Identity and Access
   Candice\IdentityAndAccess\:
     resource: '../src/IdentityAndAccess/'
+
+  Candice\IdentityAndAccess\Infrastructure\Symfony\Security\PrivateApiUserProvider:
+    arguments:
+      $token: '%private_api_token%'
 
   Candice\IdentityAndAccess\Domain\Repository\UserRepositoryInterface:
     class: Candice\IdentityAndAccess\Infrastructure\Repository\DoctrineUserRepository
