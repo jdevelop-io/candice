@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Candice\Onboarding\Application\Registration;
+namespace Candice\Onboarding\Application\Apply;
 
 use Candice\Onboarding\Domain\Entity\Application;
 use Candice\Onboarding\Domain\Exception\ApplicationInPendingValidationException;
@@ -35,15 +35,11 @@ final readonly class ApplyService
 
         $this->organizationService->validateRegistrationNumber($request->getOrganizationRegistrationNumber());
 
-        if ($this->organizationService->existsByRegistrationNumber(
-            $request->getOrganizationRegistrationNumber()
-        )) {
+        if ($this->organizationService->existsByRegistrationNumber($request->getOrganizationRegistrationNumber())) {
             throw new OrganizationAlreadyRegisteredException($request->getOrganizationRegistrationNumber());
         }
 
-        $id = $this->applicationRepository->getNextId();
-        $application = new Application(
-            $id,
+        $application = Application::apply(
             $request->getUserEmail(),
             $request->getOrganizationRegistrationNumber(),
             $request->getOrganizationName()

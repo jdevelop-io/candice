@@ -12,7 +12,5 @@ interface ApplicationRepositoryInterface
 
     public function findById(string $id): ?Application;
 
-    public function getNextId(): string;
-
     public function save(Application $application): void;
 }

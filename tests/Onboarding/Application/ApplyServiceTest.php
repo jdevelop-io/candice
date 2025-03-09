@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Candice\Tests\Onboarding\Application;
 
-use Candice\Onboarding\Application\Registration\ApplyRequest;
-use Candice\Onboarding\Application\Registration\ApplyService;
+use Candice\Onboarding\Application\Apply\ApplyRequest;
+use Candice\Onboarding\Application\Apply\ApplyService;
 use Candice\Onboarding\Domain\Entity\Application;
 use Candice\Onboarding\Domain\Enum\ApplicationStatus;
 use Candice\Onboarding\Domain\Exception\ApplicationInPendingValidationException;
@@ -109,8 +109,7 @@ final class ApplyServiceTest extends TestCase
         string $organizationRegistrationNumber,
         string $organizationName
     ): void {
-        $application = new Application(
-            $this->applicationRepository->getNextId(),
+        $application = Application::apply(
             $userEmail,
             $organizationRegistrationNumber,
             $organizationName

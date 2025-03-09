@@ -27,13 +27,12 @@ final class InMemoryApplicationRepository implements ApplicationRepositoryInterf
         return isset($this->applicationByOrganizationRegistrationNumber[$organizationRegistrationNumber]);
     }
 
-    public function getNextId(): string
-    {
-        return (string)$this->nextId++;
-    }
-
     public function save(Application $application): void
     {
+        if ($application->getId() === null) {
+            $application->setId((string)$this->nextId++);
+        }
+
         $this->applicationById[$application->getId()] = $application;
         $this->applicationByOrganizationRegistrationNumber[$application->getOrganizationRegistrationNumber()][]
             = $application;
