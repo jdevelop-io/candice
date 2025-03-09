@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Candice\Onboarding\Domain\Entity;
 
 use Candice\Onboarding\Domain\Enum\ApplicationStatus;
+use Candice\Onboarding\Domain\Exception\ApplicationNotPendingApprovalException;
 
 final class Application
 {
@@ -42,5 +43,14 @@ final class Application
     public function getStatus(): ApplicationStatus
     {
         return $this->status;
+    }
+
+    public function approve(): void
+    {
+        if ($this->status !== ApplicationStatus::PENDING_APPROVAL) {
+            throw new ApplicationNotPendingApprovalException($this->status->value);
+        }
+
+        $this->status = ApplicationStatus::APPROVED;
     }
 }
