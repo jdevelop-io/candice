@@ -25,7 +25,7 @@ final readonly class DoctrineOrganizationRepository implements OrganizationRepos
     {
         $result = $this->connection->createQueryBuilder()
             ->select('COUNT(*)')
-            ->from('organization_organization')
+            ->from('organization_organizations')
             ->where('registration_number = :registration_number')
             ->setParameter('registration_number', $registrationNumber->unwrap())
             ->executeQuery();
@@ -37,7 +37,7 @@ final readonly class DoctrineOrganizationRepository implements OrganizationRepos
     {
         $result = $this->connection->createQueryBuilder()
             ->select('id', 'registration_number', 'name')
-            ->from('organization_organization')
+            ->from('organization_organizations')
             ->where('registration_number = :registration_number')
             ->setParameter('registration_number', $registrationNumber->unwrap())
             ->executeQuery();
@@ -63,7 +63,7 @@ final readonly class DoctrineOrganizationRepository implements OrganizationRepos
     public function save(Organization $organization): void
     {
         $affectedRows = $this->connection->createQueryBuilder()
-            ->insert('organization_organization')
+            ->insert('organization_organizations')
             ->values([
                 'id' => ':id',
                 'registration_number' => ':registration_number',

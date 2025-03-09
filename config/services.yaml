@@ -4,7 +4,15 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-  private_api_token: '%env(string:PRIVATE_API_TOKEN)%'
+  # Identity And Access
+  iam.private_api_token: '%env(string:IAM_PRIVATE_API_TOKEN)%'
+
+  # Onboarding
+  onboarding.organization_service.base_url: '%env(string:ONBOARDING_ORGANIZATION_SERVICE_BASE_URL)%'
+  onboarding.organization_service.token: '%env(string:ONBOARDING_ORGANIZATION_SERVICE_API_TOKEN)%'
+
+  onboarding.user_service.base_url: '%env(string:ONBOARDING_USER_SERVICE_BASE_URL)%'
+  onboarding.user_service.token: '%env(string:ONBOARDING_USER_SERVICE_API_TOKEN)%'
 
 services:
   # default configuration for services in *this* file
@@ -37,7 +45,7 @@ services:
 
   Candice\IdentityAndAccess\Infrastructure\Symfony\Security\PrivateApiUserProvider:
     arguments:
-      $token: '%private_api_token%'
+      $token: '%iam.private_api_token%'
 
   # Onboarding
   Candice\Onboarding\:
@@ -48,6 +56,12 @@ services:
 
   Candice\Onboarding\Domain\Service\OrganizationServiceInterface:
     class: Candice\Onboarding\Infrastructure\Symfony\Service\HttpOrganizationService
+    arguments:
+      $baseUrl: '%onboarding.organization_service.base_url%'
+      $token: '%onboarding.organization_service.token%'
 
   Candice\Onboarding\Domain\Service\UserServiceInterface:
     class: Candice\Onboarding\Infrastructure\Symfony\Service\HttpUserService
+    arguments:
+      $baseUrl: '%onboarding.user_service.base_url%'
+      $token: '%onboarding.user_service.token%'

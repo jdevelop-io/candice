@@ -1,0 +1,17 @@
+meta {
+  name: Validate
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{apiBaseUrl}}/organizations/123456789/validate
+  body: none
+  auth: apikey
+}
+
+auth:apikey {
+  key: X-API-TOKEN
+  value: {{apiToken}}
+  placement: header
+}

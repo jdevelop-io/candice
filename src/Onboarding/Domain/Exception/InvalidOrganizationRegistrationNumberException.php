@@ -8,8 +8,10 @@ use Exception;
 
 final class InvalidOrganizationRegistrationNumberException extends Exception
 {
-    public function __construct(string $registrationNumber)
+    public function __construct(string $registrationNumber, ?string $reason = null)
     {
-        parent::__construct(sprintf('Invalid organization registration number: %s', $registrationNumber));
+        parent::__construct(
+            sprintf('Invalid organization registration number: %s. Reason: %s', $registrationNumber, $reason)
+        );
     }
 }
