@@ -9,18 +9,36 @@ use Candice\Onboarding\Domain\Exception\ApplicationNotPendingApprovalException;
 
 final class Application
 {
-    private ApplicationStatus $status;
-
     public function __construct(
-        private readonly string $id,
         private readonly string $userEmail,
         private readonly string $organizationRegistrationNumber,
-        private readonly string $organizationName
+        private readonly string $organizationName,
+        private ApplicationStatus $status,
+        private ?string $id = null
     ) {
-        $this->status = ApplicationStatus::PENDING_APPROVAL;
     }
 
-    public function getId(): string
+    public static function apply(
+        string $userEmail,
+        string $organizationRegistrationNumber,
+        string $organizationName,
+        ?string $id = null
+    ) {
+        return new self(
+            $userEmail,
+            $organizationRegistrationNumber,
+            $organizationName,
+            ApplicationStatus::PENDING_APPROVAL,
+            $id
+        );
+    }
+
+    public function setId(string $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function getId(): ?string
     {
         return $this->id;
     }

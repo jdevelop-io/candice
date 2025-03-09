@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Candice\Onboarding\Infrastructure\Repository;
 
 use Candice\Onboarding\Domain\Entity\Application;
+use Candice\Onboarding\Domain\Enum\ApplicationStatus;
 use Candice\Onboarding\Domain\Repository\ApplicationRepositoryInterface;
 use Candice\Organization\Infrastructure\Symfony\Service\GuidGeneratorInterface;
 use Doctrine\DBAL\Connection;
@@ -12,8 +13,10 @@ use RuntimeException;
 
 final readonly class DoctrineApplicationRepository implements ApplicationRepositoryInterface
 {
-    public function __construct(private Connection $connection, private GuidGeneratorInterface $guidGenerator)
-    {
+    public function __construct(
+        private Connection $connection,
+        private GuidGeneratorInterface $guidGenerator
+    ) {
     }
 
     public function existsByOrganizationRegistrationNumber(string $organizationRegistrationNumber): bool
@@ -44,10 +47,11 @@ final readonly class DoctrineApplicationRepository implements ApplicationReposit
         }
 
         return new Application(
-            $data['id'],
             $data['user_email'],
             $data['organization_registration_number'],
-            $data['organization_name']
+            $data['organization_name'],
+            ApplicationStatus::from($data['status']),
+            $data['id'],
         );
     }
 
@@ -57,6 +61,23 @@ final readonly class DoctrineApplicationRepository implements ApplicationReposit
     }
 
     public function save(Application $application): void
+    {
+        $isNew = false;
+
+        if ($application->getId() === null) {
+            $application->setId($this->guidGenerator->generate());
+            $isNew = true;
+        }
+
+        if ($isNew) {
+            $this->insert($application);
+            return;
+        }
+
+        $this->update($application);
+    }
+
+    private function insert(Application $application): void
     {
         $affectedRows = $this->connection->createQueryBuilder()
             ->insert('onboarding_applications')
@@ -77,7 +98,30 @@ final readonly class DoctrineApplicationRepository implements ApplicationReposit
             ->executeStatement();
 
         if ($affectedRows !== 1) {
-            throw new RuntimeException('Failed to save application');
+            throw new RuntimeException('Failed to create application');
+        }
+    }
+
+    private function update(Application $application): void
+    {
+        $affectedRows = $this->connection->createQueryBuilder()
+            ->update('onboarding_applications')
+            ->set('user_email', ':user_email')
+            ->set('organization_registration_number', ':organization_registration_number')
+            ->set('organization_name', ':organization_name')
+            ->set('status', ':status')
+            ->where('id = :id')
+            ->setParameters([
+                'id' => $application->getId(),
+                'user_email' => $application->getUserEmail(),
+                'organization_registration_number' => $application->getOrganizationRegistrationNumber(),
+                'organization_name' => $application->getOrganizationName(),
+                'status' => $application->getStatus()->value,
+            ])
+            ->executeStatement();
+
+        if ($affectedRows !== 1) {
+            throw new RuntimeException('Failed to update application');
         }
     }
 }

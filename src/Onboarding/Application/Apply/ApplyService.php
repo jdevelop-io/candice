@@ -35,15 +35,11 @@ final readonly class ApplyService
 
         $this->organizationService->validateRegistrationNumber($request->getOrganizationRegistrationNumber());
 
-        if ($this->organizationService->existsByRegistrationNumber(
-            $request->getOrganizationRegistrationNumber()
-        )) {
+        if ($this->organizationService->existsByRegistrationNumber($request->getOrganizationRegistrationNumber())) {
             throw new OrganizationAlreadyRegisteredException($request->getOrganizationRegistrationNumber());
         }
 
-        $id = $this->applicationRepository->getNextId();
-        $application = new Application(
-            $id,
+        $application = Application::apply(
             $request->getUserEmail(),
             $request->getOrganizationRegistrationNumber(),
             $request->getOrganizationName()
