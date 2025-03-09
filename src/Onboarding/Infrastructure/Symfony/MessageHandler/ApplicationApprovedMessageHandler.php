@@ -30,11 +30,9 @@ final readonly class ApplicationApprovedMessageHandler
             throw new RuntimeException('Application not found');
         }
 
-        // Send the user data to IAM context
         $user = new UserDTO($application->getUserEmail());
         $this->httpUserService->register($user);
 
-        // Send the organization data to Organization context
         $organization = new OrganizationDTO(
             $application->getOrganizationRegistrationNumber(),
             $application->getOrganizationName()
