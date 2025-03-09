@@ -19,18 +19,6 @@ final readonly class DoctrineApplicationRepository implements ApplicationReposit
     ) {
     }
 
-    public function existsByOrganizationRegistrationNumber(string $organizationRegistrationNumber): bool
-    {
-        $result = $this->connection->createQueryBuilder()
-            ->select('COUNT(*)')
-            ->from('onboarding_applications')
-            ->where('organization_registration_number = :organization_registration_number')
-            ->setParameter('organization_registration_number', $organizationRegistrationNumber)
-            ->executeQuery();
-
-        return (int)$result->fetchOne() > 0;
-    }
-
     public function findById(string $id): ?Application
     {
         $result = $this->connection->createQueryBuilder()
@@ -53,6 +41,67 @@ final readonly class DoctrineApplicationRepository implements ApplicationReposit
             ApplicationStatus::from($data['status']),
             $data['id'],
         );
+    }
+
+    /**
+     * @return Application[]
+     */
+    public function findAll(): array
+    {
+        $result = $this->connection->createQueryBuilder()
+            ->select('*')
+            ->from('onboarding_applications')
+            ->executeQuery();
+
+        $applications = [];
+
+        while ($data = $result->fetchAssociative()) {
+            $applications[] = new Application(
+                $data['user_email'],
+                $data['organization_registration_number'],
+                $data['organization_name'],
+                ApplicationStatus::from($data['status']),
+                $data['id'],
+            );
+        }
+
+        return $applications;
+    }
+
+    public function findAllByStatus(ApplicationStatus $status): array
+    {
+        $result = $this->connection->createQueryBuilder()
+            ->select('*')
+            ->from('onboarding_applications')
+            ->where('status = :status')
+            ->setParameter('status', $status->value)
+            ->executeQuery();
+
+        $applications = [];
+
+        while ($data = $result->fetchAssociative()) {
+            $applications[] = new Application(
+                $data['user_email'],
+                $data['organization_registration_number'],
+                $data['organization_name'],
+                ApplicationStatus::from($data['status']),
+                $data['id'],
+            );
+        }
+
+        return $applications;
+    }
+
+    public function existsByOrganizationRegistrationNumber(string $organizationRegistrationNumber): bool
+    {
+        $result = $this->connection->createQueryBuilder()
+            ->select('COUNT(*)')
+            ->from('onboarding_applications')
+            ->where('organization_registration_number = :organization_registration_number')
+            ->setParameter('organization_registration_number', $organizationRegistrationNumber)
+            ->executeQuery();
+
+        return (int)$result->fetchOne() > 0;
     }
 
     public function save(Application $application): void
