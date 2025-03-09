@@ -1,9 +1,9 @@
-organizations_registration_number_validation:
-  path: /api/organizations/{registrationNumber}/validate
+organization_organizations_registration_number_validation:
+  path: /api/organization/organizations/{registrationNumber}/validate
   methods: [ 'GET' ]
   controller: Candice\Organization\Infrastructure\Symfony\Controller\OrganizationController::registrationNumberValidation
 
-organizations_get_organization:
-  path: /api/organizations/{registrationNumber}
+organization_organizations_get_organization:
+  path: /api/organization/organizations/{registrationNumber}
   methods: [ 'GET' ]
   controller: Candice\Organization\Infrastructure\Symfony\Controller\OrganizationController::getOrganization

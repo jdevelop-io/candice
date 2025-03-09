@@ -8,31 +8,24 @@ use Candice\Onboarding\Domain\Exception\InvalidOrganizationRegistrationNumberExc
 use Candice\Onboarding\Domain\Service\OrganizationServiceInterface;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final readonly class HttpOrganizationService implements OrganizationServiceInterface
 {
+    private HttpClientInterface $httpClient;
+
     public function __construct(
-        private HttpClientInterface $httpClient,
-        private string $baseUrl,
-        private string $token,
+        HttpClientInterface $onboardingOrganizationHttpClient
     ) {
+        $this->httpClient = $onboardingOrganizationHttpClient;
     }
 
     /**
      * @throws InvalidOrganizationRegistrationNumberException
-     * @throws TransportExceptionInterface
      */
     public function validateRegistrationNumber(string $registrationNumber): void
     {
-        $url = sprintf("%s/organizations/%s/validate", $this->baseUrl, $registrationNumber);
-
-        $response = $this->httpClient->request('GET', $url, [
-            'headers' => [
-                'X-API-TOKEN' => $this->token,
-            ],
-        ]);
+        $response = $this->httpClient->request('GET', sprintf("organizations/%s/validate", $registrationNumber));
 
         if ($response->getStatusCode() !== Response::HTTP_OK) {
             throw new RuntimeException('Unable to validate registration number');
@@ -47,14 +40,8 @@ final readonly class HttpOrganizationService implements OrganizationServiceInter
 
     public function existsByRegistrationNumber(string $registrationNumber): bool
     {
-        $url = sprintf("%s/organizations/%s", $this->baseUrl, $registrationNumber);
+        $response = $this->httpClient->request('GET', sprintf("organizations/%s", $registrationNumber));
 
-        $response = $this->httpClient->request('GET', $url, [
-            'headers' => [
-                'X-API-TOKEN' => $this->token,
-            ],
-        ]);
-        
         return $response->getStatusCode() === Response::HTTP_OK;
     }
 }

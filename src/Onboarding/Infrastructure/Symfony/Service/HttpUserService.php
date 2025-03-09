@@ -5,16 +5,22 @@ declare(strict_types=1);
 namespace Candice\Onboarding\Infrastructure\Symfony\Service;
 
 use Candice\Onboarding\Domain\Service\UserServiceInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final readonly class HttpUserService implements UserServiceInterface
 {
-    public function __construct(private HttpClientInterface $httpClient, private string $baseUrl, private string $token)
+    private HttpClientInterface $httpClient;
+
+    public function __construct(HttpClientInterface $onboardingUserHttpClient)
     {
+        $this->httpClient = $onboardingUserHttpClient;
     }
 
     public function existsByEmail(string $email): bool
     {
-        return false;
+        $response = $this->httpClient->request('GET', sprintf("users?email=%s", $email));
+
+        return $response->getStatusCode() === Response::HTTP_OK;
     }
 }

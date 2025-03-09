@@ -1,0 +1,25 @@
+meta {
+  name: Apply
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{apiBaseUrl}}/onboarding/applications/apply
+  body: json
+  auth: apikey
+}
+
+auth:apikey {
+  key: X-API-TOKEN
+  value: {{apiToken}}
+  placement: header
+}
+
+body:json {
+  {
+    "userEmail": "jane.doe@example.com",
+    "organizationRegistrationNumber": "123456789",
+    "organizationName": "Acme Inc."
+  }
+}

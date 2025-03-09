@@ -1,0 +1,4 @@
+onboarding_applications_apply:
+  path: /api/onboarding/applications/apply
+  methods: [ 'POST' ]
+  controller: Candice\Onboarding\Infrastructure\Symfony\Controller\ApplicationController::apply

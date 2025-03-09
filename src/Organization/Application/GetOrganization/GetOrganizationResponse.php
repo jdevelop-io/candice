@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Candice\Organization\Application\Get;
+namespace Candice\Organization\Application\GetOrganization;
 
 final readonly class GetOrganizationResponse
 {

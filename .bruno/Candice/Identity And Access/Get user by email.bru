@@ -1,0 +1,21 @@
+meta {
+  name: Get user by email
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{apiBaseUrl}}/iam/users?email=john.doe@example.com
+  body: none
+  auth: apikey
+}
+
+params:query {
+  email: john.doe@example.com
+}
+
+auth:apikey {
+  key: X-API-TOKEN
+  value: {{apiToken}}
+  placement: header
+}

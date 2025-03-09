@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Candice\Tests\Organization\Application;
 
-use Candice\Organization\Application\Get\GetOrganizationRequest;
-use Candice\Organization\Application\Get\GetOrganizationService;
+use Candice\Organization\Application\GetOrganization\GetOrganizationRequest;
+use Candice\Organization\Application\GetOrganization\GetOrganizationService;
 use Candice\Organization\Domain\Entity\Organization;
 use Candice\Organization\Domain\Exception\OrganizationNotFoundException;
 use Candice\Organization\Domain\Factory\RegistrationNumberFactory;
@@ -27,14 +27,14 @@ final class GetOrganizationServiceTest extends TestCase
         $this->service = new GetOrganizationService($this->organizationRepository, $this->registrationNumberFactory);
     }
 
-    public function testOrganizationShouldExists(): void
+    public function testOrganizationDoesNotExists(): void
     {
         $this->expectException(OrganizationNotFoundException::class);
 
         $this->service->execute(new GetOrganizationRequest('123456789'));
     }
 
-    public function testOrganizationIsReturned(): void
+    public function testOrganizationExists(): void
     {
         $this->createOrganization('123456789', 'Organization Name');
 
