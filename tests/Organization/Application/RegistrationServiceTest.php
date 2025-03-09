@@ -8,7 +8,7 @@ use Candice\Organization\Application\Register\RegistrationRequest;
 use Candice\Organization\Application\Register\RegistrationService;
 use Candice\Organization\Domain\Entity\Organization;
 use Candice\Organization\Domain\Exception\InvalidRegistrationNumberException;
-use Candice\Organization\Domain\Exception\OrganizationAlreadyExistsException;
+use Candice\Organization\Domain\Exception\OrganizationAlreadyRegisteredException;
 use Candice\Organization\Domain\Factory\RegistrationNumberFactory;
 use Candice\Organization\Domain\ValueObject\Siren;
 use Candice\Organization\Infrastructure\Repository\InMemoryOrganizationRepository;
@@ -41,7 +41,7 @@ final class RegistrationServiceTest extends TestCase
     {
         $this->createOrganization('123456789', 'Organization Name');
 
-        $this->expectException(OrganizationAlreadyExistsException::class);
+        $this->expectException(OrganizationAlreadyRegisteredException::class);
 
         $request = new RegistrationRequest('123456789', 'Organization Name');
         $this->service->execute($request);
