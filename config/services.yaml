@@ -42,3 +42,6 @@ services:
   # Onboarding
   Candice\Onboarding\:
     resource: '../src/Onboarding/'
+
+  Candice\Onboarding\Domain\Repository\ApplicationRepositoryInterface:
+    class: Candice\Onboarding\Infrastructure\Repository\DoctrineApplicationRepository
