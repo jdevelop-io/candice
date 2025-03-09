@@ -8,10 +8,17 @@ security:
   providers:
     users:
       id: Candice\IdentityAndAccess\Infrastructure\Symfony\Security\UserProvider
+    private_api:
+      id: Candice\IdentityAndAccess\Infrastructure\Symfony\Security\PrivateApiUserProvider
   firewalls:
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
+    private_api:
+      pattern: ^/api/private/
+      stateless: true
+      provider: private_api
+      custom_authenticator: Candice\IdentityAndAccess\Infrastructure\Symfony\Security\PrivateApiAuthenticator
     main:
       lazy: true
       provider: users
@@ -25,6 +32,7 @@ security:
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used
   access_control:
+    - { path: ^/api/private/, roles: ROLE_API }
   # - { path: ^/admin, roles: ROLE_ADMIN }
   # - { path: ^/profile, roles: ROLE_USER }
 
