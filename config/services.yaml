@@ -32,12 +32,12 @@ services:
   Candice\IdentityAndAccess\:
     resource: '../src/IdentityAndAccess/'
 
+  Candice\IdentityAndAccess\Domain\Repository\UserRepositoryInterface:
+    class: Candice\IdentityAndAccess\Infrastructure\Repository\DoctrineUserRepository
+
   Candice\IdentityAndAccess\Infrastructure\Symfony\Security\PrivateApiUserProvider:
     arguments:
       $token: '%private_api_token%'
-
-  Candice\IdentityAndAccess\Domain\Repository\UserRepositoryInterface:
-    class: Candice\IdentityAndAccess\Infrastructure\Repository\DoctrineUserRepository
 
   # Onboarding
   Candice\Onboarding\:
