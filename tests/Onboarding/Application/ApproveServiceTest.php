@@ -10,6 +10,7 @@ use Candice\Onboarding\Domain\Entity\Application;
 use Candice\Onboarding\Domain\Exception\ApplicationNotFoundException;
 use Candice\Onboarding\Domain\Exception\ApplicationNotPendingApprovalException;
 use Candice\Onboarding\Infrastructure\Repository\InMemoryApplicationRepository;
+use Candice\Onboarding\Infrastructure\Symfony\MessagePublisher\NullApplicationApprovedEventPublisher;
 use PHPUnit\Framework\TestCase;
 
 final class ApproveServiceTest extends TestCase
@@ -22,7 +23,7 @@ final class ApproveServiceTest extends TestCase
         parent::setUp();
 
         $this->applicationRepository = new InMemoryApplicationRepository();
-        $this->service = new ApproveService($this->applicationRepository);
+        $this->service = new ApproveService(new NullApplicationApprovedEventPublisher(), $this->applicationRepository);
     }
 
     public function testApplicationDoesNotExists(): void
@@ -48,7 +49,7 @@ final class ApproveServiceTest extends TestCase
         $response = $this->service->execute(new ApproveRequest($application->getId()));
 
         $this->assertSame($application->getId(), $response->getId());
-        $this->assertSame('approved', $application->getStatus()->value);
+        $this->assertSame('approved', $response->getStatus());
     }
 
     private function createApplication(): Application
