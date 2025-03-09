@@ -6,7 +6,7 @@ namespace Candice\Onboarding\Application\List;
 
 final readonly class ListRequest
 {
-    public function __construct(private ?string $status)
+    public function __construct(private ?string $status = null)
     {
     }
 
