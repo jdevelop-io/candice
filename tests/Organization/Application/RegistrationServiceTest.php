@@ -56,7 +56,6 @@ final class RegistrationServiceTest extends TestCase
             new Siren($response->getRegistrationNumber())
         );
         $this->assertNotNull($organization);
-        $this->assertIsString($organization->getId());
         $this->assertSame('123456789', $organization->getRegistrationNumber()->unwrap());
         $this->assertSame('Organization Name', $organization->getName());
     }
@@ -64,7 +63,6 @@ final class RegistrationServiceTest extends TestCase
     private function createOrganization(string $registrationNumber, string $name): void
     {
         $organization = new Organization(
-            $this->organizationRepository->getNextId(),
             $this->registrationNumberFactory->create($registrationNumber),
             $name
         );

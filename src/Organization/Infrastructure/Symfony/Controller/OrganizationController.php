@@ -21,10 +21,15 @@ class OrganizationController extends AbstractController
             new RegistrationNumberValidationRequest($registrationNumber)
         );
 
-        return $this->json([
+        $payload = [
             'valid' => $response->isValid(),
-            'reason' => $response->getReason(),
-        ]);
+        ];
+
+        if (!$response->isValid() && $response->getReason() !== null) {
+            $payload['reason'] = $response->getReason();
+        }
+
+        return $this->json($payload);
     }
 
     public function getOrganization(

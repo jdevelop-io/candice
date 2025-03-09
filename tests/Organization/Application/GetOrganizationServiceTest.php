@@ -47,7 +47,6 @@ final class GetOrganizationServiceTest extends TestCase
     private function createOrganization(string $registrationNumber, string $name): void
     {
         $organization = new Organization(
-            $this->organizationRepository->getNextId(),
             $this->registrationNumberFactory->create($registrationNumber),
             $name
         );
