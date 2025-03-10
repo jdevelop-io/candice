@@ -21,6 +21,13 @@ framework:
         headers:
           X-API-TOKEN: '%onboarding.organization_service.token%'
 
+      crm_organization_http_client:
+        base_uri: '%crm.organization_service.base_url%'
+        verify_peer: false
+        verify_host: false
+        headers:
+          X-API-TOKEN: '%crm.organization_service.token%'
+
   #esi: true
   #fragments: true
 

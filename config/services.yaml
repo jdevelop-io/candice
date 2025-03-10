@@ -14,6 +14,10 @@ parameters:
   onboarding.user_service.base_url: '%env(string:ONBOARDING_USER_SERVICE_BASE_URL)%'
   onboarding.user_service.token: '%env(string:ONBOARDING_USER_SERVICE_API_TOKEN)%'
 
+  # Customer Relationship
+  crm.organization_service.base_url: '%env(string:CRM_ORGANIZATION_SERVICE_BASE_URL)%'
+  crm.organization_service.token: '%env(string:CRM_ORGANIZATION_SERVICE_API_TOKEN)%'
+
 services:
   # default configuration for services in *this* file
   _defaults:
@@ -62,3 +66,13 @@ services:
 
   Candice\Onboarding\Domain\Service\UserServiceInterface:
     class: Candice\Onboarding\Infrastructure\Symfony\Service\HttpUserService
+
+  # Customer Relationship
+  Candice\CustomerRelationship\:
+    resource: '../src/CustomerRelationship/'
+
+  Candice\CustomerRelationship\Domain\Service\OrganizationCheckerInterface:
+    class: Candice\CustomerRelationship\Infrastructure\Service\HttpOrganizationChecker
+
+  Candice\CustomerRelationship\Domain\Repository\ProspectRepositoryInterface:
+    class: Candice\CustomerRelationship\Infrastructure\Repository\DoctrineProspectRepository
