@@ -73,3 +73,6 @@ services:
 
   Candice\CustomerRelationship\Domain\Service\OrganizationCheckerInterface:
     class: Candice\CustomerRelationship\Infrastructure\Service\HttpOrganizationChecker
+
+  Candice\CustomerRelationship\Domain\Repository\ProspectRepositoryInterface:
+    class: Candice\CustomerRelationship\Infrastructure\Repository\DoctrineProspectRepository
