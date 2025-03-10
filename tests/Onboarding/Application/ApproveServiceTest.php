@@ -7,14 +7,16 @@ namespace Candice\Tests\Onboarding\Application;
 use Candice\Onboarding\Application\Approve\ApproveRequest;
 use Candice\Onboarding\Application\Approve\ApproveService;
 use Candice\Onboarding\Domain\Entity\Application;
+use Candice\Onboarding\Domain\Event\ApplicationApprovedEvent;
 use Candice\Onboarding\Domain\Exception\ApplicationNotFoundException;
 use Candice\Onboarding\Domain\Exception\ApplicationNotPendingApprovalException;
 use Candice\Onboarding\Infrastructure\Repository\InMemoryApplicationRepository;
-use Candice\Onboarding\Infrastructure\Symfony\MessagePublisher\NullApplicationApprovedEventPublisher;
+use Candice\Shared\Infrastructure\Event\InMemoryEventDispatcher;
 use PHPUnit\Framework\TestCase;
 
 final class ApproveServiceTest extends TestCase
 {
+    private readonly InMemoryEventDispatcher $eventDispatcher;
     private readonly InMemoryApplicationRepository $applicationRepository;
     private readonly ApproveService $service;
 
@@ -22,8 +24,9 @@ final class ApproveServiceTest extends TestCase
     {
         parent::setUp();
 
+        $this->eventDispatcher = new InMemoryEventDispatcher();
         $this->applicationRepository = new InMemoryApplicationRepository();
-        $this->service = new ApproveService(new NullApplicationApprovedEventPublisher(), $this->applicationRepository);
+        $this->service = new ApproveService($this->eventDispatcher, $this->applicationRepository);
     }
 
     public function testApplicationDoesNotExists(): void
@@ -50,6 +53,10 @@ final class ApproveServiceTest extends TestCase
 
         $this->assertSame($application->getId(), $response->getId());
         $this->assertSame('approved', $response->getStatus());
+
+        $event = $this->eventDispatcher->find(ApplicationApprovedEvent::class);
+        $this->assertInstanceOf(ApplicationApprovedEvent::class, $event);
+        $this->assertSame($application->getId(), $event->getId());
     }
 
     private function createApplication(): Application

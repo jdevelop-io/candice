@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Candice\Onboarding\Application\Approve;
 
+use Candice\Onboarding\Domain\Event\ApplicationApprovedEvent;
 use Candice\Onboarding\Domain\Exception\ApplicationNotFoundException;
 use Candice\Onboarding\Domain\Repository\ApplicationRepositoryInterface;
-use Candice\Onboarding\Domain\Service\ApplicationApprovedEventPublisherInterface;
+use Candice\Shared\Domain\Event\EventDispatcherInterface;
 
 final readonly class ApproveService
 {
     public function __construct(
-        private ApplicationApprovedEventPublisherInterface $applicationApprovedEventPublisher,
+        private EventDispatcherInterface $eventDispatcher,
         private ApplicationRepositoryInterface $applicationRepository
     ) {
     }
@@ -28,7 +29,7 @@ final readonly class ApproveService
 
         $this->applicationRepository->save($application);
 
-        $this->applicationApprovedEventPublisher->publish($application);
+        $this->eventDispatcher->dispatch(new ApplicationApprovedEvent($application->getId()));
 
         return new ApproveResponse($application->getId(), $application->getStatus()->value);
     }
