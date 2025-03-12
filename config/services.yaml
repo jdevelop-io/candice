@@ -18,6 +18,10 @@ parameters:
   crm.organization_service.base_url: '%env(string:CRM_ORGANIZATION_SERVICE_BASE_URL)%'
   crm.organization_service.token: '%env(string:CRM_ORGANIZATION_SERVICE_API_TOKEN)%'
 
+  # Human Resources
+  hr.organization_service.base_url: '%env(string:HR_ORGANIZATION_SERVICE_BASE_URL)%'
+  hr.organization_service.token: '%env(string:HR_ORGANIZATION_SERVICE_API_TOKEN)%'
+
 services:
   # default configuration for services in *this* file
   _defaults:
@@ -76,3 +80,10 @@ services:
 
   Candice\CustomerRelationship\Domain\Repository\ProspectRepositoryInterface:
     class: Candice\CustomerRelationship\Infrastructure\Repository\DoctrineProspectRepository
+
+  # Human Resources
+  Candice\HumanResources\:
+    resource: '../src/HumanResources/'
+
+  Candice\HumanResources\Domain\Service\OrganizationExistenceCheckerInterface:
+    class: Candice\HumanResources\Infrastructure\Service\HttpOrganizationExistenceChecker
