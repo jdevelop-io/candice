@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Candice\HumanResources\Infrastructure\Service;
+namespace Candice\HumanResources\Infrastructure\Symfony\Service;
 
 use Candice\HumanResources\Domain\Service\OrganizationExistenceCheckerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +19,7 @@ final readonly class HttpOrganizationExistenceChecker implements OrganizationExi
 
     public function existsById(string $id): bool
     {
-        $response = $this->httpClient->request('GET', sprintf("organizations/%s", $id));
+        $response = $this->httpClient->request('GET', sprintf('organizations/%s', $id));
 
         return $response->getStatusCode() === Response::HTTP_OK;
     }
