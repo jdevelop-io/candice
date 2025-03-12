@@ -38,13 +38,13 @@ final class RegisterResourceServiceTest extends TestCase
     {
         $this->createOrganization('ExistingOrganizationId');
 
-        $request = new RegisterResourceRequest('ExistingOrganizationId', 'John', 'Doe');
+        $request = new RegisterResourceRequest('ExistingOrganizationId', 'johny-john', 'Doe');
         $response = $this->service->execute($request);
 
         $resource = $this->resourceRepository->findById($response->getId());
         $this->assertNotNull($resource);
         $this->assertSame('ExistingOrganizationId', $resource->getOrganization()->getId());
-        $this->assertSame('John', $resource->getFullName()->getFirstName());
+        $this->assertSame('Johny-John', $resource->getFullName()->getFirstName());
         $this->assertSame('DOE', $resource->getFullName()->getLastName());
     }
 
