@@ -86,4 +86,7 @@ services:
     resource: '../src/HumanResources/'
 
   Candice\HumanResources\Domain\Service\OrganizationExistenceCheckerInterface:
-    class: Candice\HumanResources\Infrastructure\Service\HttpOrganizationExistenceChecker
+    class: Candice\HumanResources\Infrastructure\Symfony\Service\HttpOrganizationExistenceChecker
+
+  Candice\HumanResources\Domain\Repository\ResourceRepositoryInterface:
+    class: Candice\HumanResources\Infrastructure\Repository\DoctrineResourceRepository
