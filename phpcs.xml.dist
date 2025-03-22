@@ -16,6 +16,7 @@
     <file>config/</file>
     <file>public/</file>
     <file>src/</file>
+    <file>tests/</file>
 
     <!-- Exclude -->
     <exclude-pattern>*/var/*</exclude-pattern>
