@@ -29,3 +29,8 @@ jobs:
         run: |
           cp phpmd.xml.dist phpmd.xml
           docker compose -f compose.dev.yaml run --rm phpmd
+
+      - name: Run PHPStan
+        run: |
+          cp phpstan.neon.dist phpstan.neon
+          docker compose -f compose.dev.yaml run --rm phpstan
