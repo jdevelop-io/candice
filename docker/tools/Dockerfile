@@ -50,4 +50,4 @@ FROM phpunit AS coverage
 
 ENV XDEBUG_MODE=coverage
 
-ENTRYPOINT ["php", "vendor/bin/phpunit"]
+CMD ["php", "vendor/bin/phpunit"]
