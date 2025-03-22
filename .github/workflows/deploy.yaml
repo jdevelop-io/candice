@@ -29,6 +29,9 @@ jobs:
             compose.yaml
           set: |
             web.args.PHP_VERSION=8.4
+            web.cache-from=type=gha,scope=web-${{github.ref}}
+            web.cache-from=type=gha,scope=web-refs/heads/main
+            web.cache-to=type=gha,scope=web-${{github.ref}},mode=max
 
       - name: Start docker services
         run: docker compose -f compose.yaml up -d --wait --no-build
