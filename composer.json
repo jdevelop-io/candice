@@ -14,7 +14,8 @@
     "symfony/flex": "^2",
     "symfony/framework-bundle": "7.2.*",
     "symfony/runtime": "7.2.*",
-    "symfony/yaml": "7.2.*"
+    "symfony/yaml": "7.2.*",
+    "thecodingmachine/safe": "^3.0"
   },
   "require-dev": {
     "phpmd/phpmd": "^2.15",
