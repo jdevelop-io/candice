@@ -1,0 +1,11 @@
+services:
+  console:
+    build:
+      context: .
+      dockerfile: docker/tools/Dockerfile
+      target: console
+    volumes:
+      - .:/var/www/html
+    profiles:
+      - dev
+      - tools
