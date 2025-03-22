@@ -1,0 +1,10 @@
+###> Docker ###
+/docker/
+!/docker/web/entrypoint.sh
+###< Docker ###
+
+###> Symfony ###
+/var/
+/vendor/
+/bin/
+###< Symfony ###
