@@ -1,0 +1,7 @@
+imports:
+  - { resource: services/ }
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true

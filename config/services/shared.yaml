@@ -1,0 +1,10 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  # Shared
+  Candice\Shared\:
+    resource: '../../src/Shared/'
+    exclude:
+      - '../../src/Shared/Infrastructure/Symfony/Kernel.php'
