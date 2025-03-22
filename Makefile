@@ -1,4 +1,5 @@
-SERVICES ?= $(shell docker compose config --services | tr '\n' ' ')
+LOGS_SERVICES ?= $(shell docker compose config --services | tr '\n' ' ')
+CLEAN_OPTIONS ?= -s -f -v
 
 .PHONY: all
 all: start
@@ -20,8 +21,12 @@ build:
 
 .PHONY: logs
 logs:
-	docker compose logs -f -t $(SERVICES)
+	docker compose logs -f -t $(LOGS_SERVICES)
 
 .PHONY: status
 status:
 	docker compose ps
+
+.PHONY: clean
+clean: stop
+	docker compose rm $(CLEAN_OPTIONS)
