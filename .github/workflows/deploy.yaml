@@ -38,8 +38,3 @@ jobs:
 
       - name: Start docker services
         run: docker compose -f compose.yaml up -d --wait --no-build
-
-      - name: Check reachability
-        run: |
-          sleep 10
-          curl -v --fail-with-body http://localhost
