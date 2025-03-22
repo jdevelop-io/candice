@@ -21,7 +21,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run PHPCS
-        run: docker compose -f compose.dev.yaml run --rm phpcs
+        run: |
+          cp phpcs.xml.dist phpcs.xml
+          docker compose -f compose.dev.yaml run --rm phpcs
 
       - name: Run PHPMD
         run: |
