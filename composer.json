@@ -20,7 +20,11 @@
   "require-dev": {
     "phpmd/phpmd": "^2.15",
     "phpstan/phpstan": "^2.1",
+    "phpunit/phpunit": "^9.5",
     "squizlabs/php_codesniffer": "^3.12",
+    "symfony/browser-kit": "7.2.*",
+    "symfony/css-selector": "7.2.*",
+    "symfony/phpunit-bridge": "^7.2",
     "thecodingmachine/phpstan-safe-rule": "^1.4"
   },
   "config": {
