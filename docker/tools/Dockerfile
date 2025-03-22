@@ -17,6 +17,7 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
 WORKDIR /var/www/html
 
 COPY ./docker/tools/entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY ./docker/tools/php.ini /usr/local/etc/php/conf.d/php.ini
 
 ENTRYPOINT ["entrypoint.sh"]
 

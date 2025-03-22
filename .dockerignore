@@ -2,6 +2,7 @@
 /docker/
 !/docker/web/entrypoint.sh
 !/docker/tools/entrypoint.sh
+!/docker/tools/php.ini
 !/docker/tools/xdebug.ini
 ###< Docker ###
 
