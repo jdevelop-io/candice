@@ -20,3 +20,14 @@ services:
     profiles:
       - dev
       - tools
+
+  phpmd:
+    build:
+      context: .
+      dockerfile: docker/tools/Dockerfile
+      target: phpmd
+    volumes:
+      - .:/var/www/html
+    profiles:
+      - dev
+      - tools
