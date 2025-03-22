@@ -21,3 +21,7 @@ build:
 .PHONY: logs
 logs:
 	docker compose logs -f -t $(SERVICES)
+
+.PHONY: status
+status:
+	docker compose ps
