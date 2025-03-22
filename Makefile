@@ -9,6 +9,10 @@ all: start
 console:
 	docker compose $(COMPOSE_FILES) run --rm console bash
 
+.PHONY: phpcs
+phpcs:
+	docker compose $(COMPOSE_FILES) run --rm phpcs
+
 .PHONY: start
 start:
 	docker compose $(COMPOSE_FILES) up -d --wait --remove-orphans

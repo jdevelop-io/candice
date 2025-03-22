@@ -23,3 +23,7 @@ ENTRYPOINT ["entrypoint.sh"]
 FROM base AS console
 
 CMD ["php", "bin/console"]
+
+FROM base AS phpcs
+
+CMD ["php", "vendor/bin/phpcs"]
