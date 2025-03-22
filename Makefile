@@ -11,3 +11,7 @@ stop:
 
 .PHONY: restart
 restart: stop start
+
+.PHONY: build
+build:
+	docker compose build
