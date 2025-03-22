@@ -24,3 +24,8 @@
 ###> phpstan/phpstan ###
 /phpstan.neon
 ###< phpstan/phpstan ###
+
+###> phpunit/phpunit ###
+/phpunit.xml
+/var/.phpunit.result.cache
+###< phpunit/phpunit ###
