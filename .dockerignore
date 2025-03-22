@@ -1,6 +1,8 @@
 ###> Docker ###
 /docker/
 !/docker/web/entrypoint.sh
+!/docker/tools/entrypoint.sh
+!/docker/tools/xdebug.ini
 ###< Docker ###
 
 ###> Symfony ###

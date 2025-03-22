@@ -42,3 +42,25 @@ services:
     profiles:
       - dev
       - tools
+
+  phpunit:
+    build:
+      context: .
+      dockerfile: docker/tools/Dockerfile
+      target: phpunit
+    volumes:
+      - .:/var/www/html
+    profiles:
+      - dev
+      - tools
+
+  coverage:
+    build:
+      context: .
+      dockerfile: docker/tools/Dockerfile
+      target: coverage
+    volumes:
+      - .:/var/www/html
+    profiles:
+      - dev
+      - tools

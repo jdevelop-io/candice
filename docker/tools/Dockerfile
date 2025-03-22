@@ -16,7 +16,7 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
 
 WORKDIR /var/www/html
 
-COPY ./docker/web/entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY ./docker/tools/entrypoint.sh /usr/local/bin/entrypoint.sh
 
 ENTRYPOINT ["entrypoint.sh"]
 
@@ -35,3 +35,18 @@ CMD ["php", "vendor/bin/phpmd", "src,bin,config,public", "text", "phpmd.xml"]
 FROM base AS phpstan
 
 CMD ["php", "vendor/bin/phpstan", "analyse"]
+
+FROM base AS phpunit
+
+# Install Xdebug
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+
+COPY ./docker/tools/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+
+CMD ["php", "vendor/bin/phpunit"]
+
+FROM phpunit AS coverage
+
+ENV XDEBUG_MODE=coverage
+
+ENTRYPOINT ["php", "vendor/bin/phpunit"]

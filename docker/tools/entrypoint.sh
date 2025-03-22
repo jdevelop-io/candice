@@ -5,5 +5,4 @@ if [ ! -d "/var/www/html/vendor" ]; then
     composer install
 fi
 
-# Start the web server
 exec "$@"

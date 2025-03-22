@@ -1,9 +1,18 @@
 COMPOSE_FILES ?= -f compose.yaml -f compose.dev.yaml
 LOGS_SERVICES ?= $(shell docker compose config --services | tr '\n' ' ')
 CLEAN_OPTIONS ?= -s -f -v
+COVERAGE_OPTIONS ?= --coverage-text --coverage-html=var/coverage --coverage-clover=var/coverage.xml
 
 .PHONY: all
-all: phpcs phpmd phpstan
+all: tests phpcs phpmd phpstan
+
+.PHONY: tests
+tests:
+	docker compose $(COMPOSE_FILES) run --rm phpunit
+
+.PHONY: coverage
+coverage:
+	docker compose $(COMPOSE_FILES) run --rm coverage $(COVERAGE_OPTIONS)
 
 .PHONY: console
 console:
