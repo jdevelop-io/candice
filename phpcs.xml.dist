@@ -1,19 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
+<ruleset name="Candice">
+    <description>Custom ruleset for Candice</description>
 
-<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
-
+    <!-- Argument -->
     <arg name="basepath" value="."/>
-    <arg name="cache" value=".phpcs-cache"/>
     <arg name="colors"/>
     <arg name="extensions" value="php"/>
+    <arg name="cache" value="var/.phpcs-cache"/>
 
+    <!-- Include the PSR12 ruleset -->
     <rule ref="PSR12"/>
 
-    <file>bin/</file>
+    <!-- Files & Directories -->
+    <file>bin/</file>s
     <file>config/</file>
     <file>public/</file>
     <file>src/</file>
-    <file>tests/</file>
 
+    <!-- Exclude -->
+    <exclude-pattern>*/var/*</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
 </ruleset>

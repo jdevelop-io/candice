@@ -1,0 +1,31 @@
+name: Conformity
+
+on:
+  push:
+    branches:
+      - main
+  pull_request: ~
+  workflow_dispatch: ~
+  merge_group: ~
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run PHPCS
+        run: |
+          cp phpcs.xml.dist phpcs.xml
+          docker compose -f compose.dev.yaml run --rm phpcs
+
+      - name: Run PHPMD
+        run: |
+          cp phpmd.xml.dist phpmd.xml
+          docker compose -f compose.dev.yaml run --rm phpmd

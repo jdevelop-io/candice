@@ -27,3 +27,7 @@ CMD ["php", "bin/console"]
 FROM base AS phpcs
 
 CMD ["php", "vendor/bin/phpcs"]
+
+FROM base AS phpmd
+
+CMD ["php", "vendor/bin/phpmd", "src,bin,config,public", "text", "phpmd.xml"]
