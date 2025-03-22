@@ -8,3 +8,6 @@ start:
 .PHONE: stop
 stop:
 	docker compose down
+
+.PHONY: restart
+restart: stop start
