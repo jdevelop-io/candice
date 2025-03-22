@@ -31,3 +31,14 @@ services:
     profiles:
       - dev
       - tools
+
+  phpstan:
+    build:
+      context: .
+      dockerfile: docker/tools/Dockerfile
+      target: phpstan
+    volumes:
+      - .:/var/www/html
+    profiles:
+      - dev
+      - tools

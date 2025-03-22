@@ -31,3 +31,7 @@ CMD ["php", "vendor/bin/phpcs"]
 FROM base AS phpmd
 
 CMD ["php", "vendor/bin/phpmd", "src,bin,config,public", "text", "phpmd.xml"]
+
+FROM base AS phpstan
+
+CMD ["php", "vendor/bin/phpstan", "analyse"]
