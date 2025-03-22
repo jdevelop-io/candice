@@ -3,11 +3,15 @@ LOGS_SERVICES ?= $(shell docker compose config --services | tr '\n' ' ')
 CLEAN_OPTIONS ?= -s -f -v
 
 .PHONY: all
-all: start
+all: phpcs
 
 .PHONY: console
 console:
 	docker compose $(COMPOSE_FILES) run --rm console bash
+
+.PHONY: phpcs
+phpcs:
+	docker compose $(COMPOSE_FILES) run --rm phpcs
 
 .PHONY: start
 start:

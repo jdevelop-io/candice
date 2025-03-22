@@ -9,3 +9,14 @@ services:
     profiles:
       - dev
       - tools
+
+  phpcs:
+    build:
+      context: .
+      dockerfile: docker/tools/Dockerfile
+      target: phpcs
+    volumes:
+      - .:/var/www/html
+    profiles:
+      - dev
+      - tools
