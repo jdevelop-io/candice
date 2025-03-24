@@ -64,3 +64,14 @@ services:
     profiles:
       - dev
       - tools
+
+  deptrac:
+    build:
+      context: .
+      dockerfile: docker/tools/Dockerfile
+      target: deptrac
+    volumes:
+      - .:/var/www/html
+    profiles:
+      - dev
+      - tools
