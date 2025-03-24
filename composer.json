@@ -42,6 +42,11 @@
       "Candice\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Candice\\Tests\\": "tests/"
+    }
+  },
   "replace": {
     "symfony/polyfill-ctype": "*",
     "symfony/polyfill-iconv": "*",
