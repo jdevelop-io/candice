@@ -4,3 +4,13 @@ parameters:
 
 imports:
   - src/Shared/deptrac.baseline.yaml
+
+deptrac:
+  paths:
+    - src
+
+  layers:
+    - name: DependencySymfony
+      collectors:
+        - type: classNameRegex
+          value: '#^Symfony\\#'
