@@ -34,3 +34,6 @@ jobs:
         run: |
           cp phpstan.neon.dist phpstan.neon
           docker compose -f compose.dev.yaml run --rm phpstan
+
+      - name: Run Deptrac
+        run: docker compose -f compose.dev.yaml run --rm deptrac
