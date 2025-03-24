@@ -1,0 +1,21 @@
+parameters:
+  bounded_context_name: Shared
+
+deptrac:
+  paths:
+    - src
+
+  layers:
+    - name: InfrastructureSymfony
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\%bounded_context_name%\\Infrastructure\\Symfony\\#'
+
+    - name: DependencySymfony
+      collectors:
+        - type: classNameRegex
+          value: '#^Symfony\\#'
+
+  ruleset:
+    InfrastructureSymfony:
+      - DependencySymfony
