@@ -1,0 +1,48 @@
+deptrac:
+  paths:
+    - src/Onboarding
+    - tests/Unit/Onboarding
+
+  layers:
+    - name: OnboardingDomain
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Onboarding\\Domain\\#'
+    - name: OnboardingApplication
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Onboarding\\Application\\#'
+    - name: OnboardingTests
+      collectors:
+        - type: bool
+          must:
+            - type: classNameRegex
+              value: '#^%project_name%\\Tests\\Unit\\Onboarding\\#'
+          must_not:
+            - type: classNameRegex
+              value: '#^%project_name%\\Tests\\Unit\\Onboarding\\(Domain|Application)\\#'
+    - name: OnboardingDomainTests
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Tests\\Unit\\Onboarding\\Domain\\#'
+    - name: OnboardingApplicationTests
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Tests\\Unit\\Onboarding\\Application\\#'
+
+  ruleset:
+    OnboardingDomain: ~
+    OnboardingDomainTests:
+      - OnboardingDomain
+      - DependencyPHPUnit
+    OnboardingApplication:
+      - OnboardingDomain
+    OnboardingApplicationTests:
+      - OnboardingDomain
+      - OnboardingApplication
+      - OnboardingTests
+      - DependencyPHPUnit
+    OnboardingTests:
+      - OnboardingDomain
+      - OnboardingApplication
+      - DependencyPHPUnit
