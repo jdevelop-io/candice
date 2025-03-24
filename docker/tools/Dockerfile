@@ -51,3 +51,7 @@ FROM phpunit AS coverage
 ENV XDEBUG_MODE=coverage
 
 CMD ["php", "vendor/bin/phpunit"]
+
+FROM base AS deptrac
+
+CMD ["php", "vendor/bin/deptrac", "analyze", "--fail-on-uncovered", "--report-uncovered", "--cache-file=var/cache/deptrac.cache"]

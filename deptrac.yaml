@@ -1,0 +1,6 @@
+parameters:
+  project_name: Candice
+  cache_file: var/.deptrac.cache
+
+imports:
+  - src/Shared/deptrac.baseline.yaml
