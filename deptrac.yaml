@@ -4,6 +4,7 @@ parameters:
 
 imports:
   - src/Shared/deptrac.baseline.yaml
+  - src/Onboarding/deptrac.baseline.yaml
 
 deptrac:
   paths:
@@ -14,3 +15,7 @@ deptrac:
       collectors:
         - type: classNameRegex
           value: '#^Symfony\\#'
+    - name: DependencyPHPUnit
+      collectors:
+        - type: classNameRegex
+          value: '#^PHPUnit\\#'
