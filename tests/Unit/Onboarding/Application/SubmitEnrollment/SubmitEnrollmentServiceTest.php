@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Candice\Tests\Unit\Onboarding\Application\SubmitEnrollment;
 
 use Candice\Onboarding\Application\SubmitEnrollment\SubmitEnrollmentService;
+use Candice\Onboarding\Domain\Exception\EnrollmentInPendingApprovalException;
 use Candice\Onboarding\Domain\Exception\InvalidSirenChecksumException;
 use Candice\Onboarding\Domain\Exception\InvalidSirenFormatException;
 use Candice\Onboarding\Domain\Exception\UnsupportedRegistrationNumberTypeException;
 use Candice\Onboarding\Domain\Factory\RegistrationNumberFactory;
+use Candice\Onboarding\Infrastructure\Repository\InMemoryEnrollmentRepository;
 use Candice\Tests\Unit\Onboarding\EnrollmentTest;
 
 final class SubmitEnrollmentServiceTest extends EnrollmentTest
@@ -17,7 +19,9 @@ final class SubmitEnrollmentServiceTest extends EnrollmentTest
 
     protected function setUp(): void
     {
-        $this->service = new SubmitEnrollmentService(new RegistrationNumberFactory());
+        $this->service = new SubmitEnrollmentService(
+            new InMemoryEnrollmentRepository(), new RegistrationNumberFactory()
+        );
     }
 
     public function testRegistrationNumberTypeShouldBeSiren(): void
@@ -41,6 +45,17 @@ final class SubmitEnrollmentServiceTest extends EnrollmentTest
         $this->expectException(InvalidSirenChecksumException::class);
 
         $request = new SubmitEnrollmentRequest('siren', '123456789');
+        $this->service->execute($request);
+    }
+
+    public function testEnrollmentInProgressForApplicant(): void
+    {
+        $request = new SubmitEnrollmentRequest('siren', '938123072');
+        $this->service->execute($request);
+
+        $this->expectException(EnrollmentInPendingApprovalException::class);
+
+        $request = new SubmitEnrollmentRequest('siren', '938123072');
         $this->service->execute($request);
     }
 }
