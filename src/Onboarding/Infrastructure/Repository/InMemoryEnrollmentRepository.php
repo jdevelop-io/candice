@@ -6,10 +6,16 @@ namespace Candice\Onboarding\Infrastructure\Repository;
 
 use Candice\Onboarding\Domain\Entity\Enrollment;
 use Candice\Onboarding\Domain\Repository\EnrollmentRepositoryInterface;
+use Candice\Onboarding\Domain\ValueObject\EnrollmentId;
 use Candice\Onboarding\Domain\ValueObject\RegistrationNumber;
 
 final class InMemoryEnrollmentRepository implements EnrollmentRepositoryInterface
 {
+    /**
+     * @var array<string, Enrollment>
+     */
+    private array $enrollmentById = [];
+
     /**
      * @var array<string, array<string, Enrollment>>
      */
@@ -19,8 +25,14 @@ final class InMemoryEnrollmentRepository implements EnrollmentRepositoryInterfac
     {
         $registrationNumber = $enrollment->getRegistrationNumber();
 
+        $this->enrollmentById[$enrollment->getId()->unwrap()] = $enrollment;
         $this->enrollmentByRegistrationNumber[$registrationNumber->getType()][$registrationNumber->getValue()]
             = $enrollment;
+    }
+
+    public function findById(EnrollmentId $id): ?Enrollment
+    {
+        return $this->enrollmentById[$id->unwrap()] ?? null;
     }
 
     public function findByRegistrationNumber(RegistrationNumber $registrationNumber): ?Enrollment

@@ -8,17 +8,43 @@ use Candice\Onboarding\Application\SubmitEnrollment\SubmitEnrollmentRequestInter
 
 final readonly class SubmitEnrollmentRequest implements SubmitEnrollmentRequestInterface
 {
-    public function __construct(private string $registrationNumberType, private string $registrationNumber)
-    {
+    public function __construct(
+        private string $applicantEmail,
+        private string $applicantFirstName,
+        private string $applicantLastName,
+        private string $applicantPosition,
+        private string $organizationRegistrationNumberType,
+        private string $organizationRegistrationNumber
+    ) {
     }
 
-    public function getRegistrationNumberType(): string
+    public function getApplicantEmail(): string
     {
-        return $this->registrationNumberType;
+        return $this->applicantEmail;
     }
 
-    public function getRegistrationNumber(): string
+    public function getApplicantFirstName(): string
     {
-        return $this->registrationNumber;
+        return $this->applicantFirstName;
+    }
+
+    public function getApplicantLastName(): string
+    {
+        return $this->applicantLastName;
+    }
+
+    public function getApplicantPosition(): string
+    {
+        return $this->applicantPosition;
+    }
+
+    public function getOrganizationRegistrationNumberType(): string
+    {
+        return $this->organizationRegistrationNumberType;
+    }
+
+    public function getOrganizationRegistrationNumber(): string
+    {
+        return $this->organizationRegistrationNumber;
     }
 }
