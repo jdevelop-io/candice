@@ -44,7 +44,7 @@ RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 COPY ./docker/tools/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
-ENTRYPOINT ["entrypoint.sh", "vendor/bin/phpunit"]
+ENTRYPOINT ["entrypoint.sh", "php", "vendor/bin/phpunit"]
 
 FROM phpunit AS coverage
 
