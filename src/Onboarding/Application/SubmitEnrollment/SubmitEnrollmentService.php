@@ -26,8 +26,10 @@ final readonly class SubmitEnrollmentService
         );
 
         $enrollment = $this->enrollmentRepository->findByRegistrationNumber($registrationNumber);
-        if ($enrollment !== null && $enrollment->getStatus() === EnrollmentStatus::PENDING_APPROVAL) {
-            throw new EnrollmentInPendingApprovalException();
+        if ($enrollment !== null) {
+            match ($enrollment->getStatus()) {
+                EnrollmentStatus::PENDING_APPROVAL => throw new EnrollmentInPendingApprovalException(),
+            };
         }
 
         $enrollment = Enrollment::submit($registrationNumber);

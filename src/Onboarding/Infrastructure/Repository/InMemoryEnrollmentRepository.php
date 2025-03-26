@@ -11,7 +11,7 @@ use Candice\Onboarding\Domain\ValueObject\RegistrationNumber;
 final class InMemoryEnrollmentRepository implements EnrollmentRepositoryInterface
 {
     /**
-     * @var array<string, Enrollment>
+     * @var array<string, array<string, Enrollment>>
      */
     private array $enrollmentByRegistrationNumber = [];
 
