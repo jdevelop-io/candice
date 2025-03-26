@@ -8,10 +8,18 @@ deptrac:
       collectors:
         - type: classNameRegex
           value: '#^%project_name%\\Onboarding\\Domain\\#'
+    - name: OnboardingDomainTests
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Tests\\Unit\\Onboarding\\Domain\\#'
     - name: OnboardingApplication
       collectors:
         - type: classNameRegex
           value: '#^%project_name%\\Onboarding\\Application\\#'
+    - name: OnboardingApplicationTests
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Tests\\Unit\\Onboarding\\Application\\#'
     - name: OnboardingTests
       collectors:
         - type: bool
@@ -21,14 +29,6 @@ deptrac:
           must_not:
             - type: classNameRegex
               value: '#^%project_name%\\Tests\\Unit\\Onboarding\\(Domain|Application)\\#'
-    - name: OnboardingDomainTests
-      collectors:
-        - type: classNameRegex
-          value: '#^%project_name%\\Tests\\Unit\\Onboarding\\Domain\\#'
-    - name: OnboardingApplicationTests
-      collectors:
-        - type: classNameRegex
-          value: '#^%project_name%\\Tests\\Unit\\Onboarding\\Application\\#'
 
   ruleset:
     OnboardingDomain: ~
