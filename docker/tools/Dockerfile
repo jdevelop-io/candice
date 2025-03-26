@@ -23,19 +23,20 @@ ENTRYPOINT ["entrypoint.sh"]
 
 FROM base AS console
 
-CMD ["php", "bin/console"]
+ENTRYPOINT ["entrypoint.sh", "php", "bin/console"]
 
 FROM base AS phpcs
 
-CMD ["php", "vendor/bin/phpcs"]
+ENTRYPOINT ["entrypoint.sh", "php", "vendor/bin/phpcs"]
 
 FROM base AS phpmd
 
-CMD ["php", "vendor/bin/phpmd", "src,bin,config,public", "text", "phpmd.xml"]
+ENTRYPOINT ["entrypoint.sh", "php", "vendor/bin/phpmd"]
+CMD ["src,bin,config,public", "text", "phpmd.xml"]
 
 FROM base AS phpstan
 
-CMD ["php", "vendor/bin/phpstan", "analyse"]
+ENTRYPOINT ["entrypoint.sh", "php", "vendor/bin/phpstan"]
 
 FROM base AS phpunit
 
@@ -44,14 +45,15 @@ RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 COPY ./docker/tools/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
-CMD ["php", "vendor/bin/phpunit"]
+ENTRYPOINT ["entrypoint.sh", "php", "vendor/bin/phpunit"]
 
 FROM phpunit AS coverage
 
 ENV XDEBUG_MODE=coverage
 
-CMD ["php", "vendor/bin/phpunit"]
+CMD ["--coverage-text", "--coverage-html=var/coverage", "--coverage-clover=var/coverage.xml"]
 
 FROM base AS deptrac
 
-CMD ["php", "vendor/bin/deptrac", "analyze", "--fail-on-uncovered", "--report-uncovered", "--cache-file=var/cache/deptrac.cache"]
+ENTRYPOINT ["entrypoint.sh", "php", "vendor/bin/deptrac"]
+CMD ["analyze", "--fail-on-uncovered", "--report-uncovered", "--cache-file=var/cache/deptrac.cache"]
