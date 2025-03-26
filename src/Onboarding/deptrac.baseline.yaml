@@ -4,10 +4,22 @@ deptrac:
     - tests/Unit/Onboarding
 
   layers:
-    - name: OnboardingDomain
+    - name: OnboardingDomainModel
       collectors:
         - type: classNameRegex
-          value: '#^%project_name%\\Onboarding\\Domain\\#'
+          value: '#^%project_name%\\Onboarding\\Domain\\(Entity|ValueObject)\\#'
+    - name: OnboardingDomainRepository
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Onboarding\\Domain\\Repository\\#'
+    - name: OnboardingDomainException
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Onboarding\\Domain\\Exception\\#'
+    - name: OnboardingDomainFactory
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Onboarding\\Domain\\Factory\\#'
     - name: OnboardingDomainTests
       collectors:
         - type: classNameRegex
@@ -20,6 +32,10 @@ deptrac:
       collectors:
         - type: classNameRegex
           value: '#^%project_name%\\Tests\\Unit\\Onboarding\\Application\\#'
+    - name: OnboardingInfrastructureRepository
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Onboarding\\Infrastructure\\Repository\\#'
     - name: OnboardingTests
       collectors:
         - type: bool
@@ -31,18 +47,34 @@ deptrac:
               value: '#^%project_name%\\Tests\\Unit\\Onboarding\\(Domain|Application)\\#'
 
   ruleset:
-    OnboardingDomain: ~
+    OnboardingDomainModel:
+      - OnboardingDomainException
+    OnboardingDomainRepository:
+      - OnboardingDomainModel
+    OnboardingDomainFactory:
+      - OnboardingDomainModel
+      - OnboardingDomainException
     OnboardingDomainTests:
-      - OnboardingDomain
+      - OnboardingDomainFactory
+      - OnboardingDomainModel
       - DependencyPHPUnit
     OnboardingApplication:
-      - OnboardingDomain
+      - OnboardingDomainModel
+      - OnboardingDomainFactory
+      - OnboardingDomainRepository
+      - OnboardingDomainException
     OnboardingApplicationTests:
-      - OnboardingDomain
+      - OnboardingDomainFactory
+      - OnboardingDomainException
       - OnboardingApplication
+      - OnboardingInfrastructureRepository
       - OnboardingTests
       - DependencyPHPUnit
+    OnboardingInfrastructureRepository:
+      - OnboardingDomainModel
+      - OnboardingDomainRepository
     OnboardingTests:
-      - OnboardingDomain
+      - OnboardingDomainFactory
       - OnboardingApplication
+      - OnboardingInfrastructureRepository
       - DependencyPHPUnit
