@@ -7,6 +7,7 @@ namespace Candice\Tests\Unit\Onboarding\Application\SubmitEnrollment;
 use Candice\Onboarding\Application\SubmitEnrollment\SubmitEnrollmentService;
 use Candice\Onboarding\Domain\Exception\EnrollmentInPendingApprovalException;
 use Candice\Onboarding\Domain\Exception\InvalidApplicantEmailException;
+use Candice\Onboarding\Domain\Exception\InvalidApplicantPositionException;
 use Candice\Onboarding\Domain\Exception\InvalidSirenChecksumException;
 use Candice\Onboarding\Domain\Exception\InvalidSirenFormatException;
 use Candice\Onboarding\Domain\Exception\UnsupportedRegistrationNumberTypeException;
@@ -107,6 +108,21 @@ final class SubmitEnrollmentServiceTest extends EnrollmentTest
             'paul-henry',
             'dumont',
             'executive',
+            'siren',
+            '938123072'
+        );
+        $this->service->execute($request);
+    }
+
+    public function testApplicantPositionInvalid(): void
+    {
+        $this->expectException(InvalidApplicantPositionException::class);
+
+        $request = new SubmitEnrollmentRequest(
+            'paul-henry.dumont@example.com',
+            'paul-henry',
+            'dumont',
+            'executive_assistant',
             'siren',
             '938123072'
         );
