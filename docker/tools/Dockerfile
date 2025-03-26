@@ -44,13 +44,13 @@ RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 COPY ./docker/tools/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
-CMD ["php", "vendor/bin/phpunit"]
+ENTRYPOINT ["entrypoint.sh", "php", "vendor/bin/phpunit"]
 
 FROM phpunit AS coverage
 
 ENV XDEBUG_MODE=coverage
 
-CMD ["php", "vendor/bin/phpunit"]
+CMD ["--coverage-text", "--coverage-html=var/coverage", "--coverage-clover=var/coverage.xml"]
 
 FROM base AS deptrac
 
