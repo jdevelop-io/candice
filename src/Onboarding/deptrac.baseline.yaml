@@ -32,6 +32,10 @@ deptrac:
       collectors:
         - type: classNameRegex
           value: '#^%project_name%\\Tests\\Unit\\Onboarding\\Application\\#'
+    - name: OnboardingInfrastructureIdGenerator
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Onboarding\\Infrastructure\\IdGenerator\\#'
     - name: OnboardingInfrastructureRepository
       collectors:
         - type: classNameRegex
@@ -64,17 +68,23 @@ deptrac:
       - OnboardingDomainRepository
       - OnboardingDomainException
     OnboardingApplicationTests:
+      - OnboardingDomainModel
       - OnboardingDomainFactory
       - OnboardingDomainException
       - OnboardingApplication
+      - OnboardingInfrastructureIdGenerator
       - OnboardingInfrastructureRepository
       - OnboardingTests
       - DependencyPHPUnit
+    OnboardingInfrastructureIdGenerator:
+      - OnboardingDomainModel
+      - OnboardingApplication
     OnboardingInfrastructureRepository:
       - OnboardingDomainModel
       - OnboardingDomainRepository
     OnboardingTests:
       - OnboardingDomainFactory
       - OnboardingApplication
+      - OnboardingInfrastructureIdGenerator
       - OnboardingInfrastructureRepository
       - DependencyPHPUnit

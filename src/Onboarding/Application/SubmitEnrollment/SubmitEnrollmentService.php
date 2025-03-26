@@ -4,37 +4,50 @@ declare(strict_types=1);
 
 namespace Candice\Onboarding\Application\SubmitEnrollment;
 
+use Candice\Onboarding\Domain\Entity\Applicant;
 use Candice\Onboarding\Domain\Entity\Enrollment;
 use Candice\Onboarding\Domain\Exception\EnrollmentInPendingApprovalException;
 use Candice\Onboarding\Domain\Factory\RegistrationNumberFactory;
 use Candice\Onboarding\Domain\Repository\EnrollmentRepositoryInterface;
+use Candice\Onboarding\Domain\ValueObject\ApplicantEmail;
+use Candice\Onboarding\Domain\ValueObject\ApplicantFullName;
+use Candice\Onboarding\Domain\ValueObject\ApplicantPosition;
 use Candice\Onboarding\Domain\ValueObject\EnrollmentStatus;
 
 final readonly class SubmitEnrollmentService
 {
     public function __construct(
         private EnrollmentRepositoryInterface $enrollmentRepository,
-        private RegistrationNumberFactory $registrationNumberFactory
+        private EnrollmentIdGeneratorInterface $enrollmentIdGenerator,
+        private RegistrationNumberFactory $registrationNumberFactory,
     ) {
     }
 
     public function execute(SubmitEnrollmentRequestInterface $request): SubmitEnrollmentResponse
     {
         $registrationNumber = $this->registrationNumberFactory->create(
-            $request->getRegistrationNumberType(),
-            $request->getRegistrationNumber()
+            $request->getOrganizationRegistrationNumberType(),
+            $request->getOrganizationRegistrationNumber()
         );
 
         $enrollment = $this->enrollmentRepository->findByRegistrationNumber($registrationNumber);
         if ($enrollment !== null) {
             match ($enrollment->getStatus()) {
                 EnrollmentStatus::PENDING_APPROVAL => throw new EnrollmentInPendingApprovalException(),
+                // TODO: EnrollmentStatus::APPROVED => throw new EnrollmentAlreadyApprovedException(),
+                // TODO: EnrollmentStatus::REJECTED => null,
             };
         }
 
-        $enrollment = Enrollment::submit($registrationNumber);
+        $applicantEmail = new ApplicantEmail($request->getApplicantEmail());
+        $applicantFullName = new ApplicantFullName($request->getApplicantFirstName(), $request->getApplicantLastName());
+        $applicantPosition = ApplicantPosition::fromValue($request->getApplicantPosition());
+        $applicant = new Applicant($applicantEmail, $applicantFullName, $applicantPosition);
+
+        $id = $this->enrollmentIdGenerator->generate();
+        $enrollment = Enrollment::submit($id, $registrationNumber, $applicant);
         $this->enrollmentRepository->insert($enrollment);
 
-        return new SubmitEnrollmentResponse();
+        return new SubmitEnrollmentResponse($enrollment->getId()->unwrap());
     }
 }
