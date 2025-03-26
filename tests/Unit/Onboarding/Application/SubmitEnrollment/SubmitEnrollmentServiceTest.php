@@ -9,8 +9,6 @@ use Candice\Onboarding\Domain\Exception\EnrollmentInPendingApprovalException;
 use Candice\Onboarding\Domain\Exception\InvalidSirenChecksumException;
 use Candice\Onboarding\Domain\Exception\InvalidSirenFormatException;
 use Candice\Onboarding\Domain\Exception\UnsupportedRegistrationNumberTypeException;
-use Candice\Onboarding\Domain\Factory\RegistrationNumberFactory;
-use Candice\Onboarding\Infrastructure\Repository\InMemoryEnrollmentRepository;
 use Candice\Tests\Unit\Onboarding\EnrollmentTest;
 
 final class SubmitEnrollmentServiceTest extends EnrollmentTest
@@ -19,9 +17,7 @@ final class SubmitEnrollmentServiceTest extends EnrollmentTest
 
     protected function setUp(): void
     {
-        $this->service = new SubmitEnrollmentService(
-            new InMemoryEnrollmentRepository(), new RegistrationNumberFactory()
-        );
+        $this->service = new SubmitEnrollmentService($this->enrollmentRepository, $this->registrationNumberFactory);
     }
 
     public function testRegistrationNumberTypeShouldBeSiren(): void
