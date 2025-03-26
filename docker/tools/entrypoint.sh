@@ -6,5 +6,6 @@
 #fi
 
 echo "Running entrypoint.sh"
+echo "Current directory: $(pwd)"
 echo "Executing command: $@"
 exec "$@"
