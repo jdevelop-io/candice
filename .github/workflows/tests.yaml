@@ -21,4 +21,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run PHPUnit tests
-        run: docker compose -f compose.dev.yaml run --rm coverage
+        run: docker compose -f compose.dev.yaml run --rm coverage --coverage-text --coverage-html=var/coverage --coverage-clover=var/coverage.xml
