@@ -17,6 +17,8 @@ final class SubmitEnrollmentServiceTest extends EnrollmentTest
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->service = new SubmitEnrollmentService($this->enrollmentRepository, $this->registrationNumberFactory);
     }
 
