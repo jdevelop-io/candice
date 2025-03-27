@@ -20,13 +20,17 @@ deptrac:
   ruleset:
     OnboardingDomainTests:
       - OnboardingDomainFactory
-      - OnboardingDomainModel
+      - OnboardingDomainEntity
+      - OnboardingDomainValueObject
       - DependencyPHPUnit
     OnboardingApplicationTests:
+      - SharedTests
       - SharedDomainEvent
       - SharedInfrastructureEvent
-      - OnboardingDomainModel
+      - OnboardingDomainEntity
+      - OnboardingDomainValueObject
       - OnboardingDomainEvent
+      - OnboardingDomainService
       - OnboardingDomainFactory
       - OnboardingDomainException
       - OnboardingApplication
@@ -35,10 +39,13 @@ deptrac:
       - OnboardingTests
       - DependencyPHPUnit
     OnboardingTests:
+      - SharedTests
       - SharedDomainEvent
       - SharedInfrastructureEvent
-      - OnboardingDomainModel
+      - OnboardingDomainEntity
+      - OnboardingDomainValueObject
       - OnboardingDomainEvent
+      - OnboardingDomainService
       - OnboardingDomainFactory
       - OnboardingApplication
       - OnboardingApplicationTests

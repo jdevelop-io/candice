@@ -1,0 +1,15 @@
+deptrac:
+  paths:
+    - tests/Unit/Shared
+
+  layers:
+    - name: SharedTests
+      collectors:
+        - type: bool
+          must:
+            - type: classNameRegex
+              value: '#^%project_name%\\Tests\\Unit\\Shared\\#'
+
+  ruleset:
+    SharedTests:
+      - SharedInfrastructureEvent

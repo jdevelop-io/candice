@@ -3,14 +3,26 @@ deptrac:
     - src/Onboarding
 
   layers:
-    - name: OnboardingDomainModel
+    - name: OnboardingDomainEntity
       collectors:
         - type: classNameRegex
-          value: '#^%project_name%\\Onboarding\\Domain\\(Entity|ValueObject)\\#'
+          value: '#^%project_name%\\Onboarding\\Domain\\Entity\\#'
+    - name: OnboardingDomainValueObject
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Onboarding\\Domain\\ValueObject\\#'
     - name: OnboardingDomainEvent
       collectors:
         - type: classNameRegex
           value: '#^%project_name%\\Onboarding\\Domain\\Event\\#'
+    - name: OnboardingDomainIdGenerator
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Onboarding\\Domain\\IdGenerator\\#'
+    - name: OnboardingDomainService
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Onboarding\\Domain\\Service\\#'
     - name: OnboardingDomainRepository
       collectors:
         - type: classNameRegex
@@ -37,29 +49,47 @@ deptrac:
           value: '#^%project_name%\\Onboarding\\Infrastructure\\Repository\\#'
 
   ruleset:
-    OnboardingDomainModel:
-      - SharedDomainModel
+    OnboardingDomainEntity:
+      - SharedDomainEntity
       - SharedDomainEvent
+      - OnboardingDomainValueObject
       - OnboardingDomainEvent
       - OnboardingDomainException
-    OnboardingDomainEvent:
-      - SharedDomainModel
-      - SharedDomainEvent
-      - OnboardingDomainModel
-    OnboardingDomainRepository:
-      - OnboardingDomainModel
-    OnboardingDomainFactory:
-      - OnboardingDomainModel
+    OnboardingDomainValueObject:
       - OnboardingDomainException
+      - SharedDomainValueObject
+    OnboardingDomainEvent:
+      - SharedDomainValueObject
+      - SharedDomainEvent
+      - OnboardingDomainEntity
+      - OnboardingDomainValueObject
+    OnboardingDomainService:
+      - OnboardingDomainEntity
+      - OnboardingDomainValueObject
+      - OnboardingDomainException
+      - OnboardingDomainFactory
+    OnboardingDomainIdGenerator:
+      - OnboardingDomainValueObject
+    OnboardingDomainRepository:
+      - OnboardingDomainEntity
+      - OnboardingDomainValueObject
+    OnboardingDomainFactory:
+      - OnboardingDomainEntity
+      - OnboardingDomainValueObject
+      - OnboardingDomainException
+      - OnboardingDomainIdGenerator
     OnboardingApplication:
       - SharedDomainEvent
-      - OnboardingDomainModel
+      - OnboardingDomainEntity
+      - OnboardingDomainValueObject
       - OnboardingDomainFactory
       - OnboardingDomainRepository
       - OnboardingDomainException
+      - OnboardingDomainService
     OnboardingInfrastructureIdGenerator:
-      - OnboardingDomainModel
-      - OnboardingApplication
+      - OnboardingDomainValueObject
+      - OnboardingDomainIdGenerator
     OnboardingInfrastructureRepository:
-      - OnboardingDomainModel
+      - OnboardingDomainEntity
+      - OnboardingDomainValueObject
       - OnboardingDomainRepository

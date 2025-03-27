@@ -4,6 +4,7 @@ parameters:
 
 imports:
   - src/Shared/deptrac.baseline.yaml
+  - tests/Unit/Shared/deptrac.baseline.yaml
   - src/Onboarding/deptrac.baseline.yaml
   - tests/Unit/Onboarding/deptrac.baseline.yaml
 
