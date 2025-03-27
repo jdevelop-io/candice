@@ -7,6 +7,10 @@ deptrac:
       collectors:
         - type: classNameRegex
           value: '#^%project_name%\\Onboarding\\Domain\\(Entity|ValueObject)\\#'
+    - name: OnboardingDomainEvent
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Onboarding\\Domain\\Event\\#'
     - name: OnboardingDomainRepository
       collectors:
         - type: classNameRegex
@@ -34,13 +38,21 @@ deptrac:
 
   ruleset:
     OnboardingDomainModel:
+      - SharedDomainModel
+      - SharedDomainEvent
+      - OnboardingDomainEvent
       - OnboardingDomainException
+    OnboardingDomainEvent:
+      - SharedDomainModel
+      - SharedDomainEvent
+      - OnboardingDomainModel
     OnboardingDomainRepository:
       - OnboardingDomainModel
     OnboardingDomainFactory:
       - OnboardingDomainModel
       - OnboardingDomainException
     OnboardingApplication:
+      - SharedDomainEvent
       - OnboardingDomainModel
       - OnboardingDomainFactory
       - OnboardingDomainRepository

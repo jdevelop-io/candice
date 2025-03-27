@@ -23,7 +23,10 @@ deptrac:
       - OnboardingDomainModel
       - DependencyPHPUnit
     OnboardingApplicationTests:
+      - SharedDomainEvent
+      - SharedInfrastructureEvent
       - OnboardingDomainModel
+      - OnboardingDomainEvent
       - OnboardingDomainFactory
       - OnboardingDomainException
       - OnboardingApplication
@@ -32,7 +35,10 @@ deptrac:
       - OnboardingTests
       - DependencyPHPUnit
     OnboardingTests:
+      - SharedDomainEvent
+      - SharedInfrastructureEvent
       - OnboardingDomainModel
+      - OnboardingDomainEvent
       - OnboardingDomainFactory
       - OnboardingApplication
       - OnboardingApplicationTests
