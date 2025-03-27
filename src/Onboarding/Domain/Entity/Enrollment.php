@@ -4,23 +4,31 @@ declare(strict_types=1);
 
 namespace Candice\Onboarding\Domain\Entity;
 
+use Candice\Onboarding\Domain\Event\EnrollmentSubmittedEvent;
 use Candice\Onboarding\Domain\ValueObject\EnrollmentId;
 use Candice\Onboarding\Domain\ValueObject\EnrollmentStatus;
 use Candice\Onboarding\Domain\ValueObject\RegistrationNumber;
+use Candice\Shared\Domain\Event\DomainEventPublisherTrait;
 
-final readonly class Enrollment
+final class Enrollment
 {
+    use DomainEventPublisherTrait;
+
     public function __construct(
-        private EnrollmentId $id,
-        private RegistrationNumber $registrationNumber,
-        private Applicant $applicant,
-        private EnrollmentStatus $status,
+        private readonly EnrollmentId $id,
+        private readonly RegistrationNumber $registrationNumber,
+        private readonly Applicant $applicant,
+        private readonly EnrollmentStatus $status,
     ) {
     }
 
     public static function submit(EnrollmentId $id, RegistrationNumber $registrationNumber, Applicant $applicant): self
     {
-        return new self($id, $registrationNumber, $applicant, EnrollmentStatus::PENDING_APPROVAL);
+        $enrollment = new self($id, $registrationNumber, $applicant, EnrollmentStatus::PENDING_APPROVAL);
+
+        $enrollment->record(new EnrollmentSubmittedEvent($enrollment->getId()));
+
+        return $enrollment;
     }
 
     public function getId(): EnrollmentId

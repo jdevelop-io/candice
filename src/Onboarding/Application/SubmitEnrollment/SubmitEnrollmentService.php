@@ -13,12 +13,16 @@ use Candice\Onboarding\Domain\ValueObject\ApplicantEmail;
 use Candice\Onboarding\Domain\ValueObject\ApplicantFullName;
 use Candice\Onboarding\Domain\ValueObject\ApplicantPosition;
 use Candice\Onboarding\Domain\ValueObject\EnrollmentStatus;
+use Candice\Shared\Domain\Event\EventPublisherInterface;
+use Candice\Shared\Domain\Event\EventStoreInterface;
 
 final readonly class SubmitEnrollmentService
 {
     public function __construct(
         private EnrollmentRepositoryInterface $enrollmentRepository,
         private EnrollmentIdGeneratorInterface $enrollmentIdGenerator,
+        private EventStoreInterface $eventStore,
+        private EventPublisherInterface $eventPublisher,
         private RegistrationNumberFactory $registrationNumberFactory,
     ) {
     }
@@ -46,7 +50,12 @@ final readonly class SubmitEnrollmentService
 
         $id = $this->enrollmentIdGenerator->generate();
         $enrollment = Enrollment::submit($id, $registrationNumber, $applicant);
+
         $this->enrollmentRepository->insert($enrollment);
+
+        $events = $enrollment->releaseEvents();
+        $this->eventStore->append($events);
+        $this->eventPublisher->publish($events);
 
         return new SubmitEnrollmentResponse($enrollment->getId()->unwrap());
     }
