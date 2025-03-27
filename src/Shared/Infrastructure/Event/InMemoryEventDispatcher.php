@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Candice\Shared\Infrastructure\Event;
 
 use Candice\Shared\Domain\Event\DomainEvent;
-use Candice\Shared\Domain\Event\EventPublisherInterface;
+use Candice\Shared\Domain\Event\EventDispatcherInterface;
 use Countable;
 
-final class InMemoryEventPublisher implements EventPublisherInterface, Countable
+final class InMemoryEventDispatcher implements EventDispatcherInterface, Countable
 {
     /**
      * @var DomainEvent[]
@@ -18,7 +18,7 @@ final class InMemoryEventPublisher implements EventPublisherInterface, Countable
     /**
      * @param iterable<DomainEvent> $events
      */
-    public function publish(iterable $events): void
+    public function dispatch(iterable $events): void
     {
         foreach ($events as $event) {
             $this->events[] = $event;

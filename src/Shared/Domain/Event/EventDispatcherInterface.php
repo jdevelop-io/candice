@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Candice\Shared\Domain\Event;
 
-interface EventPublisherInterface
+interface EventDispatcherInterface
 {
     /**
      * @param iterable<DomainEvent> $events
      */
-    public function publish(iterable $events): void;
+    public function dispatch(iterable $events): void;
 }

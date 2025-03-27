@@ -24,7 +24,8 @@ final class SubmitEnrollmentServiceTest extends EnrollmentTest
             'dumont',
             'executive',
             'bn',
-            '938123072'
+            '938123072',
+            'Acme Inc.',
         );
     }
 
@@ -38,7 +39,8 @@ final class SubmitEnrollmentServiceTest extends EnrollmentTest
             'dumont',
             'executive',
             'siren',
-            '93812307'
+            '93812307',
+            'Acme Inc.',
         );
     }
 
@@ -52,7 +54,8 @@ final class SubmitEnrollmentServiceTest extends EnrollmentTest
             'dumont',
             'executive',
             'siren',
-            '123456789'
+            '123456789',
+            'Acme Inc.',
         );
     }
 
@@ -64,7 +67,8 @@ final class SubmitEnrollmentServiceTest extends EnrollmentTest
             'dumont',
             'executive',
             'siren',
-            '938123072'
+            '938123072',
+            'Acme Inc.',
         );
 
         $this->expectException(EnrollmentInPendingApprovalException::class);
@@ -75,7 +79,8 @@ final class SubmitEnrollmentServiceTest extends EnrollmentTest
             'dumont',
             'executive',
             'siren',
-            '938123072'
+            '938123072',
+            'Acme Inc.',
         );
     }
 
@@ -89,7 +94,8 @@ final class SubmitEnrollmentServiceTest extends EnrollmentTest
             'dumont',
             'executive',
             'siren',
-            '938123072'
+            '938123072',
+            'Acme Inc.',
         );
     }
 
@@ -103,7 +109,8 @@ final class SubmitEnrollmentServiceTest extends EnrollmentTest
             'dumont',
             'executive_assistant',
             'siren',
-            '938123072'
+            '938123072',
+            'Acme Inc.',
         );
     }
 
@@ -115,7 +122,8 @@ final class SubmitEnrollmentServiceTest extends EnrollmentTest
             'dumont',
             'executive',
             'siren',
-            '938123072'
+            '938123072',
+            'Acme Inc.',
         );
 
         $this->assertEnrollmentSubmitted(
@@ -126,6 +134,7 @@ final class SubmitEnrollmentServiceTest extends EnrollmentTest
                 'applicantPosition' => 'executive',
                 'organizationRegistrationNumberType' => 'siren',
                 'organizationRegistrationNumber' => '938123072',
+                'organizationName' => 'Acme Inc.',
             ],
             $response->getEnrollmentId()
         );

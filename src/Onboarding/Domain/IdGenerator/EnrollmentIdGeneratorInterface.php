@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Candice\Onboarding\Application\SubmitEnrollment;
+namespace Candice\Onboarding\Domain\IdGenerator;
 
 use Candice\Onboarding\Domain\ValueObject\EnrollmentId;
 

@@ -16,7 +16,10 @@ trait DomainEventPublisherTrait
         $this->events[] = $event;
     }
 
-    public function releaseEvents(): array
+    /**
+     * @return iterable<DomainEvent>
+     */
+    public function releaseEvents(): iterable
     {
         $events = $this->events;
         $this->events = [];

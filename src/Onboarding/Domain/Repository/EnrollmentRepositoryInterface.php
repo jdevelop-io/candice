@@ -14,5 +14,5 @@ interface EnrollmentRepositoryInterface
 
     public function findById(EnrollmentId $id): ?Enrollment;
 
-    public function findByRegistrationNumber(RegistrationNumber $registrationNumber): ?Enrollment;
+    public function findByOrganizationRegistrationNumber(RegistrationNumber $registrationNumber): ?Enrollment;
 }
