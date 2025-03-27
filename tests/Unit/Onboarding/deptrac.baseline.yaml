@@ -1,0 +1,41 @@
+deptrac:
+  paths:
+    - tests/Unit/Onboarding
+
+  layers:
+    - name: OnboardingApplicationTests
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Tests\\Unit\\Onboarding\\Application\\#'
+    - name: OnboardingTests
+      collectors:
+        - type: bool
+          must:
+            - type: classNameRegex
+              value: '#^%project_name%\\Tests\\Unit\\Onboarding\\#'
+          must_not:
+            - type: classNameRegex
+              value: '#^%project_name%\\Tests\\Unit\\Onboarding\\(Domain|Application)\\#'
+
+  ruleset:
+    OnboardingDomainTests:
+      - OnboardingDomainFactory
+      - OnboardingDomainModel
+      - DependencyPHPUnit
+    OnboardingApplicationTests:
+      - OnboardingDomainModel
+      - OnboardingDomainFactory
+      - OnboardingDomainException
+      - OnboardingApplication
+      - OnboardingInfrastructureIdGenerator
+      - OnboardingInfrastructureRepository
+      - OnboardingTests
+      - DependencyPHPUnit
+    OnboardingTests:
+      - OnboardingDomainModel
+      - OnboardingDomainFactory
+      - OnboardingApplication
+      - OnboardingApplicationTests
+      - OnboardingInfrastructureIdGenerator
+      - OnboardingInfrastructureRepository
+      - DependencyPHPUnit

@@ -1,7 +1,6 @@
 deptrac:
   paths:
     - src/Onboarding
-    - tests/Unit/Onboarding
 
   layers:
     - name: OnboardingDomainModel
@@ -20,18 +19,10 @@ deptrac:
       collectors:
         - type: classNameRegex
           value: '#^%project_name%\\Onboarding\\Domain\\Factory\\#'
-    - name: OnboardingDomainTests
-      collectors:
-        - type: classNameRegex
-          value: '#^%project_name%\\Tests\\Unit\\Onboarding\\Domain\\#'
     - name: OnboardingApplication
       collectors:
         - type: classNameRegex
           value: '#^%project_name%\\Onboarding\\Application\\#'
-    - name: OnboardingApplicationTests
-      collectors:
-        - type: classNameRegex
-          value: '#^%project_name%\\Tests\\Unit\\Onboarding\\Application\\#'
     - name: OnboardingInfrastructureIdGenerator
       collectors:
         - type: classNameRegex
@@ -40,15 +31,6 @@ deptrac:
       collectors:
         - type: classNameRegex
           value: '#^%project_name%\\Onboarding\\Infrastructure\\Repository\\#'
-    - name: OnboardingTests
-      collectors:
-        - type: bool
-          must:
-            - type: classNameRegex
-              value: '#^%project_name%\\Tests\\Unit\\Onboarding\\#'
-          must_not:
-            - type: classNameRegex
-              value: '#^%project_name%\\Tests\\Unit\\Onboarding\\(Domain|Application)\\#'
 
   ruleset:
     OnboardingDomainModel:
@@ -58,33 +40,14 @@ deptrac:
     OnboardingDomainFactory:
       - OnboardingDomainModel
       - OnboardingDomainException
-    OnboardingDomainTests:
-      - OnboardingDomainFactory
-      - OnboardingDomainModel
-      - DependencyPHPUnit
     OnboardingApplication:
       - OnboardingDomainModel
       - OnboardingDomainFactory
       - OnboardingDomainRepository
       - OnboardingDomainException
-    OnboardingApplicationTests:
-      - OnboardingDomainModel
-      - OnboardingDomainFactory
-      - OnboardingDomainException
-      - OnboardingApplication
-      - OnboardingInfrastructureIdGenerator
-      - OnboardingInfrastructureRepository
-      - OnboardingTests
-      - DependencyPHPUnit
     OnboardingInfrastructureIdGenerator:
       - OnboardingDomainModel
       - OnboardingApplication
     OnboardingInfrastructureRepository:
       - OnboardingDomainModel
       - OnboardingDomainRepository
-    OnboardingTests:
-      - OnboardingDomainFactory
-      - OnboardingApplication
-      - OnboardingInfrastructureIdGenerator
-      - OnboardingInfrastructureRepository
-      - DependencyPHPUnit
