@@ -4,7 +4,7 @@ CLEAN_OPTIONS ?= -s -f -v
 COVERAGE_OPTIONS ?= --coverage-text --coverage-html=var/coverage --coverage-clover=var/coverage.xml
 
 .PHONY: all
-all: tests phpcs phpmd phpstan deptrac
+all: coverage phpcs phpmd phpstan deptrac
 
 .PHONY: tests
 tests:
