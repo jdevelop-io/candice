@@ -32,7 +32,7 @@ ENTRYPOINT ["entrypoint.sh", "php", "vendor/bin/phpcs"]
 FROM base AS phpmd
 
 ENTRYPOINT ["entrypoint.sh", "php", "vendor/bin/phpmd"]
-CMD ["src,bin,config,public", "text", "phpmd.xml"]
+CMD ["src,tests,bin,config,public", "text", "phpmd.xml"]
 
 FROM base AS phpstan
 

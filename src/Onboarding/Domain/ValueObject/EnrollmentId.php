@@ -4,14 +4,8 @@ declare(strict_types=1);
 
 namespace Candice\Onboarding\Domain\ValueObject;
 
-final readonly class EnrollmentId
-{
-    public function __construct(private string $value)
-    {
-    }
+use Candice\Shared\Domain\ValueObject\AggregateRootId;
 
-    public function unwrap(): string
-    {
-        return $this->value;
-    }
+final class EnrollmentId extends AggregateRootId
+{
 }

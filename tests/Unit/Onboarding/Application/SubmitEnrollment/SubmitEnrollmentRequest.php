@@ -14,7 +14,8 @@ final readonly class SubmitEnrollmentRequest implements SubmitEnrollmentRequestI
         private string $applicantLastName,
         private string $applicantPosition,
         private string $organizationRegistrationNumberType,
-        private string $organizationRegistrationNumber
+        private string $organizationRegistrationNumber,
+        private string $organizationName,
     ) {
     }
 
@@ -46,5 +47,10 @@ final readonly class SubmitEnrollmentRequest implements SubmitEnrollmentRequestI
     public function getOrganizationRegistrationNumber(): string
     {
         return $this->organizationRegistrationNumber;
+    }
+
+    public function getOrganizationName(): string
+    {
+        return $this->organizationName;
     }
 }

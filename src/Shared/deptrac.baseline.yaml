@@ -3,11 +3,34 @@ deptrac:
     - src/Shared
 
   layers:
+    - name: SharedDomainEntity
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Shared\\Domain\\Entity\\#'
+    - name: SharedDomainValueObject
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Shared\\Domain\\ValueObject\\#'
+    - name: SharedDomainEvent
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Shared\\Domain\\Event\\#'
     - name: SharedInfrastructureSymfony
       collectors:
         - type: classNameRegex
           value: '#^%project_name%\\Shared\\Infrastructure\\Symfony\\#'
+    - name: SharedInfrastructureEvent
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Shared\\Infrastructure\\Event\\#'
 
   ruleset:
+    SharedDomainEvent:
+      - SharedDomainEntity
+      - SharedDomainValueObject
+    SharedInfrastructureEvent:
+      - SharedDomainEntity
+      - SharedDomainValueObject
+      - SharedDomainEvent
     SharedInfrastructureSymfony:
       - DependencySymfony

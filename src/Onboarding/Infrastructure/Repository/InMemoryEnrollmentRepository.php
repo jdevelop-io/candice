@@ -23,7 +23,7 @@ final class InMemoryEnrollmentRepository implements EnrollmentRepositoryInterfac
 
     public function insert(Enrollment $enrollment): void
     {
-        $registrationNumber = $enrollment->getRegistrationNumber();
+        $registrationNumber = $enrollment->getOrganization()->getRegistrationNumber();
 
         $this->enrollmentById[$enrollment->getId()->unwrap()] = $enrollment;
         $this->enrollmentByRegistrationNumber[$registrationNumber->getType()][$registrationNumber->getValue()]
@@ -35,7 +35,7 @@ final class InMemoryEnrollmentRepository implements EnrollmentRepositoryInterfac
         return $this->enrollmentById[$id->unwrap()] ?? null;
     }
 
-    public function findByRegistrationNumber(RegistrationNumber $registrationNumber): ?Enrollment
+    public function findByOrganizationRegistrationNumber(RegistrationNumber $registrationNumber): ?Enrollment
     {
         if (!isset($this->enrollmentByRegistrationNumber[$registrationNumber->getType()])) {
             return null;

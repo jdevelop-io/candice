@@ -17,4 +17,6 @@ interface SubmitEnrollmentRequestInterface
     public function getOrganizationRegistrationNumberType(): string;
 
     public function getOrganizationRegistrationNumber(): string;
+
+    public function getOrganizationName(): string;
 }
