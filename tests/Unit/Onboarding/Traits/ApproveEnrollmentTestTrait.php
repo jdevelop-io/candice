@@ -72,16 +72,23 @@ trait ApproveEnrollmentTestTrait
 
         $this->assertNotNull($enrollment);
         $this->assertSame('approved', $enrollment->getStatus()->unwrap());
-        $this->assertSame($expected['approvedById'], $enrollment->getProcessedBy()->getId()->unwrap());
+
+        $approvedBy = $enrollment->getProcessedBy();
+        $this->assertNotNull($approvedBy);
+        $this->assertSame($expected['approvedById'], $approvedBy->getId()->unwrap());
         $this->assertSame(
             $expected['approvedByFirstName'],
-            $enrollment->getProcessedBy()->getFullName()->getFirstName()
+            $approvedBy->getFullName()->getFirstName()
         );
-        $this->assertSame($expected['approvedByLastName'], $enrollment->getProcessedBy()->getFullName()->getLastName());
+        $this->assertSame($expected['approvedByLastName'], $approvedBy->getFullName()->getLastName());
+
+        $approvedAt = $enrollment->getProcessedAt();
+        $this->assertNotNull($approvedAt);
         $this->assertSame(
             $expected['approvedAt'],
-            $enrollment->getProcessedAt()->format($this->clock::DATE_TIME_FORMAT)
+            $approvedAt->format($this->clock::DATE_TIME_FORMAT)
         );
+
         $this->assertEventDispatchedCount(1);
         $this->assertEnrollmentApprovedEvent($enrollmentId);
     }
