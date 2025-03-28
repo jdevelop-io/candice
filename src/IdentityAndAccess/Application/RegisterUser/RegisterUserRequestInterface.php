@@ -7,4 +7,8 @@ namespace Candice\IdentityAndAccess\Application\RegisterUser;
 interface RegisterUserRequestInterface
 {
     public function getUserEmail(): string;
+
+    public function getUserFirstName(): string;
+
+    public function getUserLastName(): string;
 }

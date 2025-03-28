@@ -26,6 +26,8 @@ final class RegisterUserServiceTest extends IdentityAndAccessTest
 
         $this->registerUser(
             'paul-henry.dumont',
+            'paul-henry',
+            'dumont',
         );
     }
 
@@ -33,12 +35,33 @@ final class RegisterUserServiceTest extends IdentityAndAccessTest
     {
         $this->registerUser(
             'paul-henry.dumont@example.com',
+            'paul-henry',
+            'dumont',
         );
 
         $this->expectException(UserAlreadyRegisteredException::class);
 
         $this->registerUser(
             'paul-henry.dumont@example.com',
+            'paul-henry',
+            'dumont',
+        );
+    }
+
+    public function testUserRegistration(): void
+    {
+        $response = $this->registerUser(
+            'paul-henry.dumont@example.com',
+            'paul-henry',
+            'dumont',
+        );
+
+        $this->assertUserRegistered(
+            [
+                'userFirstName' => 'Paul-Henry',
+                'userLastName' => 'DUMONT',
+            ],
+            $response->getUserEmail()
         );
     }
 }
