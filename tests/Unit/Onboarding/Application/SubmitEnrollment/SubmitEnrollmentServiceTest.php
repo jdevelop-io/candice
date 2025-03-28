@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Candice\Tests\Unit\Onboarding\Application\SubmitEnrollment;
 
-use Candice\Onboarding\Domain\Exception\EnrollmentInPendingApprovalException;
+use Candice\Onboarding\Domain\Exception\EnrollmentResubmissionException;
 use Candice\Onboarding\Domain\Exception\InvalidApplicantEmailException;
 use Candice\Onboarding\Domain\Exception\InvalidApplicantPositionException;
 use Candice\Onboarding\Domain\Exception\InvalidSirenChecksumException;
@@ -81,7 +81,7 @@ final class SubmitEnrollmentServiceTest extends EnrollmentTest
             'Acme Inc.',
         );
 
-        $this->expectException(EnrollmentInPendingApprovalException::class);
+        $this->expectException(EnrollmentResubmissionException::class);
 
         $this->submitEnrollment(
             'paul-henry.dumont@example.com',
