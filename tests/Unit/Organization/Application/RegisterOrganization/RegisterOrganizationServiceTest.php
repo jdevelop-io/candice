@@ -53,4 +53,21 @@ final class RegisterOrganizationServiceTest extends OrganizationTest
             'Acme Inc.',
         );
     }
+
+    public function testOrganizationRegistered(): void
+    {
+        $response = $this->registerOrganization(
+            'siren',
+            '938123072',
+            'Acme Inc.',
+        );
+
+        $this->assertOrganizationRegistered(
+            [
+                'organizationName' => 'Acme Inc.',
+            ],
+            $response->getOrganizationRegistrationNumberType(),
+            $response->getOrganizationRegistrationNumber(),
+        );
+    }
 }
