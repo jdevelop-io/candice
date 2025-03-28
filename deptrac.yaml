@@ -21,3 +21,7 @@ deptrac:
       collectors:
         - type: classNameRegex
           value: '#^PHPUnit\\#'
+    - name: DependencySafe
+      collectors:
+        - type: classNameRegex
+          value: '#^Safe\\#'
