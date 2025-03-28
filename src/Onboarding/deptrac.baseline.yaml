@@ -58,6 +58,8 @@ deptrac:
     OnboardingDomainValueObject:
       - OnboardingDomainException
       - SharedDomainValueObject
+    OnboardingDomainException:
+      - OnboardingDomainValueObject
     OnboardingDomainEvent:
       - SharedDomainValueObject
       - SharedDomainEvent
