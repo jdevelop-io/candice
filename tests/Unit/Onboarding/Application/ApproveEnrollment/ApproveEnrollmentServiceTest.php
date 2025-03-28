@@ -35,4 +35,21 @@ final class ApproveEnrollmentServiceTest extends EnrollmentTest
 
         $this->approveEnrollment($response->getEnrollmentId());
     }
+
+    public function testEnrollmentShouldBeApproved(): void
+    {
+        $response = $this->submitEnrollment(
+            'paul-henry.dumont@example.com',
+            'paul-henry',
+            'dumont',
+            'executive',
+            'siren',
+            '938123072',
+            'Acme Inc.',
+        );
+
+        $response = $this->approveEnrollment($response->getEnrollmentId());
+
+        $this->assertEnrollmentApproved($response->getEnrollmentId());
+    }
 }

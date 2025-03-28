@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Candice\Onboarding\Domain\Entity;
 
+use Candice\Onboarding\Domain\Event\EnrollmentApprovedEvent;
 use Candice\Onboarding\Domain\Event\EnrollmentSubmittedEvent;
 use Candice\Onboarding\Domain\Exception\EnrollmentAlreadyProcessedException;
 use Candice\Onboarding\Domain\ValueObject\EnrollmentId;
@@ -63,5 +64,7 @@ final class Enrollment
         }
 
         $this->status = EnrollmentStatus::APPROVED;
+
+        $this->record(new EnrollmentApprovedEvent($this->id));
     }
 }

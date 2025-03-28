@@ -9,12 +9,14 @@ use Candice\Onboarding\Domain\Exception\EnrollmentNotFoundException;
 use Candice\Onboarding\Domain\Repository\EnrollmentRepositoryInterface;
 use Candice\Onboarding\Domain\Service\EnrollmentApprovalService;
 use Candice\Onboarding\Domain\ValueObject\EnrollmentId;
+use Candice\Shared\Domain\Event\EventBusInterface;
 
 final readonly class ApproveEnrollmentService
 {
     public function __construct(
         private EnrollmentRepositoryInterface $enrollmentRepository,
-        private EnrollmentApprovalService $enrollmentApprovalService
+        private EnrollmentApprovalService $enrollmentApprovalService,
+        private EventBusInterface $eventBus,
     ) {
     }
 
@@ -24,7 +26,9 @@ final readonly class ApproveEnrollmentService
 
         $this->enrollmentApprovalService->approve($enrollment);
 
+        $events = $enrollment->releaseEvents();
         $this->enrollmentRepository->update($enrollment);
+        $this->eventBus->publish($events);
 
         return new ApproveEnrollmentResponse($enrollment->getId()->unwrap());
     }
