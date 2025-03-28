@@ -14,7 +14,7 @@ trait RegisterExecutiveTestTrait
 
     protected function setUpRegisterExecutiveService(): void
     {
-        $this->service = new RegisterExecutiveService($this->organizationRepository);
+        $this->service = new RegisterExecutiveService($this->organizationRepository, $this->executiveRepository);
     }
 
     protected function registerExecutive(

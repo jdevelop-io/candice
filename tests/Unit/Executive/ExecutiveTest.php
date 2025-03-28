@@ -36,4 +36,22 @@ abstract class ExecutiveTest extends TestCase
 
         return $organization;
     }
+
+    protected function createExecutive(
+        string $organizationId,
+        string $executiveEmail,
+        string $executiveFirstName,
+        string $executiveLastName
+    ): void {
+        $organization = $this->organizationRepository->findById(new OrganizationId($organizationId));
+
+        $executive = $this->executiveFactory->create(
+            $organization,
+            $executiveEmail,
+            $executiveFirstName,
+            $executiveLastName
+        );
+
+        $this->executiveRepository->insert($executive);
+    }
 }

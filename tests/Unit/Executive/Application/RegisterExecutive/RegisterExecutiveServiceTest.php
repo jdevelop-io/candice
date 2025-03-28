@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Candice\Tests\Unit\Executive\Application\RegisterExecutive;
 
+use Candice\Executive\Domain\Exception\ExecutiveAlreadyRegistered;
 use Candice\Executive\Domain\Exception\InvalidExecutiveEmailException;
 use Candice\Executive\Domain\Exception\OrganizationNotFoundException;
 use Candice\Tests\Unit\Executive\ExecutiveTest;
@@ -18,6 +19,8 @@ final class RegisterExecutiveServiceTest extends ExecutiveTest
         parent::setUp();
 
         $this->setUpRegisterExecutiveService();
+
+        $this->createOrganization('ExistingOrganizationId', 'OrganizationName');
     }
 
     public function testOrganizationShouldExist(): void
@@ -34,13 +37,30 @@ final class RegisterExecutiveServiceTest extends ExecutiveTest
 
     public function testExecutiveEmailShouldBeValid(): void
     {
-        $this->createOrganization('ExistingOrganizationId', 'OrganizationName');
-
         $this->expectException(InvalidExecutiveEmailException::class);
 
         $this->registerExecutive(
             'ExistingOrganizationId',
             'paul-henry.dumont',
+            'Paul-henry',
+            'dumont'
+        );
+    }
+
+    public function testExecutiveEmailIsUnique(): void
+    {
+        $this->createExecutive(
+            'ExistingOrganizationId',
+            'paul-henry.dumont@example.com',
+            'Paul-henry',
+            'dumont'
+        );
+
+        $this->expectException(ExecutiveAlreadyRegistered::class);
+
+        $this->registerExecutive(
+            'ExistingOrganizationId',
+            'paul-henry.dumont@example.com',
             'Paul-henry',
             'dumont'
         );
