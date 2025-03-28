@@ -39,6 +39,7 @@ trait ApproveEnrollmentTestTrait
     {
         $enrollment = $this->enrollmentRepository->findById(new EnrollmentId($enrollmentId));
 
+        $this->assertNotNull($enrollment);
         $this->assertSame('approved', $enrollment->getStatus()->unwrap());
         $this->assertEventDispatchedCount(1);
         $this->assertEnrollmentApprovedEvent($enrollmentId);
