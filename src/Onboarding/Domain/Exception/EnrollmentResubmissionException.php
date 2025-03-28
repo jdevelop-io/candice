@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Candice\Onboarding\Domain\Exception;
 
 use Candice\Onboarding\Domain\ValueObject\EnrollmentStatus;
+use Candice\Onboarding\Domain\ValueObject\OrganizationName;
 use DomainException;
 
 final class EnrollmentResubmissionException extends DomainException
 {
-    public function __construct(string $organizationName, EnrollmentStatus $enrollmentStatus)
+    public function __construct(OrganizationName $organizationName, EnrollmentStatus $enrollmentStatus)
     {
         parent::__construct(
             match ($enrollmentStatus) {

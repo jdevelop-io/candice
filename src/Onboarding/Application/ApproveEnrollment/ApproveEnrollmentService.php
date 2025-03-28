@@ -35,7 +35,9 @@ final readonly class ApproveEnrollmentService
 
     private function getEnrollment(string $enrollmentId): Enrollment
     {
-        $enrollment = $this->enrollmentRepository->findById(new EnrollmentId($enrollmentId));
+        $enrollmentId = new EnrollmentId($enrollmentId);
+
+        $enrollment = $this->enrollmentRepository->findById($enrollmentId);
 
         return $enrollment ?? throw new EnrollmentNotFoundException($enrollmentId);
     }
