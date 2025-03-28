@@ -8,8 +8,8 @@ use DomainException;
 
 final class InvalidApplicantEmailException extends DomainException
 {
-    public function __construct(string $email)
+    public function __construct(string $applicantEmail)
     {
-        parent::__construct("Invalid applicant email: $email");
+        parent::__construct("Invalid applicant email: $applicantEmail");
     }
 }

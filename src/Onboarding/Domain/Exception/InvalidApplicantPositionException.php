@@ -8,8 +8,8 @@ use DomainException;
 
 final class InvalidApplicantPositionException extends DomainException
 {
-    public function __construct(string $position)
+    public function __construct(string $applicantPosition)
     {
-        parent::__construct("Invalid applicant position: $position");
+        parent::__construct("Invalid applicant position: $applicantPosition");
     }
 }

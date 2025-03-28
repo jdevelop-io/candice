@@ -77,7 +77,7 @@ final readonly class EnrollmentSubmissionService
         }
 
         throw new EnrollmentResubmissionException(
-            $existingEnrollment->getOrganization()->getName()->unwrap(),
+            $existingEnrollment->getOrganization()->getName(),
             $existingEnrollment->getStatus(),
         );
     }

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Candice\Shared\Domain\ValueObject;
 
-abstract class AggregateRootId
+use Stringable;
+
+abstract class AggregateRootId implements Stringable
 {
     private string $value;
 
@@ -16,5 +18,10 @@ abstract class AggregateRootId
     public function unwrap(): string
     {
         return $this->value;
+    }
+
+    public function __toString(): string
+    {
+        return $this->unwrap();
     }
 }

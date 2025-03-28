@@ -60,7 +60,7 @@ final class Enrollment
     public function approve(): void
     {
         if ($this->status !== EnrollmentStatus::PENDING_APPROVAL) {
-            throw new EnrollmentAlreadyProcessedException($this->id->unwrap(), $this->status->unwrap());
+            throw new EnrollmentAlreadyProcessedException($this->id, $this->status);
         }
 
         $this->status = EnrollmentStatus::APPROVED;

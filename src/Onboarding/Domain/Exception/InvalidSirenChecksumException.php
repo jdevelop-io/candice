@@ -8,8 +8,8 @@ use DomainException;
 
 final class InvalidSirenChecksumException extends DomainException
 {
-    public function __construct(string $value)
+    public function __construct(string $siren)
     {
-        parent::__construct(sprintf('Invalid SIREN number: %s. The checksum is invalid.', $value));
+        parent::__construct("Invalid SIREN number: $siren. The checksum is invalid.");
     }
 }

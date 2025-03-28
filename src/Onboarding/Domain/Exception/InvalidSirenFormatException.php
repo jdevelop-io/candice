@@ -8,8 +8,8 @@ use DomainException;
 
 final class InvalidSirenFormatException extends DomainException
 {
-    public function __construct(string $value)
+    public function __construct(string $siren)
     {
-        parent::__construct(sprintf('Invalid SIREN number: %s. It must be a 9-digit number.', $value));
+        parent::__construct("Invalid SIREN number: $siren. It must be a 9-digit number.");
     }
 }
