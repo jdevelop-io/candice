@@ -1,0 +1,58 @@
+deptrac:
+  paths:
+    - tests/Unit/IdentityAndAccess
+
+  layers:
+    - name: IdentityAndAccessApplicationTests
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Tests\\Unit\\IdentityAndAccess\\Application\\#'
+    - name: IdentityAndAccessTests
+      collectors:
+        - type: bool
+          must:
+            - type: classNameRegex
+              value: '#^%project_name%\\Tests\\Unit\\IdentityAndAccess\\#'
+          must_not:
+            - type: classNameRegex
+              value: '#^%project_name%\\Tests\\Unit\\IdentityAndAccess\\(Domain|Application)\\#'
+
+  ruleset:
+    IdentityAndAccessDomainTests:
+      - IdentityAndAccessDomainFactory
+      - IdentityAndAccessDomainEntity
+      - IdentityAndAccessDomainValueObject
+      - DependencyPHPUnit
+    IdentityAndAccessApplicationTests:
+      - SharedTests
+      - SharedDomainEvent
+      - SharedInfrastructureClock
+      - SharedInfrastructureEvent
+      - IdentityAndAccessDomainEntity
+      - IdentityAndAccessDomainValueObject
+      - IdentityAndAccessDomainEvent
+      - IdentityAndAccessDomainService
+      - IdentityAndAccessDomainFactory
+      - IdentityAndAccessDomainException
+      - IdentityAndAccessApplication
+      - IdentityAndAccessInfrastructureIdGenerator
+      - IdentityAndAccessInfrastructureRepository
+      - IdentityAndAccessInfrastructureProvider
+      - IdentityAndAccessTests
+      - DependencyPHPUnit
+    IdentityAndAccessTests:
+      - SharedTests
+      - SharedDomainEvent
+      - SharedInfrastructureEvent
+      - SharedInfrastructureClock
+      - IdentityAndAccessDomainEntity
+      - IdentityAndAccessDomainValueObject
+      - IdentityAndAccessDomainEvent
+      - IdentityAndAccessDomainService
+      - IdentityAndAccessDomainFactory
+      - IdentityAndAccessApplication
+      - IdentityAndAccessApplicationTests
+      - IdentityAndAccessInfrastructureIdGenerator
+      - IdentityAndAccessInfrastructureRepository
+      - IdentityAndAccessInfrastructureProvider
+      - DependencyPHPUnit

@@ -1,0 +1,112 @@
+deptrac:
+  paths:
+    - src/IdentityAndAccess
+
+  layers:
+    - name: IdentityAndAccessDomainEntity
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\IdentityAndAccess\\Domain\\Entity\\#'
+    - name: IdentityAndAccessDomainValueObject
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\IdentityAndAccess\\Domain\\ValueObject\\#'
+    - name: IdentityAndAccessDomainEvent
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\IdentityAndAccess\\Domain\\Event\\#'
+    - name: IdentityAndAccessDomainIdGenerator
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\IdentityAndAccess\\Domain\\IdGenerator\\#'
+    - name: IdentityAndAccessDomainProvider
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\IdentityAndAccess\\Domain\\Provider\\#'
+    - name: IdentityAndAccessDomainService
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\IdentityAndAccess\\Domain\\Service\\#'
+    - name: IdentityAndAccessDomainRepository
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\IdentityAndAccess\\Domain\\Repository\\#'
+    - name: IdentityAndAccessDomainException
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\IdentityAndAccess\\Domain\\Exception\\#'
+    - name: IdentityAndAccessDomainFactory
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\IdentityAndAccess\\Domain\\Factory\\#'
+    - name: IdentityAndAccessApplication
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\IdentityAndAccess\\Application\\#'
+    - name: IdentityAndAccessInfrastructureIdGenerator
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\IdentityAndAccess\\Infrastructure\\IdGenerator\\#'
+    - name: IdentityAndAccessInfrastructureRepository
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\IdentityAndAccess\\Infrastructure\\Repository\\#'
+    - name: IdentityAndAccessInfrastructureProvider
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\IdentityAndAccess\\Infrastructure\\Provider\\#'
+
+  ruleset:
+    IdentityAndAccessDomainEntity:
+      - SharedDomainEntity
+      - SharedDomainEvent
+      - IdentityAndAccessDomainValueObject
+      - IdentityAndAccessDomainEvent
+      - IdentityAndAccessDomainException
+    IdentityAndAccessDomainValueObject:
+      - IdentityAndAccessDomainException
+      - SharedDomainValueObject
+    IdentityAndAccessDomainException:
+      - IdentityAndAccessDomainValueObject
+    IdentityAndAccessDomainEvent:
+      - SharedDomainValueObject
+      - SharedDomainEvent
+      - IdentityAndAccessDomainEntity
+      - IdentityAndAccessDomainValueObject
+    IdentityAndAccessDomainService:
+      - SharedDomainClock
+      - IdentityAndAccessDomainEntity
+      - IdentityAndAccessDomainValueObject
+      - IdentityAndAccessDomainException
+      - IdentityAndAccessDomainFactory
+    IdentityAndAccessDomainIdGenerator:
+      - IdentityAndAccessDomainValueObject
+    IdentityAndAccessDomainProvider:
+      - IdentityAndAccessDomainEntity
+    IdentityAndAccessDomainRepository:
+      - IdentityAndAccessDomainEntity
+      - IdentityAndAccessDomainValueObject
+    IdentityAndAccessDomainFactory:
+      - IdentityAndAccessDomainEntity
+      - IdentityAndAccessDomainValueObject
+      - IdentityAndAccessDomainException
+      - IdentityAndAccessDomainIdGenerator
+    IdentityAndAccessApplication:
+      - SharedDomainEvent
+      - IdentityAndAccessDomainEntity
+      - IdentityAndAccessDomainValueObject
+      - IdentityAndAccessDomainFactory
+      - IdentityAndAccessDomainRepository
+      - IdentityAndAccessDomainException
+      - IdentityAndAccessDomainService
+      - IdentityAndAccessDomainProvider
+    IdentityAndAccessInfrastructureIdGenerator:
+      - IdentityAndAccessDomainValueObject
+      - IdentityAndAccessDomainIdGenerator
+    IdentityAndAccessInfrastructureRepository:
+      - IdentityAndAccessDomainEntity
+      - IdentityAndAccessDomainValueObject
+      - IdentityAndAccessDomainRepository
+    IdentityAndAccessInfrastructureProvider:
+      - IdentityAndAccessDomainEntity
+      - IdentityAndAccessDomainProvider
