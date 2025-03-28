@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Candice\Onboarding\Infrastructure\Clock;
+namespace Candice\Shared\Infrastructure\Clock;
 
-use Candice\Onboarding\Domain\Clock\ClockInterface;
+use Candice\Shared\Domain\Clock\ClockInterface;
 use DateTimeImmutable;
 
 final readonly class FrozenClock implements ClockInterface

@@ -12,9 +12,9 @@ use Candice\Onboarding\Domain\Service\EnrollmentApprovalService;
 use Candice\Onboarding\Domain\ValueObject\AdministratorFullName;
 use Candice\Onboarding\Domain\ValueObject\AdministratorId;
 use Candice\Onboarding\Domain\ValueObject\EnrollmentId;
-use Candice\Onboarding\Infrastructure\Clock\FrozenClock;
 use Candice\Onboarding\Infrastructure\Provider\InMemoryAdministratorProvider;
 use Candice\Shared\Domain\Event\DomainEvent;
+use Candice\Shared\Infrastructure\Clock\FrozenClock;
 use Candice\Tests\Unit\Onboarding\Application\ApproveEnrollment\ApproveEnrollmentRequest;
 use Candice\Tests\Unit\Shared\Traits\EventBusTestTrait;
 

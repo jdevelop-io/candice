@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Candice\Onboarding\Domain\Clock;
+namespace Candice\Shared\Domain\Clock;
 
 use DateTimeImmutable;
 

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Candice\Onboarding\Domain\Service;
 
-use Candice\Onboarding\Domain\Clock\ClockInterface;
 use Candice\Onboarding\Domain\Entity\Administrator;
 use Candice\Onboarding\Domain\Entity\Enrollment;
 use Candice\Onboarding\Domain\ValueObject\EnrollmentProcessingDateTime;
+use Candice\Shared\Domain\Clock\ClockInterface;
 
 final readonly class EnrollmentApprovalService
 {
