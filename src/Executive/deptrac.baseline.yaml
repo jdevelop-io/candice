@@ -1,0 +1,112 @@
+deptrac:
+  paths:
+    - src/Executive
+
+  layers:
+    - name: ExecutiveDomainEntity
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Executive\\Domain\\Entity\\#'
+    - name: ExecutiveDomainValueObject
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Executive\\Domain\\ValueObject\\#'
+    - name: ExecutiveDomainEvent
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Executive\\Domain\\Event\\#'
+    - name: ExecutiveDomainIdGenerator
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Executive\\Domain\\IdGenerator\\#'
+    - name: ExecutiveDomainProvider
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Executive\\Domain\\Provider\\#'
+    - name: ExecutiveDomainService
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Executive\\Domain\\Service\\#'
+    - name: ExecutiveDomainRepository
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Executive\\Domain\\Repository\\#'
+    - name: ExecutiveDomainException
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Executive\\Domain\\Exception\\#'
+    - name: ExecutiveDomainFactory
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Executive\\Domain\\Factory\\#'
+    - name: ExecutiveApplication
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Executive\\Application\\#'
+    - name: ExecutiveInfrastructureIdGenerator
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Executive\\Infrastructure\\IdGenerator\\#'
+    - name: ExecutiveInfrastructureRepository
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Executive\\Infrastructure\\Repository\\#'
+    - name: ExecutiveInfrastructureProvider
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Executive\\Infrastructure\\Provider\\#'
+
+  ruleset:
+    ExecutiveDomainEntity:
+      - SharedDomainEntity
+      - SharedDomainEvent
+      - ExecutiveDomainValueObject
+      - ExecutiveDomainEvent
+      - ExecutiveDomainException
+    ExecutiveDomainValueObject:
+      - ExecutiveDomainException
+      - SharedDomainValueObject
+    ExecutiveDomainException:
+      - ExecutiveDomainValueObject
+    ExecutiveDomainEvent:
+      - SharedDomainValueObject
+      - SharedDomainEvent
+      - ExecutiveDomainEntity
+      - ExecutiveDomainValueObject
+    ExecutiveDomainService:
+      - SharedDomainClock
+      - ExecutiveDomainEntity
+      - ExecutiveDomainValueObject
+      - ExecutiveDomainException
+      - ExecutiveDomainFactory
+    ExecutiveDomainIdGenerator:
+      - ExecutiveDomainValueObject
+    ExecutiveDomainProvider:
+      - ExecutiveDomainEntity
+    ExecutiveDomainRepository:
+      - ExecutiveDomainEntity
+      - ExecutiveDomainValueObject
+    ExecutiveDomainFactory:
+      - ExecutiveDomainEntity
+      - ExecutiveDomainValueObject
+      - ExecutiveDomainException
+      - ExecutiveDomainIdGenerator
+    ExecutiveApplication:
+      - SharedDomainEvent
+      - ExecutiveDomainEntity
+      - ExecutiveDomainValueObject
+      - ExecutiveDomainFactory
+      - ExecutiveDomainRepository
+      - ExecutiveDomainException
+      - ExecutiveDomainService
+      - ExecutiveDomainProvider
+    ExecutiveInfrastructureIdGenerator:
+      - ExecutiveDomainValueObject
+      - ExecutiveDomainIdGenerator
+    ExecutiveInfrastructureRepository:
+      - ExecutiveDomainEntity
+      - ExecutiveDomainValueObject
+      - ExecutiveDomainRepository
+    ExecutiveInfrastructureProvider:
+      - ExecutiveDomainEntity
+      - ExecutiveDomainProvider

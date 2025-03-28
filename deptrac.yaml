@@ -11,6 +11,8 @@ imports:
   - tests/Unit/IdentityAndAccess/deptrac.baseline.yaml
   - src/Organization/deptrac.baseline.yaml
   - tests/Unit/Organization/deptrac.baseline.yaml
+  - src/Executive/deptrac.baseline.yaml
+  - tests/Unit/Executive/deptrac.baseline.yaml
 
 deptrac:
   paths:
