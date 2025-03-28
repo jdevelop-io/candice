@@ -1,0 +1,12 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Candice\Tests\Unit\Executive\Traits;
+
+trait SetupRepositoriesTestTrait
+{
+    protected function setUpRepositories(): void
+    {
+    }
+}
