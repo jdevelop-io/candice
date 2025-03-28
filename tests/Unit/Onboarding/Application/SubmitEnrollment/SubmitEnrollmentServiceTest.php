@@ -11,9 +11,19 @@ use Candice\Onboarding\Domain\Exception\InvalidSirenChecksumException;
 use Candice\Onboarding\Domain\Exception\InvalidSirenFormatException;
 use Candice\Onboarding\Domain\Exception\UnsupportedRegistrationNumberTypeException;
 use Candice\Tests\Unit\Onboarding\EnrollmentTest;
+use Candice\Tests\Unit\Onboarding\Traits\SubmitEnrollmentTestTrait;
 
 final class SubmitEnrollmentServiceTest extends EnrollmentTest
 {
+    use SubmitEnrollmentTestTrait;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->setUpSubmitEnrollmentService();
+    }
+
     public function testRegistrationNumberTypeShouldBeSiren(): void
     {
         $this->expectException(UnsupportedRegistrationNumberTypeException::class);

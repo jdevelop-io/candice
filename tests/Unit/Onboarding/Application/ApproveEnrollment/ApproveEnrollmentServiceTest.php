@@ -6,10 +6,21 @@ namespace Candice\Tests\Unit\Onboarding\Application\ApproveEnrollment;
 
 use Candice\Onboarding\Domain\Exception\EnrollmentAlreadyProcessedException;
 use Candice\Onboarding\Domain\Exception\EnrollmentNotFoundException;
+use Candice\Onboarding\Domain\ValueObject\EnrollmentStatus;
 use Candice\Tests\Unit\Onboarding\EnrollmentTest;
+use Candice\Tests\Unit\Onboarding\Traits\ApproveEnrollmentTestTrait;
 
 final class ApproveEnrollmentServiceTest extends EnrollmentTest
 {
+    use ApproveEnrollmentTestTrait;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->setUpApproveEnrollmentService();
+    }
+
     public function testEnrollmentShouldExist(): void
     {
         $this->expectException(EnrollmentNotFoundException::class);
@@ -19,36 +30,18 @@ final class ApproveEnrollmentServiceTest extends EnrollmentTest
 
     public function testEnrollmentShouldNotAlreadyBeApproved(): void
     {
-        $response = $this->submitEnrollment(
-            'paul-henry.dumont@example.com',
-            'paul-henry',
-            'dumont',
-            'executive',
-            'siren',
-            '938123072',
-            'Acme Inc.',
-        );
-
-        $response = $this->approveEnrollment($response->getEnrollmentId());
+        $enrollment = $this->createEnrollment(enrollmentStatus: EnrollmentStatus::APPROVED->unwrap());
 
         $this->expectException(EnrollmentAlreadyProcessedException::class);
 
-        $this->approveEnrollment($response->getEnrollmentId());
+        $this->approveEnrollment($enrollment->getId()->unwrap());
     }
 
     public function testEnrollmentShouldBeApproved(): void
     {
-        $response = $this->submitEnrollment(
-            'paul-henry.dumont@example.com',
-            'paul-henry',
-            'dumont',
-            'executive',
-            'siren',
-            '938123072',
-            'Acme Inc.',
-        );
+        $enrollment = $this->createEnrollment();
 
-        $response = $this->approveEnrollment($response->getEnrollmentId());
+        $response = $this->approveEnrollment($enrollment->getId()->unwrap());
 
         $this->assertEnrollmentApproved($response->getEnrollmentId());
     }
