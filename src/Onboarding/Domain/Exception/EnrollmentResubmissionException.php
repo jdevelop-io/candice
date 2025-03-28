@@ -15,7 +15,6 @@ final class EnrollmentResubmissionException extends DomainException
             match ($enrollmentStatus) {
                 EnrollmentStatus::PENDING_APPROVAL => "An enrollment has already been submitted for $organizationName. Please wait for the approval process to complete.",
                 EnrollmentStatus::APPROVED => "An enrollment has already been approved for $organizationName",
-                EnrollmentStatus::REJECTED => "An enrollment has already been rejected for $organizationName. Please contact support for more information.",
             }
         );
     }
