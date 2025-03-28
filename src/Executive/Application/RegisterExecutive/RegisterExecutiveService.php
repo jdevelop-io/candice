@@ -7,6 +7,7 @@ namespace Candice\Executive\Application\RegisterExecutive;
 use Candice\Executive\Domain\Entity\Organization;
 use Candice\Executive\Domain\Exception\OrganizationNotFoundException;
 use Candice\Executive\Domain\Repository\OrganizationRepositoryInterface;
+use Candice\Executive\Domain\ValueObject\ExecutiveEmail;
 use Candice\Executive\Domain\ValueObject\OrganizationId;
 
 final readonly class RegisterExecutiveService
@@ -18,6 +19,7 @@ final readonly class RegisterExecutiveService
     public function execute(RegisterExecutiveRequestInterface $request): RegisterExecutiveResponse
     {
         $organization = $this->getOrganization($request->getOrganizationId());
+        $executiveEmail = new ExecutiveEmail($request->getExecutiveEmail());
 
         return new RegisterExecutiveResponse();
     }
