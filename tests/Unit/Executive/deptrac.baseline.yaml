@@ -1,0 +1,58 @@
+deptrac:
+  paths:
+    - tests/Unit/Executive
+
+  layers:
+    - name: ExecutiveApplicationTests
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Tests\\Unit\\Executive\\Application\\#'
+    - name: ExecutiveTests
+      collectors:
+        - type: bool
+          must:
+            - type: classNameRegex
+              value: '#^%project_name%\\Tests\\Unit\\Executive\\#'
+          must_not:
+            - type: classNameRegex
+              value: '#^%project_name%\\Tests\\Unit\\Executive\\(Domain|Application)\\#'
+
+  ruleset:
+    ExecutiveDomainTests:
+      - ExecutiveDomainFactory
+      - ExecutiveDomainEntity
+      - ExecutiveDomainValueObject
+      - DependencyPHPUnit
+    ExecutiveApplicationTests:
+      - SharedTests
+      - SharedDomainEvent
+      - SharedInfrastructureClock
+      - SharedInfrastructureEvent
+      - ExecutiveDomainEntity
+      - ExecutiveDomainValueObject
+      - ExecutiveDomainEvent
+      - ExecutiveDomainService
+      - ExecutiveDomainFactory
+      - ExecutiveDomainException
+      - ExecutiveApplication
+      - ExecutiveInfrastructureIdGenerator
+      - ExecutiveInfrastructureRepository
+      - ExecutiveInfrastructureProvider
+      - ExecutiveTests
+      - DependencyPHPUnit
+    ExecutiveTests:
+      - SharedTests
+      - SharedDomainEvent
+      - SharedInfrastructureEvent
+      - SharedInfrastructureClock
+      - ExecutiveDomainEntity
+      - ExecutiveDomainValueObject
+      - ExecutiveDomainEvent
+      - ExecutiveDomainService
+      - ExecutiveDomainFactory
+      - ExecutiveApplication
+      - ExecutiveApplicationTests
+      - ExecutiveInfrastructureIdGenerator
+      - ExecutiveInfrastructureRepository
+      - ExecutiveInfrastructureProvider
+      - DependencyPHPUnit
