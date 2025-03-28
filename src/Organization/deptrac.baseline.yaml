@@ -1,0 +1,112 @@
+deptrac:
+  paths:
+    - src/Organization
+
+  layers:
+    - name: OrganizationDomainEntity
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Organization\\Domain\\Entity\\#'
+    - name: OrganizationDomainValueObject
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Organization\\Domain\\ValueObject\\#'
+    - name: OrganizationDomainEvent
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Organization\\Domain\\Event\\#'
+    - name: OrganizationDomainIdGenerator
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Organization\\Domain\\IdGenerator\\#'
+    - name: OrganizationDomainProvider
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Organization\\Domain\\Provider\\#'
+    - name: OrganizationDomainService
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Organization\\Domain\\Service\\#'
+    - name: OrganizationDomainRepository
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Organization\\Domain\\Repository\\#'
+    - name: OrganizationDomainException
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Organization\\Domain\\Exception\\#'
+    - name: OrganizationDomainFactory
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Organization\\Domain\\Factory\\#'
+    - name: OrganizationApplication
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Organization\\Application\\#'
+    - name: OrganizationInfrastructureIdGenerator
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Organization\\Infrastructure\\IdGenerator\\#'
+    - name: OrganizationInfrastructureRepository
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Organization\\Infrastructure\\Repository\\#'
+    - name: OrganizationInfrastructureProvider
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Organization\\Infrastructure\\Provider\\#'
+
+  ruleset:
+    OrganizationDomainEntity:
+      - SharedDomainEntity
+      - SharedDomainEvent
+      - OrganizationDomainValueObject
+      - OrganizationDomainEvent
+      - OrganizationDomainException
+    OrganizationDomainValueObject:
+      - OrganizationDomainException
+      - SharedDomainValueObject
+    OrganizationDomainException:
+      - OrganizationDomainValueObject
+    OrganizationDomainEvent:
+      - SharedDomainValueObject
+      - SharedDomainEvent
+      - OrganizationDomainEntity
+      - OrganizationDomainValueObject
+    OrganizationDomainService:
+      - SharedDomainClock
+      - OrganizationDomainEntity
+      - OrganizationDomainValueObject
+      - OrganizationDomainException
+      - OrganizationDomainFactory
+    OrganizationDomainIdGenerator:
+      - OrganizationDomainValueObject
+    OrganizationDomainProvider:
+      - OrganizationDomainEntity
+    OrganizationDomainRepository:
+      - OrganizationDomainEntity
+      - OrganizationDomainValueObject
+    OrganizationDomainFactory:
+      - OrganizationDomainEntity
+      - OrganizationDomainValueObject
+      - OrganizationDomainException
+      - OrganizationDomainIdGenerator
+    OrganizationApplication:
+      - SharedDomainEvent
+      - OrganizationDomainEntity
+      - OrganizationDomainValueObject
+      - OrganizationDomainFactory
+      - OrganizationDomainRepository
+      - OrganizationDomainException
+      - OrganizationDomainService
+      - OrganizationDomainProvider
+    OrganizationInfrastructureIdGenerator:
+      - OrganizationDomainValueObject
+      - OrganizationDomainIdGenerator
+    OrganizationInfrastructureRepository:
+      - OrganizationDomainEntity
+      - OrganizationDomainValueObject
+      - OrganizationDomainRepository
+    OrganizationInfrastructureProvider:
+      - OrganizationDomainEntity
+      - OrganizationDomainProvider
