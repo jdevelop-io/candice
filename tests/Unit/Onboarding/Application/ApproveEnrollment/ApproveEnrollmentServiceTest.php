@@ -6,7 +6,6 @@ namespace Candice\Tests\Unit\Onboarding\Application\ApproveEnrollment;
 
 use Candice\Onboarding\Domain\Exception\EnrollmentAlreadyProcessedException;
 use Candice\Onboarding\Domain\Exception\EnrollmentNotFoundException;
-use Candice\Onboarding\Domain\ValueObject\EnrollmentStatus;
 use Candice\Tests\Unit\Onboarding\EnrollmentTest;
 use Candice\Tests\Unit\Onboarding\Traits\ApproveEnrollmentTestTrait;
 
@@ -19,6 +18,7 @@ final class ApproveEnrollmentServiceTest extends EnrollmentTest
         parent::setUp();
 
         $this->setUpApproveEnrollmentService();
+        $this->defineAdministrator('AdministratorId', 'John', 'Doe');
     }
 
     public function testEnrollmentShouldExist(): void
@@ -30,7 +30,7 @@ final class ApproveEnrollmentServiceTest extends EnrollmentTest
 
     public function testEnrollmentShouldNotAlreadyBeApproved(): void
     {
-        $enrollment = $this->createEnrollment(enrollmentStatus: EnrollmentStatus::APPROVED->unwrap());
+        $enrollment = $this->createEnrollment(enrollmentStatus: 'approved');
 
         $this->expectException(EnrollmentAlreadyProcessedException::class);
 
@@ -43,6 +43,14 @@ final class ApproveEnrollmentServiceTest extends EnrollmentTest
 
         $response = $this->approveEnrollment($enrollment->getId()->unwrap());
 
-        $this->assertEnrollmentApproved($response->getEnrollmentId());
+        $this->assertEnrollmentApproved(
+            [
+                'approvedById' => 'AdministratorId',
+                'approvedByFirstName' => 'John',
+                'approvedByLastName' => 'DOE',
+                'approvedAt' => $this->clock->format(),
+            ],
+            $response->getEnrollmentId()
+        );
     }
 }

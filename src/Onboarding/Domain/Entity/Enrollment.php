@@ -8,6 +8,7 @@ use Candice\Onboarding\Domain\Event\EnrollmentApprovedEvent;
 use Candice\Onboarding\Domain\Event\EnrollmentSubmittedEvent;
 use Candice\Onboarding\Domain\Exception\EnrollmentAlreadyProcessedException;
 use Candice\Onboarding\Domain\ValueObject\EnrollmentId;
+use Candice\Onboarding\Domain\ValueObject\EnrollmentProcessingDateTime;
 use Candice\Onboarding\Domain\ValueObject\EnrollmentStatus;
 use Candice\Shared\Domain\Event\DomainEventPublisherTrait;
 
@@ -20,6 +21,8 @@ final class Enrollment
         private readonly Applicant $applicant,
         private readonly Organization $organization,
         private EnrollmentStatus $status,
+        private ?Administrator $processedBy = null,
+        private ?EnrollmentProcessingDateTime $processedAt = null,
     ) {
     }
 
@@ -57,13 +60,25 @@ final class Enrollment
         return $this->status;
     }
 
-    public function approve(): void
+    public function getProcessedBy(): ?Administrator
+    {
+        return $this->processedBy;
+    }
+
+    public function getProcessedAt(): ?EnrollmentProcessingDateTime
+    {
+        return $this->processedAt;
+    }
+
+    public function approve(Administrator $administrator, EnrollmentProcessingDateTime $approvedAt): void
     {
         if ($this->status !== EnrollmentStatus::PENDING_APPROVAL) {
             throw new EnrollmentAlreadyProcessedException($this->id, $this->status);
         }
 
         $this->status = EnrollmentStatus::APPROVED;
+        $this->processedBy = $administrator;
+        $this->processedAt = $approvedAt;
 
         $this->record(new EnrollmentApprovedEvent($this->id));
     }

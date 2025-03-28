@@ -19,6 +19,10 @@ deptrac:
       collectors:
         - type: classNameRegex
           value: '#^%project_name%\\Onboarding\\Domain\\IdGenerator\\#'
+    - name: OnboardingDomainProvider
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Onboarding\\Domain\\Provider\\#'
     - name: OnboardingDomainService
       collectors:
         - type: classNameRegex
@@ -47,6 +51,10 @@ deptrac:
       collectors:
         - type: classNameRegex
           value: '#^%project_name%\\Onboarding\\Infrastructure\\Repository\\#'
+    - name: OnboardingInfrastructureProvider
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Onboarding\\Infrastructure\\Provider\\#'
 
   ruleset:
     OnboardingDomainEntity:
@@ -66,12 +74,15 @@ deptrac:
       - OnboardingDomainEntity
       - OnboardingDomainValueObject
     OnboardingDomainService:
+      - SharedDomainClock
       - OnboardingDomainEntity
       - OnboardingDomainValueObject
       - OnboardingDomainException
       - OnboardingDomainFactory
     OnboardingDomainIdGenerator:
       - OnboardingDomainValueObject
+    OnboardingDomainProvider:
+      - OnboardingDomainEntity
     OnboardingDomainRepository:
       - OnboardingDomainEntity
       - OnboardingDomainValueObject
@@ -88,6 +99,7 @@ deptrac:
       - OnboardingDomainRepository
       - OnboardingDomainException
       - OnboardingDomainService
+      - OnboardingDomainProvider
     OnboardingInfrastructureIdGenerator:
       - OnboardingDomainValueObject
       - OnboardingDomainIdGenerator
@@ -95,3 +107,6 @@ deptrac:
       - OnboardingDomainEntity
       - OnboardingDomainValueObject
       - OnboardingDomainRepository
+    OnboardingInfrastructureProvider:
+      - OnboardingDomainEntity
+      - OnboardingDomainProvider

@@ -6,6 +6,7 @@ namespace Candice\Onboarding\Application\ApproveEnrollment;
 
 use Candice\Onboarding\Domain\Entity\Enrollment;
 use Candice\Onboarding\Domain\Exception\EnrollmentNotFoundException;
+use Candice\Onboarding\Domain\Provider\AdministratorProviderInterface;
 use Candice\Onboarding\Domain\Repository\EnrollmentRepositoryInterface;
 use Candice\Onboarding\Domain\Service\EnrollmentApprovalService;
 use Candice\Onboarding\Domain\ValueObject\EnrollmentId;
@@ -14,6 +15,7 @@ use Candice\Shared\Domain\Event\EventBusInterface;
 final readonly class ApproveEnrollmentService
 {
     public function __construct(
+        private AdministratorProviderInterface $administratorProvider,
         private EnrollmentRepositoryInterface $enrollmentRepository,
         private EnrollmentApprovalService $enrollmentApprovalService,
         private EventBusInterface $eventBus,
@@ -23,8 +25,9 @@ final readonly class ApproveEnrollmentService
     public function execute(ApproveEnrollmentRequestInterface $request): ApproveEnrollmentResponse
     {
         $enrollment = $this->getEnrollment($request->getEnrollmentId());
+        $approvedBy = $this->administratorProvider->get();
 
-        $this->enrollmentApprovalService->approve($enrollment);
+        $this->enrollmentApprovalService->approve($enrollment, $approvedBy);
 
         $events = $enrollment->releaseEvents();
         $this->enrollmentRepository->update($enrollment);

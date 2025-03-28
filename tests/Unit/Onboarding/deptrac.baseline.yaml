@@ -26,6 +26,7 @@ deptrac:
     OnboardingApplicationTests:
       - SharedTests
       - SharedDomainEvent
+      - SharedInfrastructureClock
       - SharedInfrastructureEvent
       - OnboardingDomainEntity
       - OnboardingDomainValueObject
@@ -36,12 +37,14 @@ deptrac:
       - OnboardingApplication
       - OnboardingInfrastructureIdGenerator
       - OnboardingInfrastructureRepository
+      - OnboardingInfrastructureProvider
       - OnboardingTests
       - DependencyPHPUnit
     OnboardingTests:
       - SharedTests
       - SharedDomainEvent
       - SharedInfrastructureEvent
+      - SharedInfrastructureClock
       - OnboardingDomainEntity
       - OnboardingDomainValueObject
       - OnboardingDomainEvent
@@ -51,4 +54,5 @@ deptrac:
       - OnboardingApplicationTests
       - OnboardingInfrastructureIdGenerator
       - OnboardingInfrastructureRepository
+      - OnboardingInfrastructureProvider
       - DependencyPHPUnit
