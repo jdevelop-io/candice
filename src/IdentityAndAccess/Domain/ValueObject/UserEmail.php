@@ -6,8 +6,9 @@ namespace Candice\IdentityAndAccess\Domain\ValueObject;
 
 
 use Candice\IdentityAndAccess\Domain\Exception\InvalidUserEmailException;
+use Stringable;
 
-final readonly class UserEmail
+final readonly class UserEmail implements Stringable
 {
     private string $value;
 
@@ -28,5 +29,10 @@ final readonly class UserEmail
         if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
             throw new InvalidUserEmailException($value);
         }
+    }
+
+    public function __toString(): string
+    {
+        return $this->value;
     }
 }
