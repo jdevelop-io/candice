@@ -17,7 +17,7 @@ final class Enrollment
         private readonly EnrollmentId $id,
         private readonly Applicant $applicant,
         private readonly Organization $organization,
-        private readonly EnrollmentStatus $status,
+        private EnrollmentStatus $status,
     ) {
     }
 

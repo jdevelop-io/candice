@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Candice\Tests\Unit\Onboarding;
 
+use Candice\Tests\Unit\Onboarding\Traits\ApproveEnrollmentTestTrait;
 use Candice\Tests\Unit\Onboarding\Traits\SetupFactoriesTestTrait;
 use Candice\Tests\Unit\Onboarding\Traits\SetupRepositoriesTestTrait;
 use Candice\Tests\Unit\Onboarding\Traits\SubmitEnrollmentTestTrait;
@@ -19,6 +20,7 @@ abstract class EnrollmentTest extends TestCase
 
     /** Feature traits */
     use SubmitEnrollmentTestTrait;
+    use ApproveEnrollmentTestTrait;
 
     protected function setUp(): void
     {
@@ -27,5 +29,6 @@ abstract class EnrollmentTest extends TestCase
         $this->setUpEventBus();
 
         $this->setUpSubmitEnrollmentService();
+        $this->setUpApproveEnrollmentService();
     }
 }
