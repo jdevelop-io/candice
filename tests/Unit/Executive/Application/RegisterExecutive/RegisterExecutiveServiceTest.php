@@ -65,4 +65,24 @@ final class RegisterExecutiveServiceTest extends ExecutiveTest
             'dumont'
         );
     }
+
+    public function testExecutiveShouldBeRegistered(): void
+    {
+        $response = $this->registerExecutive(
+            'ExistingOrganizationId',
+            'paul-henry.dumont@example.com',
+            'Paul-henry',
+            'dumont'
+        );
+
+        $this->assertExecutiveRegistered(
+            [
+                'organizationId' => 'ExistingOrganizationId',
+                'organizationName' => 'OrganizationName',
+                'executiveFirstName' => 'Paul-Henry',
+                'executiveLastName' => 'DUMONT',
+            ],
+            $response->getExecutiveEmail()
+        );
+    }
 }

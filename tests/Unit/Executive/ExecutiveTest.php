@@ -45,6 +45,8 @@ abstract class ExecutiveTest extends TestCase
     ): void {
         $organization = $this->organizationRepository->findById(new OrganizationId($organizationId));
 
+        $this->assertNotNull($organization);
+
         $executive = $this->executiveFactory->create(
             $organization,
             $executiveEmail,

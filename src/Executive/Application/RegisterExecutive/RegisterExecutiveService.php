@@ -9,14 +9,18 @@ use Candice\Executive\Domain\Exception\ExecutiveAlreadyRegistered;
 use Candice\Executive\Domain\Exception\OrganizationNotFoundException;
 use Candice\Executive\Domain\Repository\ExecutiveRepositoryInterface;
 use Candice\Executive\Domain\Repository\OrganizationRepositoryInterface;
+use Candice\Executive\Domain\Service\ExecutiveRegistrationService;
 use Candice\Executive\Domain\ValueObject\ExecutiveEmail;
 use Candice\Executive\Domain\ValueObject\OrganizationId;
+use Candice\Shared\Domain\Event\EventBusInterface;
 
 final readonly class RegisterExecutiveService
 {
     public function __construct(
         private OrganizationRepositoryInterface $organizationRepository,
-        private ExecutiveRepositoryInterface $executiveRepository
+        private ExecutiveRepositoryInterface $executiveRepository,
+        private ExecutiveRegistrationService $executiveRegistrationService,
+        private EventBusInterface $eventBus,
     ) {
     }
 
@@ -26,7 +30,18 @@ final readonly class RegisterExecutiveService
 
         $this->guardAgainstExecutiveAlreadyRegistered($request->getExecutiveEmail());
 
-        return new RegisterExecutiveResponse();
+        $executive = $this->executiveRegistrationService->register(
+            $organization,
+            $request->getExecutiveEmail(),
+            $request->getExecutiveFirstName(),
+            $request->getExecutiveLastName()
+        );
+
+        $events = $executive->releaseEvents();
+        $this->executiveRepository->insert($executive);
+        $this->eventBus->publish($events);
+
+        return new RegisterExecutiveResponse($executive->getEmail()->unwrap());
     }
 
     private function getOrganization(string $organizationId): Organization

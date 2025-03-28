@@ -20,6 +20,11 @@ final class InMemoryExecutiveRepository implements ExecutiveRepositoryInterface
         $this->executiveByEmail[$executive->getEmail()->unwrap()] = $executive;
     }
 
+    public function findByEmail(ExecutiveEmail $email): ?Executive
+    {
+        return $this->executiveByEmail[$email->unwrap()] ?? null;
+    }
+
     public function existsByEmail(ExecutiveEmail $executiveEmail): bool
     {
         return isset($this->executiveByEmail[$executiveEmail->unwrap()]);

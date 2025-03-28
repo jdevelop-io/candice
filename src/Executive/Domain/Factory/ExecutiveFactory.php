@@ -23,4 +23,9 @@ final readonly class ExecutiveFactory
             $organization,
         );
     }
+
+    public function register(Organization $organization, ExecutiveEmail $email, ExecutiveFullName $fullName): Executive
+    {
+        return Executive::register($organization, $email, $fullName);
+    }
 }

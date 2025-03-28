@@ -9,8 +9,8 @@ use Candice\Executive\Domain\Factory\OrganizationFactory;
 
 trait SetupFactoriesTestTrait
 {
-    private OrganizationFactory $organizationFactory;
-    private ExecutiveFactory $executiveFactory;
+    protected OrganizationFactory $organizationFactory;
+    protected ExecutiveFactory $executiveFactory;
 
     protected function setUpFactories(): void
     {
