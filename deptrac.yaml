@@ -9,6 +9,8 @@ imports:
   - tests/Unit/Onboarding/deptrac.baseline.yaml
   - src/IdentityAndAccess/deptrac.baseline.yaml
   - tests/Unit/IdentityAndAccess/deptrac.baseline.yaml
+  - src/Organization/deptrac.baseline.yaml
+  - tests/Unit/Organization/deptrac.baseline.yaml
 
 deptrac:
   paths:

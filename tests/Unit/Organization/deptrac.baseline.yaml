@@ -1,0 +1,58 @@
+deptrac:
+  paths:
+    - tests/Unit/Organization
+
+  layers:
+    - name: OrganizationApplicationTests
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Tests\\Unit\\Organization\\Application\\#'
+    - name: OrganizationTests
+      collectors:
+        - type: bool
+          must:
+            - type: classNameRegex
+              value: '#^%project_name%\\Tests\\Unit\\Organization\\#'
+          must_not:
+            - type: classNameRegex
+              value: '#^%project_name%\\Tests\\Unit\\Organization\\(Domain|Application)\\#'
+
+  ruleset:
+    OrganizationDomainTests:
+      - OrganizationDomainFactory
+      - OrganizationDomainEntity
+      - OrganizationDomainValueObject
+      - DependencyPHPUnit
+    OrganizationApplicationTests:
+      - SharedTests
+      - SharedDomainEvent
+      - SharedInfrastructureClock
+      - SharedInfrastructureEvent
+      - OrganizationDomainEntity
+      - OrganizationDomainValueObject
+      - OrganizationDomainEvent
+      - OrganizationDomainService
+      - OrganizationDomainFactory
+      - OrganizationDomainException
+      - OrganizationApplication
+      - OrganizationInfrastructureIdGenerator
+      - OrganizationInfrastructureRepository
+      - OrganizationInfrastructureProvider
+      - OrganizationTests
+      - DependencyPHPUnit
+    OrganizationTests:
+      - SharedTests
+      - SharedDomainEvent
+      - SharedInfrastructureEvent
+      - SharedInfrastructureClock
+      - OrganizationDomainEntity
+      - OrganizationDomainValueObject
+      - OrganizationDomainEvent
+      - OrganizationDomainService
+      - OrganizationDomainFactory
+      - OrganizationApplication
+      - OrganizationApplicationTests
+      - OrganizationInfrastructureIdGenerator
+      - OrganizationInfrastructureRepository
+      - OrganizationInfrastructureProvider
+      - DependencyPHPUnit
