@@ -11,9 +11,12 @@ use Candice\Onboarding\Domain\Service\EnrollmentSubmissionService;
 use Candice\Onboarding\Domain\ValueObject\EnrollmentId;
 use Candice\Shared\Domain\Event\DomainEvent;
 use Candice\Tests\Unit\Onboarding\Application\SubmitEnrollment\SubmitEnrollmentRequest;
+use Candice\Tests\Unit\Shared\Traits\EventBusTestTrait;
 
 trait SubmitEnrollmentTestTrait
 {
+    use EventBusTestTrait;
+
     private SubmitEnrollmentService $service;
 
     public function setUpSubmitEnrollmentService(): void
@@ -49,11 +52,7 @@ trait SubmitEnrollmentTestTrait
             $organizationName
         );
 
-        $response = $this->service->execute($request);
-
-        $this->assertCount(1, $this->eventDispatcher);
-
-        return $response;
+        return $this->service->execute($request);
     }
 
     /**
@@ -84,6 +83,8 @@ trait SubmitEnrollmentTestTrait
             $enrollment->getOrganization()->getRegistrationNumber()->getValue()
         );
         $this->assertSame($expected['organizationName'], $enrollment->getOrganization()->getName()->unwrap());
+        $this->assertSame('pending_approval', $enrollment->getStatus()->unwrap());
+        $this->assertEventDispatchedCount(1);
         $this->assertEnrollmentSubmittedEvent($enrollmentId);
     }
 
