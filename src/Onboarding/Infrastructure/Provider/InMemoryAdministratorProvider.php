@@ -6,11 +6,10 @@ namespace Candice\Onboarding\Infrastructure\Provider;
 
 use Candice\Onboarding\Domain\Entity\Administrator;
 use Candice\Onboarding\Domain\Provider\AdministratorProviderInterface;
-use RuntimeException;
 
 final class InMemoryAdministratorProvider implements AdministratorProviderInterface
 {
-    private ?Administrator $administrator = null;
+    private Administrator $administrator;
 
     public function define(Administrator $administrator): void
     {
@@ -19,10 +18,6 @@ final class InMemoryAdministratorProvider implements AdministratorProviderInterf
 
     public function get(): Administrator
     {
-        if ($this->administrator === null) {
-            throw new RuntimeException('Administrator not defined.');
-        }
-
         return $this->administrator;
     }
 }
