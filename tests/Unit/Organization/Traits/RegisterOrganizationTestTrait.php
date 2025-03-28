@@ -6,6 +6,8 @@ namespace Candice\Tests\Unit\Organization\Traits;
 
 use Candice\Organization\Application\RegisterOrganization\RegisterOrganizationResponse;
 use Candice\Organization\Application\RegisterOrganization\RegisterOrganizationService;
+use Candice\Organization\Domain\Factory\RegistrationNumberFactory;
+use Candice\Organization\Domain\Service\OrganizationRegistrationService;
 use Candice\Tests\Unit\Organization\Application\RegisterOrganization\RegisterOrganizationRequest;
 
 trait RegisterOrganizationTestTrait
@@ -14,7 +16,9 @@ trait RegisterOrganizationTestTrait
 
     protected function setUpRegisterOrganizationService(): void
     {
-        $this->service = new RegisterOrganizationService();
+        $this->service = new RegisterOrganizationService(
+            new OrganizationRegistrationService(new RegistrationNumberFactory())
+        );
     }
 
     protected function registerOrganization(

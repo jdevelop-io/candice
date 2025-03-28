@@ -26,7 +26,7 @@ final class RegisterOrganizationServiceTest extends OrganizationTest
         $this->expectException(UnsupportedRegistrationNumberTypeException::class);
 
         $this->registerOrganization(
-            'siren',
+            'bn',
             '938123072',
             'Acme Inc.',
         );
