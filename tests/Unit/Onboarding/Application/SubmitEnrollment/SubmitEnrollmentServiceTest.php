@@ -4,16 +4,26 @@ declare(strict_types=1);
 
 namespace Candice\Tests\Unit\Onboarding\Application\SubmitEnrollment;
 
-use Candice\Onboarding\Domain\Exception\EnrollmentInPendingApprovalException;
+use Candice\Onboarding\Domain\Exception\EnrollmentResubmissionException;
 use Candice\Onboarding\Domain\Exception\InvalidApplicantEmailException;
 use Candice\Onboarding\Domain\Exception\InvalidApplicantPositionException;
 use Candice\Onboarding\Domain\Exception\InvalidSirenChecksumException;
 use Candice\Onboarding\Domain\Exception\InvalidSirenFormatException;
 use Candice\Onboarding\Domain\Exception\UnsupportedRegistrationNumberTypeException;
 use Candice\Tests\Unit\Onboarding\EnrollmentTest;
+use Candice\Tests\Unit\Onboarding\Traits\SubmitEnrollmentTestTrait;
 
 final class SubmitEnrollmentServiceTest extends EnrollmentTest
 {
+    use SubmitEnrollmentTestTrait;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->setUpSubmitEnrollmentService();
+    }
+
     public function testRegistrationNumberTypeShouldBeSiren(): void
     {
         $this->expectException(UnsupportedRegistrationNumberTypeException::class);
@@ -71,7 +81,7 @@ final class SubmitEnrollmentServiceTest extends EnrollmentTest
             'Acme Inc.',
         );
 
-        $this->expectException(EnrollmentInPendingApprovalException::class);
+        $this->expectException(EnrollmentResubmissionException::class);
 
         $this->submitEnrollment(
             'paul-henry.dumont@example.com',

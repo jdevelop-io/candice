@@ -30,6 +30,15 @@ final class InMemoryEnrollmentRepository implements EnrollmentRepositoryInterfac
             = $enrollment;
     }
 
+    public function update(Enrollment $enrollment): void
+    {
+        $registrationNumber = $enrollment->getOrganization()->getRegistrationNumber();
+
+        $this->enrollmentById[$enrollment->getId()->unwrap()] = $enrollment;
+        $this->enrollmentByRegistrationNumber[$registrationNumber->getType()][$registrationNumber->getValue()]
+            = $enrollment;
+    }
+
     public function findById(EnrollmentId $id): ?Enrollment
     {
         return $this->enrollmentById[$id->unwrap()] ?? null;

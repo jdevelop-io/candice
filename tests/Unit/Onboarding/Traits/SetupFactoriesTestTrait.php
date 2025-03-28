@@ -12,10 +12,10 @@ use Candice\Onboarding\Infrastructure\IdGenerator\IncrementalEnrollmentIdGenerat
 
 trait SetupFactoriesTestTrait
 {
-    private RegistrationNumberFactory $registrationNumberFactory;
-    private ApplicantFactory $applicantFactory;
-    private OrganizationFactory $organizationFactory;
-    private EnrollmentFactory $enrollmentFactory;
+    protected RegistrationNumberFactory $registrationNumberFactory;
+    protected ApplicantFactory $applicantFactory;
+    protected OrganizationFactory $organizationFactory;
+    protected EnrollmentFactory $enrollmentFactory;
 
     public function setUpFactories(): void
     {

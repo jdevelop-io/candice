@@ -8,7 +8,7 @@ use Candice\Onboarding\Infrastructure\Repository\InMemoryEnrollmentRepository;
 
 trait SetupRepositoriesTestTrait
 {
-    private InMemoryEnrollmentRepository $enrollmentRepository;
+    protected InMemoryEnrollmentRepository $enrollmentRepository;
 
     public function setUpRepositories(): void
     {

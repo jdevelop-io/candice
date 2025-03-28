@@ -7,12 +7,11 @@ namespace Candice\Onboarding\Domain\Service;
 use Candice\Onboarding\Domain\Entity\Applicant;
 use Candice\Onboarding\Domain\Entity\Enrollment;
 use Candice\Onboarding\Domain\Entity\Organization;
-use Candice\Onboarding\Domain\Exception\EnrollmentInPendingApprovalException;
+use Candice\Onboarding\Domain\Exception\EnrollmentResubmissionException;
 use Candice\Onboarding\Domain\Factory\ApplicantFactory;
 use Candice\Onboarding\Domain\Factory\EnrollmentFactory;
 use Candice\Onboarding\Domain\Factory\OrganizationFactory;
 use Candice\Onboarding\Domain\Factory\RegistrationNumberFactory;
-use Candice\Onboarding\Domain\ValueObject\EnrollmentStatus;
 use Candice\Onboarding\Domain\ValueObject\RegistrationNumber;
 
 final readonly class EnrollmentSubmissionService
@@ -66,14 +65,20 @@ final readonly class EnrollmentSubmissionService
         Applicant $applicant,
         Organization $organization
     ): Enrollment {
-        if ($existingEnrollment !== null) {
-            match ($existingEnrollment->getStatus()) {
-                EnrollmentStatus::PENDING_APPROVAL => throw new EnrollmentInPendingApprovalException(),
-                // TODO: EnrollmentStatus::APPROVED => throw new EnrollmentAlreadyApprovedException(),
-                // TODO: EnrollmentStatus::REJECTED => null,
-            };
-        }
+        $this->guardAgainstResubmission($existingEnrollment);
 
         return $this->enrollmentFactory->submit($applicant, $organization);
+    }
+
+    private function guardAgainstResubmission(?Enrollment $existingEnrollment): void
+    {
+        if ($existingEnrollment === null) {
+            return;
+        }
+
+        throw new EnrollmentResubmissionException(
+            $existingEnrollment->getOrganization()->getName()->unwrap(),
+            $existingEnrollment->getStatus(),
+        );
     }
 }

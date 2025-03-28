@@ -10,9 +10,9 @@ use Candice\Shared\Infrastructure\Event\InMemoryEventStore;
 
 trait SetupEventBusTestTrait
 {
-    private InMemoryEventStore $eventStore;
-    private InMemoryEventDispatcher $eventDispatcher;
-    private InMemoryEventBus $eventBus;
+    protected InMemoryEventStore $eventStore;
+    protected InMemoryEventDispatcher $eventDispatcher;
+    protected InMemoryEventBus $eventBus;
 
     public function setUpEventBus(): void
     {

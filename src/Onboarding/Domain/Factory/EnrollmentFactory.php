@@ -8,6 +8,7 @@ use Candice\Onboarding\Domain\Entity\Applicant;
 use Candice\Onboarding\Domain\Entity\Enrollment;
 use Candice\Onboarding\Domain\Entity\Organization;
 use Candice\Onboarding\Domain\IdGenerator\EnrollmentIdGeneratorInterface;
+use Candice\Onboarding\Domain\ValueObject\EnrollmentStatus;
 
 final readonly class EnrollmentFactory
 {
@@ -25,5 +26,15 @@ final readonly class EnrollmentFactory
         $id = $this->enrollmentIdGenerator->generate();
 
         return Enrollment::submit($id, $applicant, $organization);
+    }
+
+    public function create(
+        Applicant $applicant,
+        Organization $organization,
+        EnrollmentStatus $status
+    ): Enrollment {
+        $id = $this->enrollmentIdGenerator->generate();
+
+        return new Enrollment($id, $applicant, $organization, $status);
     }
 }
