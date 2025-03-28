@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Candice\Organization\Application\RegisterOrganization;
 
+use Candice\Organization\Domain\Exception\OrganizationAlreadyRegisteredException;
 use Candice\Organization\Domain\Repository\OrganizationRepositoryInterface;
 use Candice\Organization\Domain\Service\OrganizationRegistrationService;
 use Candice\Shared\Domain\Event\EventBusInterface;
@@ -23,6 +24,10 @@ final readonly class RegisterOrganizationService
             $request->getOrganizationRegistrationNumberType(),
             $request->getOrganizationRegistrationNumber(),
         );
+
+        if ($this->organizationRepository->existsByRegistrationNumber($registrationNumber)) {
+            throw new OrganizationAlreadyRegisteredException($registrationNumber);
+        }
 
         $organization = $this->organizationRegistrationService->register(
             $request->getOrganizationRegistrationNumberType(),

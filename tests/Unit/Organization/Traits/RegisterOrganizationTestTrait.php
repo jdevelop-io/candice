@@ -7,8 +7,6 @@ namespace Candice\Tests\Unit\Organization\Traits;
 use Candice\Organization\Application\RegisterOrganization\RegisterOrganizationResponse;
 use Candice\Organization\Application\RegisterOrganization\RegisterOrganizationService;
 use Candice\Organization\Domain\Event\OrganizationRegisteredEvent;
-use Candice\Organization\Domain\Factory\OrganizationFactory;
-use Candice\Organization\Domain\Factory\RegistrationNumberFactory;
 use Candice\Organization\Domain\Service\OrganizationRegistrationService;
 use Candice\Shared\Domain\Event\DomainEvent;
 use Candice\Tests\Unit\Organization\Application\RegisterOrganization\RegisterOrganizationRequest;
@@ -24,7 +22,7 @@ trait RegisterOrganizationTestTrait
     {
         $this->service = new RegisterOrganizationService(
             $this->organizationRepository,
-            new OrganizationRegistrationService(new OrganizationFactory(), new RegistrationNumberFactory()),
+            new OrganizationRegistrationService($this->organizationFactory, $this->registrationNumberFactory),
             $this->eventBus,
         );
     }

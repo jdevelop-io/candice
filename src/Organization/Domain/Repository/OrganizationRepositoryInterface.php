@@ -11,5 +11,7 @@ interface OrganizationRepositoryInterface
 {
     public function insert(Organization $organization): void;
 
+    public function existsByRegistrationNumber(RegistrationNumber $registrationNumber): bool;
+
     public function findByRegistrationNumber(RegistrationNumber $registrationNumber): ?Organization;
 }

@@ -6,6 +6,7 @@ namespace Candice\Tests\Unit\Organization\Application\RegisterOrganization;
 
 use Candice\Organization\Domain\Exception\InvalidSirenChecksumException;
 use Candice\Organization\Domain\Exception\InvalidSirenFormatException;
+use Candice\Organization\Domain\Exception\OrganizationAlreadyRegisteredException;
 use Candice\Organization\Domain\Exception\UnsupportedRegistrationNumberTypeException;
 use Candice\Tests\Unit\Organization\OrganizationTest;
 use Candice\Tests\Unit\Organization\Traits\RegisterOrganizationTestTrait;
@@ -50,6 +51,23 @@ final class RegisterOrganizationServiceTest extends OrganizationTest
         $this->registerOrganization(
             'siren',
             '123456789',
+            'Acme Inc.',
+        );
+    }
+
+    public function testOrganizationIsUniqueByRegistrationNumber(): void
+    {
+        $this->createOrganization(
+            'siren',
+            '938123072',
+            'Acme Inc.',
+        );
+
+        $this->expectException(OrganizationAlreadyRegisteredException::class);
+
+        $this->registerOrganization(
+            'siren',
+            '938123072',
             'Acme Inc.',
         );
     }

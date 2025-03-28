@@ -20,6 +20,11 @@ final class InMemoryOrganizationRepository implements OrganizationRepositoryInte
         $this->organizationByRegistrationNumber[$organization->getRegistrationNumber()->getValue()] = $organization;
     }
 
+    public function existsByRegistrationNumber(RegistrationNumber $registrationNumber): bool
+    {
+        return isset($this->organizationByRegistrationNumber[$registrationNumber->getValue()]);
+    }
+
     public function findByRegistrationNumber(RegistrationNumber $registrationNumber): ?Organization
     {
         return $this->organizationByRegistrationNumber[$registrationNumber->getValue()] ?? null;
