@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Candice\Onboarding\Domain\Entity;
 
 use Candice\Onboarding\Domain\Event\EnrollmentSubmittedEvent;
+use Candice\Onboarding\Domain\Exception\EnrollmentAlreadyProcessedException;
 use Candice\Onboarding\Domain\ValueObject\EnrollmentId;
 use Candice\Onboarding\Domain\ValueObject\EnrollmentStatus;
 use Candice\Shared\Domain\Event\DomainEventPublisherTrait;
@@ -53,5 +54,14 @@ final class Enrollment
     public function getStatus(): EnrollmentStatus
     {
         return $this->status;
+    }
+
+    public function approve(): void
+    {
+        if ($this->status !== EnrollmentStatus::PENDING_APPROVAL) {
+            throw new EnrollmentAlreadyProcessedException($this->id->unwrap(), $this->status->unwrap());
+        }
+
+        $this->status = EnrollmentStatus::APPROVED;
     }
 }

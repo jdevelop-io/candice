@@ -12,6 +12,8 @@ interface EnrollmentRepositoryInterface
 {
     public function insert(Enrollment $enrollment): void;
 
+    public function update(Enrollment $enrollment): void;
+
     public function findById(EnrollmentId $id): ?Enrollment;
 
     public function findByOrganizationRegistrationNumber(RegistrationNumber $registrationNumber): ?Enrollment;
