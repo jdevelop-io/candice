@@ -4,8 +4,13 @@ declare(strict_types=1);
 
 namespace Candice\Tests\Unit\Onboarding;
 
+use Candice\Onboarding\Domain\Entity\Administrator;
 use Candice\Onboarding\Domain\Entity\Enrollment;
+use Candice\Onboarding\Domain\ValueObject\AdministratorFullName;
+use Candice\Onboarding\Domain\ValueObject\AdministratorId;
 use Candice\Onboarding\Domain\ValueObject\EnrollmentStatus;
+use Candice\Onboarding\Infrastructure\Provider\InMemoryAdministratorProvider;
+use Candice\Shared\Infrastructure\Clock\FrozenClock;
 use Candice\Tests\Unit\Onboarding\Traits\SetupFactoriesTestTrait;
 use Candice\Tests\Unit\Onboarding\Traits\SetupRepositoriesTestTrait;
 use Candice\Tests\Unit\Shared\Traits\SetupEventBusTestTrait;
@@ -17,11 +22,30 @@ abstract class EnrollmentTest extends TestCase
     use SetupFactoriesTestTrait;
     use SetupRepositoriesTestTrait;
 
+    protected FrozenClock $clock;
+    protected InMemoryAdministratorProvider $administratorProvider;
+
     protected function setUp(): void
     {
+        $this->clock = new FrozenClock('2025-03-28 13:56:11');
+        $this->administratorProvider = new InMemoryAdministratorProvider();
+
         $this->setUpFactories();
         $this->setUpRepositories();
         $this->setUpEventBus();
+    }
+
+    protected function defineAdministrator(
+        string $administratorId,
+        string $administratorFirstName,
+        string $administratorLastName
+    ): void {
+        $this->administratorProvider->define(
+            new Administrator(
+                new AdministratorId($administratorId),
+                new AdministratorFullName($administratorFirstName, $administratorLastName)
+            )
+        );
     }
 
     protected function createEnrollment(

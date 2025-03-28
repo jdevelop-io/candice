@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Candice\Onboarding\Domain\Entity;
 
 use Candice\Onboarding\Domain\Event\EnrollmentApprovedEvent;
+use Candice\Onboarding\Domain\Event\EnrollmentRejectedEvent;
 use Candice\Onboarding\Domain\Event\EnrollmentSubmittedEvent;
 use Candice\Onboarding\Domain\Exception\EnrollmentAlreadyProcessedException;
 use Candice\Onboarding\Domain\ValueObject\EnrollmentId;
@@ -81,5 +82,18 @@ final class Enrollment
         $this->processedAt = $approvedAt;
 
         $this->record(new EnrollmentApprovedEvent($this->id));
+    }
+
+    public function reject(Administrator $administrator, EnrollmentProcessingDateTime $rejectedAt): void
+    {
+        if ($this->status !== EnrollmentStatus::PENDING_APPROVAL) {
+            throw new EnrollmentAlreadyProcessedException($this->id, $this->status);
+        }
+
+        $this->status = EnrollmentStatus::REJECTED;
+        $this->processedBy = $administrator;
+        $this->processedAt = $rejectedAt;
+
+        $this->record(new EnrollmentRejectedEvent($this->id));
     }
 }
