@@ -27,4 +27,16 @@ final class RegisterOrganizationServiceTest extends ExecutiveTest
 
         $this->registerOrganization('OrganizationId', 'OrganizationName');
     }
+
+    public function testOrganizationRegistered(): void
+    {
+        $response = $this->registerOrganization('OrganizationId', 'OrganizationName');
+
+        $this->assertOrganizationRegistered(
+            [
+                'organizationName' => 'OrganizationName',
+            ],
+            $response->getOrganizationId()
+        );
+    }
 }

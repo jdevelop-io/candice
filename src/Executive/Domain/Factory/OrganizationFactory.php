@@ -14,4 +14,9 @@ final readonly class OrganizationFactory
     {
         return new Organization($id, $name);
     }
+
+    public function register(OrganizationId $id, OrganizationName $name): Organization
+    {
+        return Organization::register($id, $name);
+    }
 }

@@ -20,6 +20,11 @@ final class InMemoryOrganizationRepository implements OrganizationRepositoryInte
         $this->organizationById[$organization->getId()->unwrap()] = $organization;
     }
 
+    public function findById(OrganizationId $id): ?Organization
+    {
+        return $this->organizationById[$id->unwrap()] ?? null;
+    }
+
     public function existsById(OrganizationId $id): bool
     {
         return isset($this->organizationById[$id->unwrap()]);
