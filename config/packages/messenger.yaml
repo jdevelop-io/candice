@@ -6,6 +6,18 @@ framework:
     transports:
     # https://symfony.com/doc/current/messenger.html#transport-configuration
     # async: '%env(MESSENGER_TRANSPORT_DSN)%'
+      iam:
+        dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+        options:
+          queue_name: iam
+      organization:
+        dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+        options:
+          queue_name: organization
+      executive:
+        dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+        options:
+          queue_name: executive
       failed:
         dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
         options:
@@ -14,7 +26,10 @@ framework:
 
     routing:
     # Route your messages to the transports
-    # 'App\Message\YourMessage': async
+      Candice\Onboarding\Infrastructure\Symfony\Message\EnrollmentApprovedMessage:
+        - iam
+        - organization
+        - executive
 
 when@test:
   framework:

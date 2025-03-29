@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Candice\Tests\Unit\Onboarding\Application\ApproveEnrollment;
-
-use Candice\Onboarding\Application\ApproveEnrollment\ApproveEnrollmentRequestInterface;
+namespace Candice\Onboarding\Application\ApproveEnrollment;
 
 final readonly class ApproveEnrollmentRequest implements ApproveEnrollmentRequestInterface
 {

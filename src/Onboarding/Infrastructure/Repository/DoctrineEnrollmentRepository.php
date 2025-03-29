@@ -55,6 +55,8 @@ final readonly class DoctrineEnrollmentRepository implements EnrollmentRepositor
         $this->connection->transactional(function () use ($enrollment) {
             $this->connection->update('onboarding_enrollments', [
                 'status' => $enrollment->getStatus()->unwrap(),
+                'processed_by' => $enrollment->getProcessedBy()?->getId()->unwrap(),
+                'processed_at' => $enrollment->getProcessedAt()?->format('Y-m-d H:i:s'),
             ], [
                 'id' => $enrollment->getId()->unwrap(),
             ]);

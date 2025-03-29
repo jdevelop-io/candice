@@ -9,11 +9,16 @@ services:
     exclude:
       - '../../src/Shared/Infrastructure/Symfony/Kernel.php'
 
+  # Events
   Candice\Shared\Domain\Event\EventBusInterface:
     class: Candice\Shared\Infrastructure\Event\InMemoryEventBus
 
   Candice\Shared\Domain\Event\EventDispatcherInterface:
-    class: Candice\Shared\Infrastructure\Event\InMemoryEventDispatcher
+    class: Candice\Shared\Infrastructure\Symfony\Event\EventDispatcher
 
   Candice\Shared\Domain\Event\EventStoreInterface:
     class: Candice\Shared\Infrastructure\Event\InMemoryEventStore
+
+  # Clock
+  Candice\Shared\Domain\Clock\ClockInterface:
+    class: Candice\Shared\Infrastructure\Clock\RealClock

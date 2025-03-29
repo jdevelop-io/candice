@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Candice\Tests\Unit\Onboarding\Traits;
 
+use Candice\Onboarding\Application\ApproveEnrollment\ApproveEnrollmentRequest;
 use Candice\Onboarding\Application\ApproveEnrollment\ApproveEnrollmentResponse;
 use Candice\Onboarding\Application\ApproveEnrollment\ApproveEnrollmentService;
 use Candice\Onboarding\Domain\Event\EnrollmentApprovedEvent;
 use Candice\Onboarding\Domain\Service\EnrollmentApprovalService;
 use Candice\Onboarding\Domain\ValueObject\EnrollmentId;
 use Candice\Shared\Domain\Event\DomainEvent;
-use Candice\Tests\Unit\Onboarding\Application\ApproveEnrollment\ApproveEnrollmentRequest;
 use Candice\Tests\Unit\Shared\Traits\EventBusTestTrait;
 
 trait ApproveEnrollmentTestTrait
