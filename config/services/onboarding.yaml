@@ -9,7 +9,7 @@ services:
 
   # Identifiers Generators
   Candice\Onboarding\Domain\IdGenerator\EnrollmentIdGeneratorInterface:
-    class: Candice\Onboarding\Infrastructure\IdGenerator\UuidEnrollmentIdGenerator
+    class: Candice\Onboarding\Infrastructure\Symfony\IdGenerator\UuidEnrollmentIdGenerator
 
   # Repositories
   Candice\Onboarding\Domain\Repository\EnrollmentRepositoryInterface:

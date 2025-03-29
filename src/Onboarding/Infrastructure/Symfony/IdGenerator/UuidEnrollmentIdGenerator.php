@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Candice\Onboarding\Infrastructure\IdGenerator;
+namespace Candice\Onboarding\Infrastructure\Symfony\IdGenerator;
 
 use Candice\Onboarding\Domain\IdGenerator\EnrollmentIdGeneratorInterface;
 use Candice\Onboarding\Domain\ValueObject\EnrollmentId;
