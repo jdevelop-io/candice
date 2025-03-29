@@ -35,6 +35,7 @@ class ApproveEnrollmentCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
+        /** @var string $enrollmentId */
         $enrollmentId = $input->getOption(self::ENROLLMENT_ID);
 
         $request = new ApproveEnrollmentRequest($enrollmentId);

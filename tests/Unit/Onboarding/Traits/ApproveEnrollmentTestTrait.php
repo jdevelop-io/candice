@@ -109,19 +109,19 @@ trait ApproveEnrollmentTestTrait
             $event->getOrganization()->getName()->unwrap()
         );
         $this->assertSame(
-            $enrollment->getProcessedBy()->getId()->unwrap(),
+            $enrollment->getProcessedBy()?->getId()->unwrap(),
             $event->getApprovedBy()->getId()->unwrap()
         );
         $this->assertSame(
-            $enrollment->getProcessedBy()->getFullName()->getFirstName(),
+            $enrollment->getProcessedBy()?->getFullName()->getFirstName(),
             $event->getApprovedBy()->getFullName()->getFirstName()
         );
         $this->assertSame(
-            $enrollment->getProcessedBy()->getFullName()->getLastName(),
+            $enrollment->getProcessedBy()?->getFullName()->getLastName(),
             $event->getApprovedBy()->getFullName()->getLastName()
         );
         $this->assertSame(
-            $enrollment->getProcessedAt()->format($this->clock::DATE_TIME_FORMAT),
+            $enrollment->getProcessedAt()?->format($this->clock::DATE_TIME_FORMAT),
             $event->getApprovedAt()->format($this->clock::DATE_TIME_FORMAT)
         );
     }
