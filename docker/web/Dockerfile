@@ -11,7 +11,15 @@ RUN apk add --no-cache \
     git \
     libzip-dev \
     zip \
-    unzip
+    unzip \
+    libpq-dev
+
+# Install PHP extensions
+RUN docker-php-ext-install \
+    zip \
+    pdo \
+    pdo_pgsql \
+    pgsql
 
 WORKDIR /var/www/html
 

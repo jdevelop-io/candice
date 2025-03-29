@@ -11,8 +11,16 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
     git \
     libzip-dev \
     zip \
-    unzip && \
+    unzip \
+    libpq-dev && \
     rm -rf /var/lib/apt/lists/*
+
+# Install PHP extensions
+RUN docker-php-ext-install \
+    zip \
+    pdo \
+    pdo_pgsql \
+    pgsql
 
 WORKDIR /var/www/html
 
