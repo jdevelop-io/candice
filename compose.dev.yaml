@@ -1,4 +1,15 @@
 services:
+  shell:
+    build:
+      context: .
+      dockerfile: docker/tools/Dockerfile
+      target: shell
+    volumes:
+      - .:/var/www/html
+    profiles:
+      - dev
+      - tools
+
   console:
     build:
       context: .

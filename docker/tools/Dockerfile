@@ -21,6 +21,10 @@ COPY ./docker/tools/php.ini /usr/local/etc/php/conf.d/php.ini
 
 ENTRYPOINT ["entrypoint.sh"]
 
+FROM base AS shell
+
+ENTRYPOINT ["entrypoint.sh", "bash"]
+
 FROM base AS console
 
 ENTRYPOINT ["entrypoint.sh", "php", "bin/console"]
