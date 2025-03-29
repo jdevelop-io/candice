@@ -8,3 +8,12 @@ services:
     resource: '../../src/Shared/'
     exclude:
       - '../../src/Shared/Infrastructure/Symfony/Kernel.php'
+
+  Candice\Shared\Domain\Event\EventBusInterface:
+    class: Candice\Shared\Infrastructure\Event\InMemoryEventBus
+
+  Candice\Shared\Domain\Event\EventDispatcherInterface:
+    class: Candice\Shared\Infrastructure\Event\InMemoryEventDispatcher
+
+  Candice\Shared\Domain\Event\EventStoreInterface:
+    class: Candice\Shared\Infrastructure\Event\InMemoryEventStore

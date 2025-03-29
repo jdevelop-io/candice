@@ -1,0 +1,23 @@
+meta {
+  name: Submit
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/onboarding/enrollments
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "applicantEmail": "paul-henry.dumont@example.com",
+    "applicantFirstName": "Paul-Henry",
+    "applicantLastName": "DUMONT",
+    "applicantPosition": "executive",
+    "organizationRegistrationNumberType": "siren",
+    "organizationRegistrationNumber": "938123072",
+    "organizationName": "Acme Inc."
+  }
+}
