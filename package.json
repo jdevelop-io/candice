@@ -13,6 +13,8 @@
         "regenerator-runtime": "^0.13.9",
         "sass": "^1.86.0",
         "sass-loader": "^16.0.5",
+        "ts-loader": "^9.5.2",
+        "typescript": "^5.8.2",
         "webpack": "^5.74.0",
         "webpack-cli": "^5.1.0",
         "webpack-notifier": "^1.15.0"
@@ -24,5 +26,9 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
+    },
+    "dependencies": {
+        "@types/react": "^19.0.12",
+        "@types/react-dom": "^19.0.4"
     }
 }

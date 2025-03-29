@@ -157,7 +157,7 @@
             "ref": "3acc494b566816514a6873a89023a35440b6386d"
         },
         "files": [
-            "assets/bootstrap.js",
+            "assets/bootstrap.ts",
             "assets/controllers.json",
             "assets/controllers/csrf_protection_controller.js",
             "assets/controllers/hello_controller.js"
@@ -218,7 +218,7 @@
             "ref": "20af60d17dc26c2f2b67f8ee1038cd2da1ca8fb3"
         },
         "files": [
-            "assets/app.js",
+            "assets/app.ts",
             "assets/styles/app.css",
             "config/packages/webpack_encore.yaml",
             "package.json",
