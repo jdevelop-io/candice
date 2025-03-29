@@ -73,9 +73,56 @@ trait ApproveEnrollmentTestTrait
 
     protected function assertEnrollmentApprovedEvent(string $enrollmentId): void
     {
+        $enrollment = $this->enrollmentRepository->findById(new EnrollmentId($enrollmentId));
+        $this->assertNotNull($enrollment);
+
         $events = $this->eventStore->load(new EnrollmentId($enrollmentId));
         $event = $events->find(static fn(DomainEvent $event) => $event instanceof EnrollmentApprovedEvent);
         $this->assertInstanceOf(EnrollmentApprovedEvent::class, $event);
         $this->assertSame($enrollmentId, $event->getAggregateRootId()->unwrap());
+        $this->assertSame(
+            $enrollment->getApplicant()->getEmail()->unwrap(),
+            $event->getApplicant()->getEmail()->unwrap()
+        );
+        $this->assertSame(
+            $enrollment->getApplicant()->getFullName()->getFirstName(),
+            $event->getApplicant()->getFullName()->getFirstName()
+        );
+        $this->assertSame(
+            $enrollment->getApplicant()->getFullName()->getLastName(),
+            $event->getApplicant()->getFullName()->getLastName()
+        );
+        $this->assertSame(
+            $enrollment->getApplicant()->getPosition()->unwrap(),
+            $event->getApplicant()->getPosition()->unwrap()
+        );
+        $this->assertSame(
+            $enrollment->getOrganization()->getRegistrationNumber()->getType(),
+            $event->getOrganization()->getRegistrationNumber()->getType()
+        );
+        $this->assertSame(
+            $enrollment->getOrganization()->getRegistrationNumber()->getValue(),
+            $event->getOrganization()->getRegistrationNumber()->getValue()
+        );
+        $this->assertSame(
+            $enrollment->getOrganization()->getName()->unwrap(),
+            $event->getOrganization()->getName()->unwrap()
+        );
+        $this->assertSame(
+            $enrollment->getProcessedBy()->getId()->unwrap(),
+            $event->getApprovedBy()->getId()->unwrap()
+        );
+        $this->assertSame(
+            $enrollment->getProcessedBy()->getFullName()->getFirstName(),
+            $event->getApprovedBy()->getFullName()->getFirstName()
+        );
+        $this->assertSame(
+            $enrollment->getProcessedBy()->getFullName()->getLastName(),
+            $event->getApprovedBy()->getFullName()->getLastName()
+        );
+        $this->assertSame(
+            $enrollment->getProcessedAt()->format($this->clock::DATE_TIME_FORMAT),
+            $event->getApprovedAt()->format($this->clock::DATE_TIME_FORMAT)
+        );
     }
 }
