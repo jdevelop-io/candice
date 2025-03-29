@@ -6,3 +6,11 @@ services:
   # Onboarding
   Candice\Onboarding\:
     resource: '../../src/Onboarding/'
+
+  # Identifiers Generators
+  Candice\Onboarding\Domain\IdGenerator\EnrollmentIdGeneratorInterface:
+    class: Candice\Onboarding\Infrastructure\IdGenerator\UuidEnrollmentIdGenerator
+
+  # Repositories
+  Candice\Onboarding\Domain\Repository\EnrollmentRepositoryInterface:
+    class: Candice\Onboarding\Infrastructure\Repository\DoctrineEnrollmentRepository
