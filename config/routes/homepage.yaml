@@ -1,0 +1,4 @@
+homepage:
+  path: /
+  methods: [ GET ]
+  controller: Candice\Homepage\Infrastructure\Symfony\Controller\HomepageController

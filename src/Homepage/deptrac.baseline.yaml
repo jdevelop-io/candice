@@ -1,0 +1,137 @@
+deptrac:
+  paths:
+    - src/Homepage
+
+  layers:
+    - name: HomepageDomainEntity
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Homepage\\Domain\\Entity\\#'
+    - name: HomepageDomainValueObject
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Homepage\\Domain\\ValueObject\\#'
+    - name: HomepageDomainEvent
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Homepage\\Domain\\Event\\#'
+    - name: HomepageDomainIdGenerator
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Homepage\\Domain\\IdGenerator\\#'
+    - name: HomepageDomainProvider
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Homepage\\Domain\\Provider\\#'
+    - name: HomepageDomainService
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Homepage\\Domain\\Service\\#'
+    - name: HomepageDomainRepository
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Homepage\\Domain\\Repository\\#'
+    - name: HomepageDomainException
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Homepage\\Domain\\Exception\\#'
+    - name: HomepageDomainFactory
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Homepage\\Domain\\Factory\\#'
+    - name: HomepageApplication
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Homepage\\Application\\#'
+    - name: HomepageInfrastructureIdGenerator
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Homepage\\Infrastructure\\IdGenerator\\#'
+    - name: HomepageInfrastructureRepository
+      collectors:
+        - type: bool
+          must:
+            - type: classNameRegex
+              value: '#^%project_name%\\Homepage\\Infrastructure\\Repository\\#'
+          must_not:
+            - type: classNameRegex
+              value: '#^%project_name%\\Homepage\\Infrastructure\\Repository\\Doctrine.+#'
+    - name: HomepageInfrastructureRepositoryDoctrine
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Homepage\\Infrastructure\\Repository\\Doctrine.+#'
+    - name: HomepageInfrastructureProvider
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Homepage\\Infrastructure\\Provider\\#'
+    - name: HomepageInfrastructureMapper
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Homepage\\Infrastructure\\Mapper\\#'
+
+  ruleset:
+    HomepageDomainEntity:
+      - SharedDomainEntity
+      - SharedDomainEvent
+      - HomepageDomainValueObject
+      - HomepageDomainEvent
+      - HomepageDomainException
+    HomepageDomainValueObject:
+      - HomepageDomainException
+      - SharedDomainValueObject
+    HomepageDomainException:
+      - HomepageDomainValueObject
+    HomepageDomainEvent:
+      - SharedDomainValueObject
+      - SharedDomainEvent
+      - HomepageDomainEntity
+      - HomepageDomainValueObject
+    HomepageDomainService:
+      - SharedDomainClock
+      - HomepageDomainEntity
+      - HomepageDomainValueObject
+      - HomepageDomainException
+      - HomepageDomainFactory
+    HomepageDomainIdGenerator:
+      - HomepageDomainValueObject
+    HomepageDomainProvider:
+      - HomepageDomainEntity
+    HomepageDomainRepository:
+      - HomepageDomainEntity
+      - HomepageDomainValueObject
+    HomepageDomainFactory:
+      - HomepageDomainEntity
+      - HomepageDomainValueObject
+      - HomepageDomainException
+      - HomepageDomainIdGenerator
+    HomepageApplication:
+      - SharedDomainEvent
+      - HomepageDomainEntity
+      - HomepageDomainValueObject
+      - HomepageDomainFactory
+      - HomepageDomainRepository
+      - HomepageDomainException
+      - HomepageDomainService
+      - HomepageDomainProvider
+    HomepageInfrastructureIdGenerator:
+      - HomepageDomainValueObject
+      - HomepageDomainIdGenerator
+    HomepageInfrastructureRepository:
+      - HomepageDomainEntity
+      - HomepageDomainValueObject
+      - HomepageDomainRepository
+      - DependencySafe
+    HomepageInfrastructureRepositoryDoctrine:
+      - HomepageDomainEntity
+      - HomepageDomainValueObject
+      - HomepageDomainRepository
+      - HomepageInfrastructureMapper
+      - DependencySafe
+      - DependencyDoctrine
+    HomepageInfrastructureMapper:
+      - HomepageDomainEntity
+      - HomepageDomainValueObject
+      - HomepageDomainFactory
+    HomepageInfrastructureProvider:
+      - HomepageDomainEntity
+      - HomepageDomainProvider
