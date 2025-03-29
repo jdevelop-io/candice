@@ -31,6 +31,10 @@ ENTRYPOINT ["entrypoint.sh"]
 
 FROM base AS shell
 
+RUN apt-get update -y && apt-get install -y --no-install-recommends \
+    nodejs \
+    npm
+
 ENTRYPOINT ["entrypoint.sh", "bash"]
 
 FROM base AS console

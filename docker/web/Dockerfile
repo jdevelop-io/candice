@@ -12,7 +12,9 @@ RUN apk add --no-cache \
     libzip-dev \
     zip \
     unzip \
-    libpq-dev
+    libpq-dev \
+    nodejs \
+    npm
 
 # Install PHP extensions
 RUN docker-php-ext-install \
