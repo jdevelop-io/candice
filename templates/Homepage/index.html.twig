@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block body %}
+    <div {{ react_component('Hello', { fullName: 'world' }) }}>
+        Loading...
+    </div>
+{% endblock %}
