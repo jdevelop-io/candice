@@ -21,8 +21,17 @@ deptrac:
           value: '#^%project_name%\\Shared\\Domain\\Clock\\#'
     - name: SharedInfrastructureSymfony
       collectors:
+        - type: bool
+          must:
+            - type: classNameRegex
+              value: '#^%project_name%\\Shared\\Infrastructure\\Symfony\\#'
+          must_not:
+            - type: classNameRegex
+              value: '#^%project_name%\\Shared\\Infrastructure\\Symfony\\Event\\#'
+    - name: SharedInfrastructureSymfonyEvent
+      collectors:
         - type: classNameRegex
-          value: '#^%project_name%\\Shared\\Infrastructure\\Symfony\\#'
+          value: '#^%project_name%\\Shared\\Infrastructure\\Symfony\\Event\\#'
     - name: SharedInfrastructureEvent
       collectors:
         - type: classNameRegex
@@ -41,6 +50,9 @@ deptrac:
       - SharedDomainValueObject
       - SharedDomainEvent
     SharedInfrastructureSymfony:
+      - DependencySymfony
+    SharedInfrastructureSymfonyEvent:
+      - SharedDomainEvent
       - DependencySymfony
     SharedInfrastructureClock:
       - SharedDomainClock

@@ -81,7 +81,12 @@ final class Enrollment
         $this->processedBy = $administrator;
         $this->processedAt = $approvedAt;
 
-        $this->record(new EnrollmentApprovedEvent($this->id));
+        $this->record(
+            new EnrollmentApprovedEvent(
+                $this->id, $this->applicant, $this->organization, $administrator,
+                $approvedAt
+            )
+        );
     }
 
     public function reject(Administrator $administrator, EnrollmentProcessingDateTime $rejectedAt): void

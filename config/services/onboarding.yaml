@@ -11,6 +11,10 @@ services:
   Candice\Onboarding\Domain\IdGenerator\EnrollmentIdGeneratorInterface:
     class: Candice\Onboarding\Infrastructure\Symfony\IdGenerator\UuidEnrollmentIdGenerator
 
+  # Providers
+  Candice\Onboarding\Domain\Provider\AdministratorProviderInterface:
+    class: Candice\Onboarding\Infrastructure\Symfony\Provider\ConsoleAdministratorProvider
+
   # Repositories
   Candice\Onboarding\Domain\Repository\EnrollmentRepositoryInterface:
     class: Candice\Onboarding\Infrastructure\Repository\DoctrineEnrollmentRepository
