@@ -13,6 +13,7 @@ imports:
   - tests/Unit/Organization/deptrac.baseline.yaml
   - src/Executive/deptrac.baseline.yaml
   - tests/Unit/Executive/deptrac.baseline.yaml
+  - src/Homepage/deptrac.baseline.yaml
 
 deptrac:
   paths:
