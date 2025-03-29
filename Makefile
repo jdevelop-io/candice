@@ -2,6 +2,7 @@ COMPOSE_FILES ?= -f compose.yaml -f compose.dev.yaml
 LOGS_SERVICES ?= $(shell docker compose config --services | tr '\n' ' ')
 CLEAN_OPTIONS ?= -s -f -v
 COVERAGE_OPTIONS ?= --coverage-text --coverage-html=var/coverage --coverage-clover=var/coverage.xml
+CONSOLE_COMMAND ?=
 
 .PHONY: all
 all: coverage phpcs phpmd phpstan deptrac
@@ -20,7 +21,7 @@ shell:
 
 .PHONY: console
 console:
-	docker compose $(COMPOSE_FILES) run --rm console bash
+	docker compose $(COMPOSE_FILES) run --rm console $(CONSOLE_COMMAND)
 
 .PHONY: phpcs
 phpcs:
