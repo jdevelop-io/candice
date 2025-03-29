@@ -1,0 +1,4 @@
+onboarding_enrollment_submit:
+  path: /onboarding/enrollments
+  methods: [POST]
+  controller: Candice\Onboarding\Infrastructure\Symfony\Controller\EnrollmentController::submit

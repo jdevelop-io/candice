@@ -31,3 +31,7 @@ deptrac:
       collectors:
         - type: classNameRegex
           value: '#^Safe\\#'
+    - name: DependencyDoctrine
+      collectors:
+        - type: classNameRegex
+          value: '#^Doctrine\\#'
