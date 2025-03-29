@@ -49,12 +49,25 @@ deptrac:
           value: '#^%project_name%\\Onboarding\\Infrastructure\\IdGenerator\\#'
     - name: OnboardingInfrastructureRepository
       collectors:
+        - type: bool
+          must:
+            - type: classNameRegex
+              value: '#^%project_name%\\Onboarding\\Infrastructure\\Repository\\#'
+          must_not:
+            - type: classNameRegex
+              value: '#^%project_name%\\Onboarding\\Infrastructure\\Repository\\Doctrine.+#'
+    - name: OnboardingInfrastructureRepositoryDoctrine
+      collectors:
         - type: classNameRegex
-          value: '#^%project_name%\\Onboarding\\Infrastructure\\Repository\\#'
+          value: '#^%project_name%\\Onboarding\\Infrastructure\\Repository\\Doctrine.+#'
     - name: OnboardingInfrastructureProvider
       collectors:
         - type: classNameRegex
           value: '#^%project_name%\\Onboarding\\Infrastructure\\Provider\\#'
+    - name: OnboardingInfrastructureMapper
+      collectors:
+        - type: classNameRegex
+          value: '#^%project_name%\\Onboarding\\Infrastructure\\Mapper\\#'
 
   ruleset:
     OnboardingDomainEntity:
@@ -107,6 +120,18 @@ deptrac:
       - OnboardingDomainEntity
       - OnboardingDomainValueObject
       - OnboardingDomainRepository
+      - DependencySafe
+    OnboardingInfrastructureRepositoryDoctrine:
+      - OnboardingDomainEntity
+      - OnboardingDomainValueObject
+      - OnboardingDomainRepository
+      - OnboardingInfrastructureMapper
+      - DependencySafe
+      - DependencyDoctrine
+    OnboardingInfrastructureMapper:
+      - OnboardingDomainEntity
+      - OnboardingDomainValueObject
+      - OnboardingDomainFactory
     OnboardingInfrastructureProvider:
       - OnboardingDomainEntity
       - OnboardingDomainProvider
