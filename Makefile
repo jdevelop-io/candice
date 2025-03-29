@@ -14,6 +14,10 @@ tests:
 coverage:
 	docker compose $(COMPOSE_FILES) run --rm coverage $(COVERAGE_OPTIONS)
 
+.PHONY: shell
+shell:
+	docker compose $(COMPOSE_FILES) run --rm shell
+
 .PHONY: console
 console:
 	docker compose $(COMPOSE_FILES) run --rm console bash
