@@ -6,14 +6,10 @@ interface HelloProps {
 }
 
 export default function (props: HelloProps) {
-    const handleClick = () => {
-        console.log('foo');
-    };
-
     return (
-        <div className="font-bold">
-            Hello { props.fullName }
-            <Button variant="outline" onClick={handleClick}>Test</Button>
+        <div className="p-4 font-bold text-2xl flex gap-4">
+            <span>Hello { props.fullName }</span>
+            <Button>Let's shine !</Button>
         </div>
     )
 }
