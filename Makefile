@@ -30,3 +30,7 @@ coverage-clover:
 .PHONY: phpcs
 phpcs:
 	$(DOCKER_COMPOSE) $(foreach file, $(DOCKER_COMPOSE_FILES), -f $(file)) run --rm phpcs
+
+.PHONY: phpcbf
+phpcbf:
+	$(DOCKER_COMPOSE) $(foreach file, $(DOCKER_COMPOSE_FILES), -f $(file)) run --rm phpcbf
