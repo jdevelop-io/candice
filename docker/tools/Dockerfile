@@ -42,3 +42,11 @@ ENV XDEBUG_MODE=coverage
 
 ENTRYPOINT ["entrypoint.sh", "php", "bin/phpunit"]
 CMD ["--coverage-text"]
+
+FROM base AS phpcs
+
+ENTRYPOINT ["entrypoint.sh", "php", "vendor/bin/phpcs"]
+
+FROM base AS phpcbf
+
+ENTRYPOINT ["entrypoint.sh", "php", "vendor/bin/phpcbf"]

@@ -40,3 +40,31 @@ services:
     profiles:
       - dev
       - tools
+
+  phpcs:
+    image: ${IMAGES_PREFIX:-}phpcs
+    build:
+      context: .
+      dockerfile: ./docker/tools/Dockerfile
+      target: phpcs
+      args:
+        - PHP_VERSION=${PHP_VERSION:-8.4}
+    volumes:
+      - .:/var/www/html
+    profiles:
+      - dev
+      - tools
+
+  phpcbf:
+    image: ${IMAGES_PREFIX:-}phpcbf
+    build:
+      context: .
+      dockerfile: ./docker/tools/Dockerfile
+      target: phpcbf
+      args:
+        - PHP_VERSION=${PHP_VERSION:-8.4}
+    volumes:
+      - .:/var/www/html
+    profiles:
+      - dev
+      - tools

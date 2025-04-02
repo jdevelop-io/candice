@@ -2,7 +2,13 @@ DOCKER_COMPOSE=docker compose
 DOCKER_COMPOSE_FILES=compose.dev.yaml
 
 .PHONY: default
-default: coverage
+default: fix checks
+
+.PHONY: fix
+fix: phpcbf
+
+.PHONY: checks
+checks: phpcs tests
 
 .PHONY: shell
 shell:
@@ -26,3 +32,11 @@ coverage-html:
 .PHONY: coverage-clover
 coverage-clover:
 	$(DOCKER_COMPOSE) $(foreach file, $(DOCKER_COMPOSE_FILES), -f $(file)) run --rm phpunit-coverage --coverage-clover=var/coverage/clover.xml
+
+.PHONY: phpcs
+phpcs:
+	$(DOCKER_COMPOSE) $(foreach file, $(DOCKER_COMPOSE_FILES), -f $(file)) run --rm phpcs
+
+.PHONY: phpcbf
+phpcbf:
+	$(DOCKER_COMPOSE) $(foreach file, $(DOCKER_COMPOSE_FILES), -f $(file)) run --rm phpcbf
