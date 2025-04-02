@@ -82,3 +82,17 @@ services:
     profiles:
       - dev
       - tools
+
+  phpstan:
+    image: ${IMAGES_PREFIX:-}phpstan
+    build:
+      context: .
+      dockerfile: ./docker/tools/Dockerfile
+      target: phpstan
+      args:
+        - PHP_VERSION=${PHP_VERSION:-8.4}
+    volumes:
+      - .:/var/www/html
+    profiles:
+      - dev
+      - tools
