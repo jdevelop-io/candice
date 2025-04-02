@@ -1,0 +1,14 @@
+services:
+  shell:
+    image: ${IMAGES_PREFIX:-}shell
+    build:
+      context: .
+      dockerfile: ./docker/tools/Dockerfile
+      target: shell
+      args:
+        - PHP_VERSION=${PHP_VERSION:-8.4}
+    volumes:
+      - .:/var/www/html
+    profiles:
+      - dev
+      - tools
