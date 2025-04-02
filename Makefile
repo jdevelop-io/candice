@@ -26,3 +26,7 @@ coverage-html:
 .PHONY: coverage-clover
 coverage-clover:
 	$(DOCKER_COMPOSE) $(foreach file, $(DOCKER_COMPOSE_FILES), -f $(file)) run --rm phpunit-coverage --coverage-clover=var/coverage/clover.xml
+
+.PHONY: phpcs
+phpcs:
+	$(DOCKER_COMPOSE) $(foreach file, $(DOCKER_COMPOSE_FILES), -f $(file)) run --rm phpcs
