@@ -13,5 +13,8 @@ tests:
 	$(DOCKER_COMPOSE) $(foreach file, $(DOCKER_COMPOSE_FILES), -f $(file)) run --rm phpunit
 
 .PHONY: coverage
-coverage:
-	$(DOCKER_COMPOSE) $(foreach file, $(DOCKER_COMPOSE_FILES), -f $(file)) run --rm phpunit-coverage
+coverage: coverage-text
+
+.PHONY: coverage-text
+coverage-text:
+	$(DOCKER_COMPOSE) $(foreach file, $(DOCKER_COMPOSE_FILES), -f $(file)) run --rm phpunit-coverage --coverage-text
