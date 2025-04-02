@@ -26,3 +26,7 @@
 /var/.phpcs-cache
 /phpcs.xml
 ###< squizlabs/php_codesniffer ###
+
+###> phpmd/phpmd ###
+/phpmd.xml
+###< phpmd/phpmd ###
