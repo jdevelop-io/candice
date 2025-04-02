@@ -8,7 +8,7 @@ default: fix checks
 fix: phpcbf
 
 .PHONY: checks
-checks: phpcs phpmd tests
+checks: phpcs phpmd phpstan tests
 
 .PHONY: shell
 shell:
@@ -44,3 +44,7 @@ phpcbf:
 .PHONY: phpmd
 phpmd:
 	$(DOCKER_COMPOSE) $(foreach file, $(DOCKER_COMPOSE_FILES), -f $(file)) run --rm phpmd
+
+.PHONY: phpstan
+phpstan:
+	$(DOCKER_COMPOSE) $(foreach file, $(DOCKER_COMPOSE_FILES), -f $(file)) run --rm phpstan

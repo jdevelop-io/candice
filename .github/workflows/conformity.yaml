@@ -25,3 +25,6 @@ jobs:
 
       - name: Run PHPMD
         run: make phpmd
+
+      - name: Run PHPStan
+        run: make phpstan

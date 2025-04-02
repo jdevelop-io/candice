@@ -30,3 +30,7 @@
 ###> phpmd/phpmd ###
 /phpmd.xml
 ###< phpmd/phpmd ###
+
+###> phpstan/phpstan ###
+phpstan.neon
+###< phpstan/phpstan ###
