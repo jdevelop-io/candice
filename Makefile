@@ -2,7 +2,13 @@ DOCKER_COMPOSE=docker compose
 DOCKER_COMPOSE_FILES=compose.dev.yaml
 
 .PHONY: default
-default: coverage
+default: fix checks
+
+.PHONY: fix
+fix: phpcbf
+
+.PHONY: checks
+checks: phpcs tests
 
 .PHONY: shell
 shell:
