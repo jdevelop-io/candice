@@ -23,7 +23,7 @@ ENTRYPOINT ["entrypoint.sh"]
 
 FROM base AS shell
 
-CMD ["bash"]
+ENTRYPOINT ["entrypoint.sh", "bash"]
 
 FROM base AS phpunit
 
