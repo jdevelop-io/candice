@@ -54,3 +54,17 @@ services:
     profiles:
       - dev
       - tools
+
+  phpcbf:
+    image: ${IMAGES_PREFIX:-}phpcbf
+    build:
+      context: .
+      dockerfile: ./docker/tools/Dockerfile
+      target: phpcbf
+      args:
+        - PHP_VERSION=${PHP_VERSION:-8.4}
+    volumes:
+      - .:/var/www/html
+    profiles:
+      - dev
+      - tools
