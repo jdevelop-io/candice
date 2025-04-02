@@ -26,3 +26,17 @@ services:
     profiles:
       - dev
       - tools
+
+  phpunit-coverage:
+    image: ${IMAGES_PREFIX:-}phpunit-coverage
+    build:
+      context: .
+      dockerfile: ./docker/tools/Dockerfile
+      target: phpunit-coverage
+      args:
+        - PHP_VERSION=${PHP_VERSION:-8.4}
+    volumes:
+      - .:/var/www/html
+    profiles:
+      - dev
+      - tools
