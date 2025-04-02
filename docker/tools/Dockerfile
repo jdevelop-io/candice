@@ -11,6 +11,9 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
     libzip-dev \
     && docker-php-ext-install zip
 
+# Install Xdebug
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+
 # Install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -18,6 +21,10 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY ./docker/tools/php.ini /usr/local/etc/php/conf.d/php.ini
 
 COPY ./docker/tools/entrypoint.sh /usr/local/bin/entrypoint.sh
+
+# Turn off Xdebug by default
+# Override this if you want to enable Xdebug
+ENV XDEBUG_MODE=off
 
 ENTRYPOINT ["entrypoint.sh"]
 
@@ -27,10 +34,11 @@ ENTRYPOINT ["entrypoint.sh", "bash"]
 
 FROM base AS phpunit
 
-# Install Xdebug
-RUN pecl install xdebug && docker-php-ext-enable xdebug
+ENTRYPOINT ["entrypoint.sh", "php", "bin/phpunit"]
 
-# Set the Xdebug configuration
-COPY ./docker/tools/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+FROM phpunit AS phpunit-coverage
+
+ENV XDEBUG_MODE=coverage
 
 ENTRYPOINT ["entrypoint.sh", "php", "bin/phpunit"]
+CMD ["--coverage-text"]
