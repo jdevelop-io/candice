@@ -22,3 +22,6 @@ jobs:
 
       - name: Run PHP-CS
         run: make phpcs
+
+      - name: Run PHPMD
+        run: make phpmd
