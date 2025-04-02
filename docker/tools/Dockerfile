@@ -59,3 +59,7 @@ CMD ["src,tests,bin,config,public", "text", "phpmd.xml.dist"]
 FROM base AS phpstan
 
 ENTRYPOINT ["entrypoint.sh", "php", "vendor/bin/phpstan"]
+
+FROM base AS psalm
+
+ENTRYPOINT ["entrypoint.sh", "php", "vendor/bin/psalm"]

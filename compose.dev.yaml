@@ -96,3 +96,17 @@ services:
     profiles:
       - dev
       - tools
+
+  psalm:
+    image: ${IMAGES_PREFIX:-}psalm
+    build:
+      context: .
+      dockerfile: ./docker/tools/Dockerfile
+      target: psalm
+      args:
+        - PHP_VERSION=${PHP_VERSION:-8.4}
+    volumes:
+      - .:/var/www/html
+    profiles:
+      - dev
+      - tools
