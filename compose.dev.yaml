@@ -68,3 +68,17 @@ services:
     profiles:
       - dev
       - tools
+
+  phpmd:
+    image: ${IMAGES_PREFIX:-}phpmd
+    build:
+      context: .
+      dockerfile: ./docker/tools/Dockerfile
+      target: phpmd
+      args:
+        - PHP_VERSION=${PHP_VERSION:-8.4}
+    volumes:
+      - .:/var/www/html
+    profiles:
+      - dev
+      - tools

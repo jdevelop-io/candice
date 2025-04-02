@@ -50,3 +50,8 @@ ENTRYPOINT ["entrypoint.sh", "php", "vendor/bin/phpcs"]
 FROM base AS phpcbf
 
 ENTRYPOINT ["entrypoint.sh", "php", "vendor/bin/phpcbf"]
+
+FROM base AS phpmd
+
+ENTRYPOINT ["entrypoint.sh", "php", "vendor/bin/phpmd"]
+CMD ["src,tests,bin,config,public", "text", "phpmd.xml.dist"]
