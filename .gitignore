@@ -21,3 +21,8 @@
 /var/.phpunit.result.cache
 /phpunit.xml
 ###< phpunit/phpunit ###
+
+###> squizlabs/php_codesniffer ###
+/var/.phpcs-cache
+/phpcs.xml
+###< squizlabs/php_codesniffer ###
