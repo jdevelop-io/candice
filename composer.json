@@ -10,6 +10,11 @@
       "Candice\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Candice\\Tests\\": "tests/"
+    }
+  },
   "require": {
     "php": ">=8.2",
     "ext-ctype": "*",
@@ -22,6 +27,10 @@
     "symfony/yaml": "7.2.*"
   },
   "require-dev": {
+    "phpunit/phpunit": "^9.5",
+    "symfony/browser-kit": "7.2.*",
+    "symfony/css-selector": "7.2.*",
+    "symfony/phpunit-bridge": "^7.2"
   },
   "config": {
     "allow-plugins": {
