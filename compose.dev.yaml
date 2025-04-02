@@ -12,3 +12,17 @@ services:
     profiles:
       - dev
       - tools
+
+  phpunit:
+    image: ${IMAGES_PREFIX:-}phpunit
+    build:
+      context: .
+      dockerfile: ./docker/tools/Dockerfile
+      target: phpunit
+      args:
+        - PHP_VERSION=${PHP_VERSION:-8.4}
+    volumes:
+      - .:/var/www/html
+    profiles:
+      - dev
+      - tools
