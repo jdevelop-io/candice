@@ -5,10 +5,10 @@ DOCKER_COMPOSE_FILES=compose.dev.yaml
 default: fix checks
 
 .PHONY: fix
-fix: phpcbf
+fix: phpcbf psalm-fix
 
 .PHONY: checks
-checks: phpcs phpmd phpstan tests
+checks: phpcs phpmd phpstan psalm-check tests
 
 .PHONY: shell
 shell:
@@ -48,3 +48,11 @@ phpmd:
 .PHONY: phpstan
 phpstan:
 	$(DOCKER_COMPOSE) $(foreach file, $(DOCKER_COMPOSE_FILES), -f $(file)) run --rm phpstan
+
+.PHONY: psalm-fix
+psalm-fix:
+	$(DOCKER_COMPOSE) $(foreach file, $(DOCKER_COMPOSE_FILES), -f $(file)) run --rm psalm --alter --issues=all
+
+.PHONY: psalm-check
+psalm-check:
+	$(DOCKER_COMPOSE) $(foreach file, $(DOCKER_COMPOSE_FILES), -f $(file)) run --rm psalm
