@@ -28,3 +28,6 @@ jobs:
 
       - name: Run PHPStan
         run: make phpstan
+
+      - name: Run Psalm
+        run: make psalm-check
