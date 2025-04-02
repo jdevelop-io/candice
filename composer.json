@@ -10,6 +10,11 @@
       "Candice\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Candice\\Tests\\": "tests/"
+    }
+  },
   "require": {
     "php": ">=8.2",
     "ext-ctype": "*",
