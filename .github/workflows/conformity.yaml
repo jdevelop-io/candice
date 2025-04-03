@@ -34,3 +34,6 @@ jobs:
 
       - name: Run Deptrac coverage
         run: make deptrac-coverage
+
+      - name: Run Deptrac
+        run: make deptrac
