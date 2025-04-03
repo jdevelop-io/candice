@@ -1,0 +1,13 @@
+deptrac:
+  paths:
+    - src/Shared
+
+  layers:
+    - name: SharedInfrastructureSymfony
+      collectors:
+        - type: directory
+          value: 'src/Shared/Infrastructure/Symfony'
+
+  ruleset:
+    SharedInfrastructureSymfony:
+      - DependencySymfony
