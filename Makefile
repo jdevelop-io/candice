@@ -60,3 +60,7 @@ psalm-check:
 .PHONY: deptrac
 deptrac:
 	$(DOCKER_COMPOSE) $(foreach file, $(DOCKER_COMPOSE_FILES), -f $(file)) run --rm deptrac
+
+.PHONY: deptrac-coverage
+deptrac-coverage:
+	$(DOCKER_COMPOSE) $(foreach file, $(DOCKER_COMPOSE_FILES), -f $(file)) run --rm deptrac-coverage
