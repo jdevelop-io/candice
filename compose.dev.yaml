@@ -124,3 +124,17 @@ services:
     profiles:
       - dev
       - tools
+
+  deptrac-coverage:
+    image: ${IMAGES_PREFIX:-}deptrac-coverage
+    build:
+      context: .
+      dockerfile: ./docker/tools/Dockerfile
+      target: deptrac-coverage
+      args:
+        - PHP_VERSION=${PHP_VERSION:-8.4}
+    volumes:
+      - .:/var/www/html
+    profiles:
+      - dev
+      - tools
