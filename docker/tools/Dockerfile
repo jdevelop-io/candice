@@ -63,3 +63,8 @@ ENTRYPOINT ["entrypoint.sh", "php", "vendor/bin/phpstan"]
 FROM base AS psalm
 
 ENTRYPOINT ["entrypoint.sh", "php", "vendor/bin/psalm"]
+
+FROM base AS deptrac
+
+ENTRYPOINT ["entrypoint.sh", "php", "vendor/bin/deptrac"]
+CMD ["analyze", "--fail-on-uncovered", "--report-uncovered", "--cache-file=var/deptrac.cache"]

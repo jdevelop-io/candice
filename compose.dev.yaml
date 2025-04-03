@@ -110,3 +110,17 @@ services:
     profiles:
       - dev
       - tools
+
+  deptrac:
+    image: ${IMAGES_PREFIX:-}deptrac
+    build:
+      context: .
+      dockerfile: ./docker/tools/Dockerfile
+      target: deptrac
+      args:
+        - PHP_VERSION=${PHP_VERSION:-8.4}
+    volumes:
+      - .:/var/www/html
+    profiles:
+      - dev
+      - tools
