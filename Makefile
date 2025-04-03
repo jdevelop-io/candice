@@ -8,7 +8,7 @@ default: fix checks
 fix: phpcbf psalm-fix
 
 .PHONY: checks
-checks: phpcs phpmd phpstan psalm-check tests
+checks: phpcs phpmd phpstan psalm-check deptrac tests
 
 .PHONY: shell
 shell:
@@ -56,3 +56,7 @@ psalm-fix:
 .PHONY: psalm-check
 psalm-check:
 	$(DOCKER_COMPOSE) $(foreach file, $(DOCKER_COMPOSE_FILES), -f $(file)) run --rm psalm
+
+.PHONY: deptrac
+deptrac:
+	$(DOCKER_COMPOSE) $(foreach file, $(DOCKER_COMPOSE_FILES), -f $(file)) run --rm deptrac
