@@ -1,12 +1,15 @@
+parameters:
+  bounded_context.shared.directory: './src/Shared'
+
 deptrac:
   paths:
-    - src/Shared
+    - ./src/Shared
 
   layers:
     - name: SharedInfrastructureSymfony
       collectors:
         - type: directory
-          value: 'src/Shared/Infrastructure/Symfony'
+          value: '%bounded_context.shared.directory%/Infrastructure/Symfony'
 
   ruleset:
     SharedInfrastructureSymfony:
