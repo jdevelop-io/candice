@@ -9,9 +9,5 @@ return function (array $context): Kernel {
         throw new RuntimeException('APP_ENV environment variable is not set or not valid');
     }
 
-    if (!isset($context['APP_DEBUG']) || !is_bool($context['APP_DEBUG'])) {
-        throw new RuntimeException('APP_DEBUG environment variable is not set or not valid');
-    }
-
-    return new Kernel($context['APP_ENV'], $context['APP_DEBUG']);
+    return new Kernel($context['APP_ENV'], (bool)$context['APP_DEBUG']);
 };
