@@ -1,0 +1,9 @@
+imports:
+  - src/Shared/deptrac.baseline.yaml
+
+deptrac:
+  layers:
+    - name: DependencySymfony
+      collectors:
+        - type: classNameRegex
+          value: '#^Symfony\\.*$#'
