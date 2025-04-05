@@ -71,4 +71,4 @@ CMD ["analyze", "--fail-on-uncovered", "--report-uncovered", "--cache-file=var/d
 
 FROM base AS deptrac-coverage
 
-ENTRYPOINT ["entrypoint.sh", "tools/deptrac_coverage.sh"]
+ENTRYPOINT ["entrypoint.sh", "php", "bin/console", "tool:deptrac:check"]

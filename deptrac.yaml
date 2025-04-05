@@ -1,5 +1,5 @@
 imports:
-  - src/Shared/deptrac.baseline.yaml
+  - ./src/Shared/deptrac.baseline.yaml
 
 deptrac:
   layers:
