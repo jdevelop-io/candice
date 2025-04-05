@@ -20,6 +20,7 @@
         <UnusedClass>
             <errorLevel type="suppress">
                 <directory name="src/*/Infrastructure/Symfony/Command"/>
+                <file name="tests/Unit/**/*Test.php"/>
             </errorLevel>
         </UnusedClass>
     </issueHandlers>
