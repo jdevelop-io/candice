@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Candice\Location\Application\CountryRegistration;
+namespace Candice\Location\Application\CountryImportation;
 
-interface CountryRegistrationRequestInterface
+interface CountryImportationRequestInterface
 {
     public function getCountryCode(): string;
 

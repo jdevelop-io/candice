@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Candice\Tests\Unit\Location\Application\CountryRegistration;
+namespace Candice\Tests\Unit\Location\Application\CountryImportation;
 
-use Candice\Location\Application\CountryRegistration\CountryRegistration;
+use Candice\Location\Application\CountryImportation\CountryImportation;
 use Candice\Location\Domain\Exception\CountryAlreadyRegisteredException;
 use Candice\Location\Domain\Exception\InvalidCountryCodeException;
 use Candice\Location\Domain\Factory\CountryFactory;
@@ -13,18 +13,18 @@ use Candice\Location\Infrastructure\Persistence\InMemoryCountryRepositoryInterfa
 use Override;
 use PHPUnit\Framework\TestCase;
 
-final class CountryRegistrationServiceTest extends TestCase
+final class CountryImportationServiceTest extends TestCase
 {
     private CountryFactory $countryFactory;
     private InMemoryCountryRepositoryInterface $countryRepository;
-    private CountryRegistration $service;
+    private CountryImportation $service;
 
     #[Override]
     protected function setUp(): void
     {
         $this->countryFactory = new CountryFactory();
         $this->countryRepository = new InMemoryCountryRepositoryInterface();
-        $this->service = new CountryRegistration($this->countryFactory, $this->countryRepository);
+        $this->service = new CountryImportation($this->countryFactory, $this->countryRepository);
     }
 
     /**
@@ -34,22 +34,22 @@ final class CountryRegistrationServiceTest extends TestCase
     {
         $this->expectException(InvalidCountryCodeException::class);
 
-        $this->service->execute(new CountryRegistrationRequest($countryCode, 'Country Name'));
+        $this->service->execute(new CountryImportationRequest($countryCode, 'Country Name'));
     }
 
     public function testCountryAlreadyRegistered(): void
     {
         $this->expectException(CountryAlreadyRegisteredException::class);
 
-        $country = $this->countryFactory->register('fr', 'France');
+        $country = $this->countryFactory->import('fr', 'France');
         $this->countryRepository->save($country);
 
-        $this->service->execute(new CountryRegistrationRequest('fr', 'France'));
+        $this->service->execute(new CountryImportationRequest('fr', 'France'));
     }
 
     public function testRequirementsAreMet(): void
     {
-        $request = new CountryRegistrationRequest('fr', 'France');
+        $request = new CountryImportationRequest('fr', 'France');
 
         $response = $this->service->execute($request);
 
