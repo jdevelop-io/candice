@@ -54,7 +54,7 @@ phpcbf:
 
 .PHONY: phpmd
 phpmd:
-	$(DOCKER_COMPOSE) $(foreach file, $(DOCKER_COMPOSE_FILES), -f $(file)) run --rm phpmd
+	$(DOCKER_COMPOSE) $(foreach file, $(DOCKER_COMPOSE_FILES), -f $(file)) run --rm phpmd src,tests,bin,config,public text phpmd.xml.dist
 
 .PHONY: phpstan
 phpstan:
