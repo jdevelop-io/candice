@@ -66,7 +66,7 @@ psalm-fix:
 
 .PHONY: psalm-check
 psalm-check:
-	$(DOCKER_COMPOSE) $(foreach file, $(DOCKER_COMPOSE_FILES), -f $(file)) run --rm psalm
+	$(DOCKER_COMPOSE) $(foreach file, $(DOCKER_COMPOSE_FILES), -f $(file)) run --rm psalm --show-info=true
 
 .PHONY: deptrac
 deptrac:
