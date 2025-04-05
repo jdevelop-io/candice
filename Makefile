@@ -19,7 +19,7 @@ stop:
 fix: phpcbf psalm-fix
 
 .PHONY: checks
-checks: phpcs phpmd phpstan psalm-check deptrac tests
+checks: phpcs phpmd phpstan psalm-check deptrac-coverage deptrac tests
 
 .PHONY: shell
 shell:
