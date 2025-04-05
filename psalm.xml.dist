@@ -15,4 +15,12 @@
             <directory name="var"/>
         </ignoreFiles>
     </projectFiles>
+
+    <issueHandlers>
+        <UnusedClass>
+            <errorLevel type="suppress">
+                <directory name="src/*/Infrastructure/Symfony/Command"/>
+            </errorLevel>
+        </UnusedClass>
+    </issueHandlers>
 </psalm>
