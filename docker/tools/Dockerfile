@@ -54,7 +54,6 @@ ENTRYPOINT ["entrypoint.sh", "php", "vendor/bin/phpcbf"]
 FROM base AS phpmd
 
 ENTRYPOINT ["entrypoint.sh", "php", "vendor/bin/phpmd"]
-CMD ["src,tests,bin,config,public", "text", "phpmd.xml.dist"]
 
 FROM base AS phpstan
 
