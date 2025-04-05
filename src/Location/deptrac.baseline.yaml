@@ -4,3 +4,63 @@ parameters:
 deptrac:
   paths:
     - ./src/Location
+
+  layers:
+    - name: LocationDomainEntity
+      collectors:
+        - type: directory
+          value: '%bounded_context.location.directory%/Domain/Entity'
+    - name: LocationDomainValueObject
+      collectors:
+        - type: directory
+          value: '%bounded_context.location.directory%/Domain/ValueObject'
+    - name: LocationDomainFactory
+      collectors:
+        - type: directory
+          value: '%bounded_context.location.directory%/Domain/Factory'
+    - name: LocationDomainRepository
+      collectors:
+        - type: directory
+          value: '%bounded_context.location.directory%/Domain/Repository'
+    - name: LocationDomainException
+      collectors:
+        - type: directory
+          value: '%bounded_context.location.directory%/Domain/Exception'
+    - name: LocationApplication
+      collectors:
+        - type: directory
+          value: '%bounded_context.location.directory%/Application'
+    - name: LocationInfrastructurePersistence
+      collectors:
+        - type: directory
+          value: '%bounded_context.location.directory%/Infrastructure/Persistence'
+    - name: LocationInfrastructureSymfony
+      collectors:
+        - type: directory
+          value: '%bounded_context.location.directory%/Infrastructure/Symfony'
+
+  ruleset:
+    LocationDomainEntity:
+      - LocationDomainValueObject
+      - LocationDomainException
+    LocationDomainValueObject:
+      - LocationDomainException
+    LocationDomainFactory:
+      - LocationDomainEntity
+      - LocationDomainValueObject
+    LocationDomainRepository:
+      - LocationDomainEntity
+      - LocationDomainValueObject
+    LocationDomainException:
+      - LocationDomainValueObject
+    LocationApplication:
+      - LocationDomainEntity
+      - LocationDomainValueObject
+      - LocationDomainFactory
+      - LocationDomainRepository
+      - LocationDomainException
+    LocationInfrastructurePersistence:
+      - LocationDomainEntity
+      - LocationDomainValueObject
+      - LocationDomainRepository
+    LocationInfrastructureSymfony: ~

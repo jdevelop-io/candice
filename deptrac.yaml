@@ -1,5 +1,7 @@
 imports:
   - ./src/Shared/deptrac.baseline.yaml
+  - ./src/Location/deptrac.baseline.yaml
+  - ./tests/Unit/Location/deptrac.baseline.yaml
 
 deptrac:
   layers:
@@ -7,3 +9,7 @@ deptrac:
       collectors:
         - type: classNameRegex
           value: '#^Symfony\\.*$#'
+    - name: DependencyPHPUnit
+      collectors:
+        - type: classNameRegex
+          value: '#^PHPUnit\\.*$#'
