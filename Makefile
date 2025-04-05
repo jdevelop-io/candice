@@ -70,7 +70,7 @@ psalm-check:
 
 .PHONY: deptrac
 deptrac:
-	$(DOCKER_COMPOSE) $(foreach file, $(DOCKER_COMPOSE_FILES), -f $(file)) run --rm deptrac
+	$(DOCKER_COMPOSE) $(foreach file, $(DOCKER_COMPOSE_FILES), -f $(file)) run --rm deptrac analyze --fail-on-uncovered --report-uncovered --cache-file=var/deptrac.cache
 
 .PHONY: deptrac-coverage
 deptrac-coverage:
