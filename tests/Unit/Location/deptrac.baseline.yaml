@@ -1,0 +1,6 @@
+parameters:
+  bounded_context.location.directory: './tests/Unit/Location'
+
+deptrac:
+  paths:
+    - ./tests/Unit/Location
