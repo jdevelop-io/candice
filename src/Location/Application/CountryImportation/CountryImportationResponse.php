@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Candice\Location\Application\CountryRegistration;
+namespace Candice\Location\Application\CountryImportation;
 
-final readonly class CountryRegistrationResponse
+final readonly class CountryImportationResponse
 {
     public function __construct(private string $countryCode)
     {

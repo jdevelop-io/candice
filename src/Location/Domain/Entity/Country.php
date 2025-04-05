@@ -13,7 +13,7 @@ final readonly class Country
     {
     }
 
-    public static function register(CountryCode $code, CountryName $name): self
+    public static function import(CountryCode $code, CountryName $name): self
     {
         return new self($code, $name);
     }

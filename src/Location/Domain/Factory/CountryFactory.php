@@ -10,8 +10,8 @@ use Candice\Location\Domain\ValueObject\CountryName;
 
 final readonly class CountryFactory
 {
-    public function register(string $code, string $name): Country
+    public function import(string $code, string $name): Country
     {
-        return Country::register(new CountryCode($code), new CountryName($name));
+        return Country::import(new CountryCode($code), new CountryName($name));
     }
 }
