@@ -1,0 +1,22 @@
+parameters:
+  bounded_context.location.unit.tests.directory: './tests/Unit/Location'
+
+deptrac:
+  paths:
+    - ./tests/Unit/Location
+
+  layers:
+    - name: LocationApplicationTest
+      collectors:
+        - type: directory
+          value: '%bounded_context.location.unit.tests.directory%/Application'
+
+  ruleset:
+    LocationApplicationTest:
+      - LocationDomainEntity
+      - LocationDomainValueObject
+      - LocationDomainFactory
+      - LocationDomainException
+      - LocationApplication
+      - LocationInfrastructurePersistence
+      - DependencyPHPUnit

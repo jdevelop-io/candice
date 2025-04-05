@@ -232,6 +232,15 @@ final class ToolDeptracCheckCommand extends Command
             }
         }
 
+        $missingImports = array_diff($contextsBaselineFiles, $imports);
+        if (!empty($missingImports)) {
+            $io->text("  <error>Missing imports:</error>");
+            foreach ($missingImports as $missingImport) {
+                $io->text("  <error> - $missingImport</error>");
+            }
+            return false;
+        }
+
         $io->text("  <info>Deptrac configuration file is valid</info>");
 
         return true;
