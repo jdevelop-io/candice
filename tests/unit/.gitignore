@@ -1,3 +1,4 @@
 # PHPUnit
 /cache/
 /config/phpunit.xml
+/coverage/
