@@ -6,3 +6,4 @@
 
 # PHPUnit
 /tests/unit/cache/
+/tests/unit/config/phpunit.xml
