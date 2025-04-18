@@ -1,0 +1,45 @@
+{
+  "name": "jdevelop/candice",
+  "description": "A streamlined ERP solution that simplifies business operations with intuitive workflow management and comprehensive data integration.",
+  "version": "0.1.0",
+  "type": "project",
+  "keywords": [
+    "erp",
+    "enterprise",
+    "resource",
+    "management",
+    "business",
+    "workflow",
+    "integration",
+    "php",
+    "domain-driven design",
+    "ddd",
+    "test-driven development",
+    "tdd",
+    "clean architecture",
+    "hexqagonal architecture",
+    "showcase",
+    "real-world application"
+  ],
+  "homepage": "https://github.com/jdevelop-io/candice",
+  "readme": "docs/README.md",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Developers Team",
+      "email": "developers@jdevelop.io"
+    }
+  ],
+  "support": {
+    "email": "candice+support@jdevelop.io",
+    "issues": "https://github.com/jdevelop-io/candice/issues"
+  },
+  "funding": [
+    {
+      "type": "patreon",
+      "url": "https://www.patreon.com/c/jdevelop_io"
+    }
+  ],
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
