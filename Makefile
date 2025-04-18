@@ -34,3 +34,10 @@ coverage: install/tests
 	@echo "PHPUnit tests with coverage completed."
 	@echo "Coverage report generated in tests/unit/coverage directory."
 	@echo "Open tests/unit/coverage/index.html in your browser to view the report."
+
+.PHONY: ci/coverage
+ci/coverage: install/tests
+	@echo "Running PHPUnit tests with coverage for CI..."
+	@$(DOCKER_COMPOSE) run --rm phpunit-coverage --testdox --configuration tests/unit/config/phpunit.xml --coverage-clover tests/unit/coverage/coverage.xml
+	@echo "PHPUnit tests with coverage for CI completed."
+	@echo "Coverage report generated in tests/unit/coverage/coverage.xml file."
