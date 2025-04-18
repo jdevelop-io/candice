@@ -42,6 +42,11 @@
   ],
   "minimum-stability": "stable",
   "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "Candice\\Contexts\\": "src/"
+    }
+  },
   "require": {
     "php": "^8.4"
   }
