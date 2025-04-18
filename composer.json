@@ -47,6 +47,11 @@
       "Candice\\Contexts\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Candice\\Tests\\Unit\\": "tests/unit"
+    }
+  },
   "require": {
     "php": "^8.4"
   }
