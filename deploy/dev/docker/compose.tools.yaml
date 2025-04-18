@@ -1,0 +1,28 @@
+services:
+  phpunit:
+    image: ${IMAGES_PREFIX:-}phpunit
+    build:
+      context: .
+      dockerfile: tools/Dockerfile
+      target: phpunit
+    volumes:
+      - ../../../:/var/www/html
+    environment:
+      - XDEBUG_MODE=debug,develop
+    profiles:
+      - build
+      - tools
+
+  phpunit-coverage:
+    image: ${IMAGES_PREFIX:-}phpunit-coverage
+    build:
+      context: .
+      dockerfile: tools/Dockerfile
+      target: phpunit-coverage
+    volumes:
+      - ../../../:/var/www/html
+    environment:
+      - XDEBUG_MODE=coverage
+    profiles:
+      - build
+      - tools

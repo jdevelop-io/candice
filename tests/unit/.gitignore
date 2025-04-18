@@ -1,1 +1,4 @@
-# Remove this file when implementing the first test
+# PHPUnit
+/cache/
+/config/phpunit.xml
+/coverage/

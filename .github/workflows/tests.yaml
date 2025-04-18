@@ -1,0 +1,31 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request: ~
+  workflow_dispatch: ~
+  merge_group: ~
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  unit_tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run PHPUnit tests coverage reports
+        run: make ci/coverage
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          codecov_yml_path: tests/unit/codecov.yaml
+          token: ${{ secrets.CODECOV_TOKEN }}
