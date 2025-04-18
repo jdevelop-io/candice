@@ -7,14 +7,14 @@ help:
 	@echo ""
 	@echo "Targets:"
 	@echo "  help	  	 	Show this help message"
-	@echo "  install/phpunit	Create symlink for PHPUnit configuration file (if not exists)"
-	@echo "  tests			Run all tests"
-	@echo "  tests/phpunit		Run PHPUnit tests"
+	@echo "  install/tests	Create symlink for PHPUnit configuration file (if not exists)"
+	@echo "  tests			Run PHPUnit tests"
+	@echo "  coverage	Run PHPUnit tests with coverage"
 	@echo ""
 	@echo "Use 'make help' for more information."
 
-.PHONY: install/phpunit
-install/phpunit:
+.PHONY: install/tests
+install/tests:
 	@if [ ! -f "tests/unit/config/phpunit.xml" ]; then \
 		echo "Local PHPUnit configuration file not found. Creating a symlink..."; \
 		ln --symbolic --relative --force tests/unit/config/phpunit.xml.dist tests/unit/config/phpunit.xml; \
@@ -22,10 +22,15 @@ install/phpunit:
 	fi
 
 .PHONY: tests
-tests: tests/phpunit
-
-.PHONY: tests/phpunit
-tests/phpunit: install/phpunit
+tests: install/tests
 	@echo "Running PHPUnit tests..."
 	@$(DOCKER_COMPOSE) run --rm phpunit --testdox --configuration tests/unit/config/phpunit.xml
 	@echo "PHPUnit tests completed."
+
+.PHONY: coverage
+coverage: install/tests
+	@echo "Running PHPUnit tests with coverage..."
+	@$(DOCKER_COMPOSE) run --rm phpunit-coverage --testdox --configuration tests/unit/config/phpunit.xml --coverage-html tests/unit/coverage
+	@echo "PHPUnit tests with coverage completed."
+	@echo "Coverage report generated in tests/unit/coverage directory."
+	@echo "Open tests/unit/coverage/index.html in your browser to view the report."
