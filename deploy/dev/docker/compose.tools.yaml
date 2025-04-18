@@ -1,0 +1,13 @@
+services:
+  phpunit:
+    image: ${IMAGES_PREFIX:-}phpunit
+    build:
+      context: .
+      dockerfile: tools/Dockerfile
+    volumes:
+      - ../../../:/var/www/html
+    environment:
+      - XDEBUG_MODE=debug,develop
+    profiles:
+      - build
+      - tools
