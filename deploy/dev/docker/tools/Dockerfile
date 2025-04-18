@@ -34,3 +34,10 @@ FROM base AS phpunit
 
 # Override the entrypoint
 ENTRYPOINT ["docker-entrypoint", "vendor/bin/phpunit"]
+
+FROM phpunit AS phpunit-coverage
+
+ENV XDEBUG_MODE coverage
+
+# Override the command
+CMD ["--coverage-text"]
