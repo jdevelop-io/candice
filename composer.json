@@ -49,7 +49,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Candice\\Tests\\Unit\\": "tests/unit/src"
+      "Candice\\Contexts\\Tests\\Unit\\": "tests/unit/src"
     }
   },
   "require": {
