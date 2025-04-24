@@ -4,19 +4,8 @@ declare(strict_types=1);
 
 namespace Candice\Contexts\AbsenceDeclaration\Domain\ValueObject;
 
-final readonly class AbsenteeId
+use Candice\Contexts\Shared\Domain\ValueObject\AggregateRootId;
+
+final class AbsenteeId extends AggregateRootId
 {
-    public function __construct(private string $value)
-    {
-    }
-
-    public function getValue(): string
-    {
-        return $this->value;
-    }
-
-    public function __toString(): string
-    {
-        return $this->value;
-    }
 }

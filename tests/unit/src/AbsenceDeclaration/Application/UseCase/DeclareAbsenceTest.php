@@ -13,17 +13,22 @@ use Candice\Contexts\AbsenceDeclaration\Domain\Exception\AbsenteeNotFoundExcepti
 use Candice\Contexts\AbsenceDeclaration\Domain\Exception\InvalidAbsencePeriodException;
 use Candice\Contexts\AbsenceDeclaration\Domain\ValueObject\AbsencePeriod;
 use Candice\Contexts\AbsenceDeclaration\Domain\ValueObject\AbsenteeId;
+use Candice\Contexts\AbsenceDeclaration\Infrastructure\EventBus\InMemoryEventBus;
+use Candice\Contexts\AbsenceDeclaration\Infrastructure\EventSourcing\InMemoryEventStore;
 use Candice\Contexts\AbsenceDeclaration\Infrastructure\Persistence\IdGenerator\IncrementalAbsenceIdGenerator;
-use Candice\Contexts\AbsenceDeclaration\Infrastructure\Persistence\Repository\InMemory\InMemoryAbsenteeRepository;
+use Candice\Contexts\AbsenceDeclaration\Infrastructure\Persistence\Repository\EventSourcedAbsenteeWriteRepository;
+use Candice\Contexts\Shared\Infrastructure\Service\FrozenClock;
+use DateTimeImmutable;
 use Override;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class DeclareAbsenceTest extends TestCase
 {
-    private readonly InMemoryAbsenteeRepository $absenteeRepository;
-    private readonly DeclareAbsence $declareAbsence;
+    private readonly FrozenClock $clock;
     private readonly IncrementalAbsenceIdGenerator $absenceIdGenerator;
+    private readonly EventSourcedAbsenteeWriteRepository $absenteeRepository;
+    private readonly DeclareAbsence $declareAbsence;
 
     /**
      * @return array<string, array{startDate: string, endDate: string}>
@@ -35,17 +40,25 @@ final class DeclareAbsenceTest extends TestCase
                 'startDate' => '',
                 'endDate' => '2025-04-23T00:00:00+04:00',
             ],
-            'empty end date' => [
-                'startDate' => '2025-04-23T00:00:00+04:00',
-                'endDate' => '',
-            ],
             'whitespace start date' => [
                 'startDate' => '   ',
                 'endDate' => '2025-04-23T00:00:00+04:00',
             ],
+            'french start date format' => [
+                'startDate' => '23/04/2025 00:00:00',
+                'endDate' => '2025-04-23T00:00:00+04:00',
+            ],
+            'empty end date' => [
+                'startDate' => '2025-04-23T00:00:00+04:00',
+                'endDate' => '',
+            ],
             'whitespace end date' => [
                 'startDate' => '2025-04-23T00:00:00+04:00',
                 'endDate' => '   ',
+            ],
+            'french end date format' => [
+                'startDate' => '2025-04-23T00:00:00+04:00',
+                'endDate' => '23/04/2025 00:00:00',
             ],
             'start date after end date' => [
                 'startDate' => '2025-04-24T00:00:00+04:00',
@@ -109,8 +122,7 @@ final class DeclareAbsenceTest extends TestCase
         $this->assertNotNull($absentee);
 
         $id = $this->absenceIdGenerator->generate();
-        $absence = new Absence($id, new AbsencePeriod($startDate, $endDate));
-        $absentee->declareAbsence($absence);
+        $absentee->declareAbsence($id, new AbsencePeriod($startDate, $endDate), $this->clock);
 
         $this->absenteeRepository->save($absentee);
     }
@@ -185,6 +197,15 @@ final class DeclareAbsenceTest extends TestCase
                 of absences does not match the end date {$request->getEndDate()} passed in the request.
             MESSAGE,
         );
+        $this->assertEquals(
+            $this->clock->now()->format(AbsencePeriod::FORMAT),
+            $absence->getDeclaredOn()->getValue()->format(AbsencePeriod::FORMAT),
+            message: <<<MESSAGE
+                The absence #{$absence->getId()->getValue()} declared on date
+                {$absence->getDeclaredOn()->getValue()->format(AbsencePeriod::FORMAT)} found in the absentee's list
+                of absences does not match the current date {$this->clock->now()->format(AbsencePeriod::FORMAT)}.
+            MESSAGE,
+        );
     }
 
     #[Override]
@@ -192,12 +213,19 @@ final class DeclareAbsenceTest extends TestCase
     {
         parent::setUp();
 
-        $this->absenteeRepository = new InMemoryAbsenteeRepository();
+        $frozenDateTime = DateTimeImmutable::createFromFormat(
+            'Y-m-d\TH:i:sP',
+            '2025-04-23T00:00:00+00:00',
+        );
+        $this->clock = new FrozenClock($frozenDateTime);
+        $this->absenteeRepository = new EventSourcedAbsenteeWriteRepository(
+            new InMemoryEventStore(new InMemoryEventBus()),
+        );
         $this->absenceIdGenerator = new IncrementalAbsenceIdGenerator();
-        $this->declareAbsence = new DeclareAbsence($this->absenteeRepository, $this->absenceIdGenerator);
+        $this->declareAbsence = new DeclareAbsence($this->absenteeRepository, $this->absenceIdGenerator, $this->clock);
 
         $this->absenteeRepository->save(
-            new Absentee(new AbsenteeId('ExistingAbsenteeId')),
+            Absentee::create(new AbsenteeId('ExistingAbsenteeId'), $this->clock),
         );
     }
 }

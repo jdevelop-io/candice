@@ -8,7 +8,7 @@ use Candice\Contexts\AbsenceDeclaration\Domain\Entity\Absentee;
 use Candice\Contexts\AbsenceDeclaration\Domain\ValueObject\AbsencePeriod;
 use Candice\Contexts\AbsenceDeclaration\Domain\ValueObject\AbsenteeId;
 
-interface AbsenteeRepositoryInterface
+interface AbsenteeWriteRepositoryInterface
 {
     public function findByIdWithAbsencesInPeriod(AbsenteeId $absenteeId, AbsencePeriod $period): ?Absentee;
 }

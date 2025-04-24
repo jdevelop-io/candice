@@ -5,19 +5,20 @@ declare(strict_types=1);
 namespace Candice\Contexts\AbsenceDeclaration\Application\UseCase;
 
 
-use Candice\Contexts\AbsenceDeclaration\Domain\Entity\Absence;
 use Candice\Contexts\AbsenceDeclaration\Domain\Entity\Absentee;
 use Candice\Contexts\AbsenceDeclaration\Domain\Exception\AbsenteeNotFoundException;
 use Candice\Contexts\AbsenceDeclaration\Domain\IdGenerator\AbsenceIdGeneratorInterface;
-use Candice\Contexts\AbsenceDeclaration\Domain\Repository\AbsenteeRepositoryInterface;
+use Candice\Contexts\AbsenceDeclaration\Domain\Repository\AbsenteeWriteRepositoryInterface;
 use Candice\Contexts\AbsenceDeclaration\Domain\ValueObject\AbsencePeriod;
 use Candice\Contexts\AbsenceDeclaration\Domain\ValueObject\AbsenteeId;
+use Candice\Contexts\Shared\Domain\Service\ClockInterface;
 
 final readonly class DeclareAbsence
 {
     public function __construct(
-        private AbsenteeRepositoryInterface $absenteeRepository,
+        private AbsenteeWriteRepositoryInterface $absenteeRepository,
         private AbsenceIdGeneratorInterface $absenceIdGenerator,
+        private ClockInterface $clock,
     ) {
     }
 
@@ -27,8 +28,7 @@ final readonly class DeclareAbsence
 
         $period = new AbsencePeriod($request->getStartDate(), $request->getEndDate());
         $id = $this->absenceIdGenerator->generate();
-        $absence = new Absence($id, $period);
-        $absentee->declareAbsence($absence);
+        $absence = $absentee->declareAbsence($id, $period, $this->clock);
 
         $this->absenteeRepository->save($absentee);
 

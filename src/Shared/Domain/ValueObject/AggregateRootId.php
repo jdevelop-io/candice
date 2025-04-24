@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Candice\Contexts\AbsenceDeclaration\Domain\ValueObject;
+namespace Candice\Contexts\Shared\Domain\ValueObject;
 
-final readonly class AbsenceId
+abstract class AggregateRootId
 {
-    private string $value;
+    private readonly string $value;
 
     public function __construct(
         string $value,
@@ -21,7 +21,7 @@ final readonly class AbsenceId
 
     public function __toString(): string
     {
-        return $this->getValue();
+        return $this->value;
     }
 
     public function getValue(): string
