@@ -39,5 +39,8 @@
         <include>
             <directory>../../../src</directory>
         </include>
+        <exclude>
+            <directory>../../../src/*/Infrastructure</directory>
+        </exclude>
     </source>
 </phpunit>
