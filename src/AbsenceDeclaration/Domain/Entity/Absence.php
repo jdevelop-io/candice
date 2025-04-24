@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Candice\Contexts\AbsenceDeclaration\Domain\Entity;
 
+use Candice\Contexts\AbsenceDeclaration\Domain\ValueObject\AbsenceId;
 use Candice\Contexts\AbsenceDeclaration\Domain\ValueObject\AbsencePeriod;
 
 final readonly class Absence
 {
-    public function __construct(private AbsencePeriod $period)
+    public function __construct(private AbsenceId $id, private AbsencePeriod $period)
     {
     }
 
@@ -20,5 +21,10 @@ final readonly class Absence
     public function getPeriod(): AbsencePeriod
     {
         return $this->period;
+    }
+
+    public function getId(): AbsenceId
+    {
+        return $this->id;
     }
 }
