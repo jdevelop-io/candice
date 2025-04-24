@@ -9,7 +9,7 @@ use Override;
 
 final readonly class DeclareAbsenceRequest implements DeclareAbsenceRequestInterface
 {
-    public function __construct(private string $absenteeId)
+    public function __construct(private string $absenteeId, private string $startDate, private string $endDate)
     {
     }
 
@@ -17,5 +17,17 @@ final readonly class DeclareAbsenceRequest implements DeclareAbsenceRequestInter
     public function getAbsenteeId(): string
     {
         return $this->absenteeId;
+    }
+
+    #[Override]
+    public function getStartDate(): string
+    {
+        return $this->startDate;
+    }
+
+    #[Override]
+    public function getEndDate(): string
+    {
+        return $this->endDate;
     }
 }
