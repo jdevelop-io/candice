@@ -1,0 +1,24 @@
+services:
+  shell:
+    image: ${IMAGES_PREFIX:-}shell
+    build:
+      context: .
+      dockerfile: tools/Dockerfile
+      target: shell
+    volumes:
+      - ../../../:/var/www/candice
+    profiles:
+      - tools
+
+  phpunit:
+    image: ${IMAGES_PREFIX:-}phpunit
+    build:
+      context: .
+      dockerfile: tools/Dockerfile
+      target: phpunit
+    volumes:
+      - ../../../:/var/www/candice
+    environment:
+      - XDEBUG_MODE=debug,develop
+    profiles:
+      - tools

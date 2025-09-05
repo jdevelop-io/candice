@@ -1,0 +1,8 @@
+# JetBrains IDEs
+/.idea/
+
+# Composer
+/vendor/
+
+# PHPUnit
+/config/test/unit/phpunit.xml

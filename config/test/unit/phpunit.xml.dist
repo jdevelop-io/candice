@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+    See the PHPUnit documentation for more information on the XML configuration file:
+    https://docs.phpunit.de/en/12.1/configuration.html#the-xml-configuration-file
+-->
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../vendor/phpunit/phpunit/phpunit.xsd"
+    bootstrap="../../../vendor/autoload.php"
+    cacheDirectory="../../../.cache/test/unit"
+    displayDetailsOnIncompleteTests="true"
+    displayDetailsOnPhpunitDeprecations="true"
+    displayDetailsOnPhpunitNotices="true"
+    displayDetailsOnSkippedTests="true"
+    displayDetailsOnTestsThatTriggerDeprecations="true"
+    displayDetailsOnTestsThatTriggerErrors="true"
+    displayDetailsOnTestsThatTriggerNotices="true"
+    displayDetailsOnTestsThatTriggerWarnings="true"
+    failOnDeprecation="true"
+    failOnEmptyTestSuite="true"
+    failOnIncomplete="true"
+    failOnNotice="true"
+    failOnPhpunitDeprecation="true"
+    failOnPhpunitNotice="true"
+    failOnRisky="true"
+    failOnSkipped="true"
+    failOnWarning="true"
+    colors="true"
+>
+    <testsuites>
+        <testsuite name="Default">
+            <directory>../../../contexts</directory>
+        </testsuite>
+    </testsuites>
+
+    <source>
+        <include>
+            <directory>../../../contexts/*/src</directory>
+        </include>
+        <exclude>
+            <directory>../../../contexts/*/src/*/Infrastructure</directory>
+        </exclude>
+    </source>
+</phpunit>
